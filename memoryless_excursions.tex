@@ -1,0 +1,869 @@
+%\documentclass[a4paper,14pt]{extarticle}
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[all-solutions-at-end]{optional}
+%\usepackage[check]{optional}
+
+\usepackage{preamble}
+
+\opt{check}{
+%\AtBeginEnvironment{exercise}{\clearpage}
+\AtEndEnvironment{exercise}{\clearpage}
+}
+
+\opt{all-solutions-at-end}{
+\Opensolutionfile{hint}
+\Opensolutionfile{ans}
+}
+
+\title{Memoryless excursions\\
+Notes on joint distributions }
+\author{Nicky van Foreest}
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+
+\section{General remarks}
+\begin{itemize}
+\item The solutions contain all, but nothing but the, computational steps.
+  I provide motivation/explanation in the youtube videos.
+\item To keep the notation light, I write $\{X=i\}\cup \{Y=j\} = \{X=i, Y=j\}$. Thus, I abbreviate the logical operator $\&$ (= and) with a comma.
+\end{itemize}
+
+\section{Chapter 7}
+\label{sec:chapter-7}
+
+
+The exercises below are meant to
+\begin{enumerate}
+\item  familiarize yourself with all concepts of Section 7.1
+\item  a recap of concepts and results of  earlier chapters in the book,
+\item  motivation to read (and memorize) the appendix, A1, A.2.5, A.6, A.7, A.8, A.9 and A.10.
+\end{enumerate}
+Once you solved all these exercises below, the  exercises of the book will be much simpler.
+
+
+I tend to use the following step-wise approach:
+\begin{enumerate}
+\item To compute probabilities of functions of RVs: use the fundamental bridge and the formula
+\begin{align*}
+\P{g(X, Y) \in A} 
+&= \E{\1{g(X,Y)}\in A} 
+= \iint \1{g(x,y) \in A} f_{XY}(x,y) \d x \d y \\
+&= \iint_{\{(x,y): g(x,y) \in A\}} f_{XY}(x,y) \d x \d y 
+= \iint_{g^{-1}(A)} f_{XY}(x, y) \d x \d y,
+\end{align*} 
+or the discrete variant of this, and then do the integrals.
+When $X$ and $Y$ are independent, this is often easy because then the double integral can be split.
+Conceptually this approach is easy, but carrying out the integration is not always simple.
+However, the advantage is that I don't need special tricks to solve the problem; it is just (quite a bit of) straightforward work.
+With practice, this approach always works.
+\item To get the joint density $f_{XY}$ say, I often first compute the joint distribution $F_{XY}$ and then take partial derivatives. Again, this is just `trick-free' (but sometimes) hard work. 
+\end{enumerate}
+
+
+\subsection{A confusing problem}
+\label{sec:confusing-problem}
+
+We start from Ex.5.6.5 of the book.
+Write $M=\max{X,Y}$ and $L=\min{X,Y}$ for given RVs $X$ and $Y$.
+We know that when $X,Y$ are iid that
+\begin{equation}
+  \label{eq:6}
+\E L + \E M = \E{L+M}=\E{X+Y} = 2\E X.
+\end{equation}
+When $X$ and $Y$ are memoryless, you might be tempted to think that
+\begin{equation}
+  \label{eq:7}
+\E M = \E L  + \E X.  
+\end{equation}
+With the above equation we can now solve for $\E M$ and $\E L$.
+Adding the two equations and canceling $\E L$ at both sides gives $2\E M = 3 \E X $, hence:
+\begin{align}
+\E M &= \frac 3 2 \E X,\label{eq:35}\\
+\E L &= \E M - \E X = \frac 1 2 \E X.\label{eq:36}
+\end{align}
+However, while this is true for $X, Y \sim \Exp{\lambda}$, we will see in the first set of exercises below  that for discrete memoryless RVs, i.e., when $X, Y \sim \Geo{p}$, it is not true. In the  exercises below I try to find out why this is so, and how to adapt~\cref{eq:6} and \cref{eq:7} so that they also hold when $X,Y\sim\Geo{p}$.
+
+
+
+
+\subsection{Discrete memoryless RVs}
+\label{sec:set-1}
+
+
+Let $X,Y$ be $\iid \sim \Geo{p}$.
+
+\begin{exercise}
+As a recap of earlier chapters of the book, show that
+\begin{align}
+  \label{eq:9}
+\P{X>j} &= q^{j+1}, &\P{X\geq j} &=q^j,& \E{X}&=\frac q{1-q}.
+ \end{align}
+\begin{solution}
+First the regular methods. The use of indicator variables is particularly important.
+  \begin{align}
+    \label{eq:5}
+\P{X>j}    
+&= \sum_{i=j+1}^{\infty} \P{X=i} \\
+&= p\sum_{i=j+1}^{\infty} q^{i} \\
+&= pq^{j+1}\sum_{i=0}^{\infty} q^{i} \\
+&= pq^{j+1}/p = q^{j+1},\\
+  \P{X\geq j}  &= \P{X>j-1} = q^{j}, \\
+\E X 
+&= \sum_{i=0}^{\infty} i\P{X=i} \\
+&=  \sum_{i=0}^{\infty} \sum_{j=0}^{\infty} \1{j<i} \P{X=i} \\
+&=  \sum_{j=0}^{\infty} \sum_{i=0}^{\infty} \1{j<i} \P{X=i} \\
+&=  \sum_{j=0}^{\infty} \sum_{i=j+1}^{\infty}  \P{X=i} \\
+&=  \sum_{j=0}^{\infty}  \P{X>j} \\
+&=  \sum_{j=0}^{\infty}  q^{j+1}\\
+&=  q \sum_{j=0}^{\infty}  q^{j}\\
+&=  q/(1-q) = q/p.
+  \end{align}
+
+
+Now a couple of tricks with recursions.
+\begin{align}
+  \label{eq:8}
+\P{X>0} &= \P{\textrm{failure}} = q\\
+\P{X>i} &= q \P{X>i-1} \implies \P{X>i}=q^{i+1}.\\
+\P{X=i} &= \P{X>i-1} - \P{X>i} = q^{i}-q^{i+1} = (1-q)q = p q.\\
+\E X &= p\cdot 0 + q(1+\E X) \implies \E X = q/(1-q.
+\end{align}
+
+\end{solution}
+\end{exercise}
+
+\begin{exercise}
+Check that $X$ is memoryless.
+\begin{hint}
+What is the definition of memorylessness for discrete RVs?  
+\end{hint}
+\begin{solution}
+  \begin{align}
+    \label{eq:13}
+\P{X\geq n+m\given X\geq m} 
+&= \frac{ \P{X\geq n+m,  X\geq m}}{\P{X\geq m}} \\
+&= \frac{ \P{X\geq n+m}}{\P{X\geq m}} \\
+&= \frac{ q^{n+m}}{q^m} \\
+&= q^n= \P{X\geq n}.
+  \end{align}
+\end{solution}
+\end{exercise}
+
+\begin{exercise}
+Show that $\P{L\geq i}=q^{2i}$, conclude that $L\sim\Geo{1-q^{2}}$.
+\begin{solution}
+  \begin{align}
+    \label{eq:12}
+\P{L\geq k} 
+&= \sum_{ij} \1{\min{i,j}\geq k} \P{X=i, Y=j}\\
+&= \sum_{i\geq k} \sum_{j\geq k} \P{X=i}\P{Y=j}\\
+&=  \P{X\geq k}\P{Y\geq k} = q^{k} q^{k} = q^{2k}.
+  \end{align}
+$\P{L>i}$ has the same form as $\P{X>i}$, but now with $q^{2i}$ rather than $q^{i}$.
+\end{solution}
+\end{exercise}
+
+
+\begin{exercise}\label{ex:3}
+Show that  $\E L=q^{2}/(1-q^{2})$.
+\begin{solution}
+$X\sim \Geo{1-q} \implies \E X = q/(1-q$. Now use that $L\sim\Geo{1-q^{2}}$. 
+\end{solution}
+\end{exercise}
+
+
+\begin{exercise}
+Supposing that~\cref{eq:6} is true, Show that
+\begin{equation}
+  \label{eq:10}
+\E M = 2\E X  -\ EL = \frac q{1-q} \frac{2+q}{1+q}.
+\end{equation}
+\begin{hint}
+Use that $1-q^2=(1-q)(1+q)$.
+\end{hint}
+\begin{solution}
+  \begin{align}
+    \label{eq:11}
+\E M 
+&= 2\E X - \E L \\
+&= 2\frac q{1-q}  - \frac{q^2}{1-q^2}\\
+&= \frac q{1-q}\left(2  - \frac{q}{1+q}\right)\\
+&= \frac q{1-q}\left(\frac{2+2q}{1+q}  - \frac{q}{1+q}\right).
+  \end{align}
+\end{solution}
+\end{exercise}
+
+
+\begin{exercise}
+Show that 
+\begin{equation}
+  \label{eq:39}
+\E L + \E X = \frac q{1-q}\frac{1+2q}{1+q}.
+\end{equation}
+Conclude that this is not the same as~\cref{eq:10}  (unless $q=0$).
+\begin{solution}
+  \begin{align}
+    \label{eq:2}
+\E L     + \E X 
+&= \frac{q^{2}}{1-q^2} + \frac{q}{1-q} \\
+&= \frac q{1-q}\left(\frac{q}{1+q} + 1\right)\\
+&= \frac q{1-q}\frac{1+2q}{1+q}.
+  \end{align}
+This is not equal to~\cref{eq:10}.
+\end{solution}
+\end{exercise}
+
+So, something is wrong. I believe that~\cref{eq:6} is correct, but then~\cref{eq:7} must be wrong. But why? And, perhaps I am mistaken, and \cref{eq:7} is correct, and the other is not. 
+
+Here are three ways different (but somewhat related) ways to check that $\E M = 2 \E X - \E L$; from which follows that indeed~\cref{eq:7} is wrong. 
+
+\begin{exercise}\label{ex:1}
+Idea 1: Show that for the PMF of $M$ 
+\begin{equation}
+  \label{eq:34}
+p_M(k) = \P{M=k} = 2 pq^{k}(1-q^{k}) + p^2q^{2k}.
+\end{equation}
+Then use this to show that $\E M = 2\E X - \E L$.
+\begin{solution}
+  \begin{align}
+    \label{eq:14}
+\P{M=k}     
+&=p^{2}\sum_{ij}\1{\max{i,j} =k} q^i q^j\\
+&=2 p^{2}\sum_{ij}\1{i=k}\1{j < k} q^i q^j + p^{2}\sum_{ij}\1{i=j=k} q^{i} q^j \\
+&=2 p^{2}q^{k}\sum_{j < k} q^j + p^{2}q^{2k}\\
+&=2 p^{2}q^{k}\frac{1-q^{k}}{1-q} +  p^{2}q^{2k}\\
+&=2 pq^{k}(1-q^{k}) + p^{2}q^{2k}\\
+&=2 pq^{k} +(p^{2}-2p) q^{2k} \label{eq:18}\\
+&=2 \P{X=k} - \P{L=k},
+  \end{align}
+where I use that $p^{2}-2p = p(p-2) = (1-q)(1-q-2)=-(1-q)(1+q)=-(1-q^{2})$.
+  \begin{align}
+    \label{eq:15}
+\E M 
+&= \sum_k k \P{M=k}     \\
+&=  \sum_{k}k (2\P{X=k} - \P{L=k}) \\
+&= 2 \E X  - \E L.
+  \end{align}
+\end{solution}
+\end{exercise}
+
+\begin{exercise}
+Idea 2: Use  $\P{M\leq k} = (\P{X\leq k})^{2}$ to obtain the result of~\cref{ex:1}.
+\begin{solution}
+  \begin{align}
+    \label{eq:16}
+\P{M\leq k}   
+&= \P{X\leq k, Y\leq k} \\
+&= \P{X\leq k}\P{Y\leq k} \\
+&= (1-\P{X> k})(1-\P{Y> k}) \\
+&= (1-q^{k+1})^{2}.\\
+\P{M=k} &= \P{M\leq k} - \P{M\leq k-1}\\
+&= 1-2 q^{k+1} + q^{2k+2} - (1 - 2q^{k} + q^{2k})\\
+&= 2 q^{k}(1-q) + q^{2k}(q^{2}-1) \\
+&= 2 \P{X=k}  - q^{2k}(1-q^{2}) \\
+&= 2 \P{X=k}  - \P{L=k}.
+  \end{align}
+\end{solution}
+\end{exercise}
+
+
+\begin{exercise}\label{ex:2}
+Idea 3: show that  the  joint PMF
+\begin{equation}
+p_{L,M}(i,j) = \P{L=i, M=j} = 2p^{2}q^{i+j}\1{j>i}+ p^{2}q^{2i}\1{i=j}.
+\end{equation}
+\begin{solution}
+  \begin{align}
+    \label{eq:17}
+\P{L=i, M=j}    
+&= 2\P{X=i, Y=j}\1{j>i} + \P{X=Y=i}\1{i=j} \\
+&= 2p^{2}q^{i+j}\1{j>i}+ p^{2}q^{2i}\1{i=j}.
+  \end{align}
+\end{solution}
+\end{exercise}
+
+\begin{exercise}\label{ex:8}
+Use~\cref{ex:2} to compute the marginal PMFs of $M$ and of $L$. 
+\begin{hint}
+For the first, marginalize out $L$, for the second, marginalize out $M$).
+\end{hint}
+\begin{solution}
+  \begin{align}
+\P{M=j}    
+&= \sum_{i} \P{L=i, M=j} \\
+ &= \sum_{i} (2p^{2}q^{i+j}\1{j>i}+ p^{2}q^{2i}\1{i=j}) \\
+ &= 2p^2q^j\sum_{i=0}^{j-1} q^{i}+ p^{2}q^{2j} \label{eq:38}\\
+ &= 2pq^j (1-q^{j})+ p^{2}q^{2j} \\
+ &= 2pq^j + (p^{2}-2p) q^{2j},
+  \end{align}
+which is equal to \cref{eq:18}.
+  \begin{align}
+\P{L=i}    
+&= \sum_{j} \P{L=i, M=j} \\
+ &= \sum_{j} (2p^{2}q^{i+j}\1{j>i}+ p^{2}q^{2i}\1{i=j}) \\
+ &= 2p^2q^i\sum_{j=i+1}^{\infty} q^{j}+ p^{2}q^{2i} \\
+ &= 2p^{2}q^{2i+1} \sum_{j=0}^{\infty}q^{j}+ p^{2}q^{2i} \\
+ &= 2pq^{2i+1} + p^{2} q^{2i}\\
+ &= pq^{2i}(2q+p)\\
+ &= (1-q)q^{2i}(q + 1), \quad p+q=1,\\
+ &= (1-q^{2})q^{2i},
+  \end{align}
+and this we found earlier.
+\end{solution}
+\end{exercise}
+
+
+
+\begin{exercise}\label{ex:10}
+In Ex.
+5.6.5 of the book uses that the event $\{M-L\}$ is independent of $L$.
+As we will see below, this holds for $X, Y \sim\Exp{\lambda}$.
+Show that the events $\{L=i\}$ and $\{M>L\}$ are also independent when  $X,Y \sim \Geo{p}$.
+(Thus, at least our intuition about memorylessness is  correct.)
+\begin{hint}
+Show that $\P{L=i \given M>L} = \P{L=i}$; recall, to show independence we need the probability (measure) $\P{\cdot}$.
+
+Use the expression $\P{g(X,Y)\in A} = \mathop{\sum\sum}_{g(i, j) \in A} p_{XY}(i,j)$
+\end{hint}
+\begin{solution}
+\begin{align}
+    \label{eq:1}
+\P{L=i\given M > L} 
+=\frac{\P{L=i, M > L}}{\P{M>L}}.
+\end{align}
+
+\begin{align}
+\P{L=i,  M > L} 
+&= \P{X=i, Y > X \O Y=i, X > Y } \\
+&= 2\P{X=i,Y > X} \\
+&= 2\P{X=i}\P{Y > i} \\
+&= 2pq^i\cdot q^{i+1}\\
+&= 2p q^{2i+1}.
+\end{align}
+
+I use three (related) ways to compute $\P{M>L}$. In the first I convert the event $\{M>L\}$ directly into a statement about $X$ and $Y$.
+\begin{align}
+  \label{eq:3}
+\P{M>L} 
+&= \P{X>Y \O Y > X} \\
+&= 2\P{X>Y} \\
+&= 2\sum_{j} \P{X>j,Y=j} \\
+&= 2\sum_{j}  \P{X>j}\P{Y=j} \\
+&= 2p\sum_{j} q^{j+1} q^j\\
+&= 2p\sum_{j} q^{2j+1}\\
+&= 2pq\sum_{j} q^{2j}\\
+&= 2pq/(1-q^2).
+\end{align}
+In the second,  I rewrite the event $\{M>L\}$ as a function of $X$ and $Y$, and then use  the formula of the hint:
+\begin{align}
+  \label{eq:4}
+\P{M>L}  &= \P{\max{X, Y} > \min{X,Y}} \\
+&=p^2\sum_{ij}\1{\max{i, j} > \min{i, j}} p_{XY}(i,j) \\
+&=p^2\sum_{ij}\1{\max{i, j} > \min{i, j}} p_{X}(i)p_{Y}(j) \\
+&=p^2\sum_{ij}\1{\max{i, j} > \min{i, j}} q^i q^j \\
+&=2p^2\sum_{i}\sum_{j>i} q^i q^j \\
+&=2p^2\sum_{i}q^i \sum_{j>i} q^j \\
+&=2p^2\sum_{i}q^i \sum_{j=0}^\infty q^{i+1+j} \\
+&=2p^2\sum_{i}q^{2i+1} \sum_{j=0}^\infty q^{j} \\
+&=2p\sum_{i}q^{2i+1} \\
+&=2pq\sum_{i}q^{2i} \\
+&=2pq/(1-q^2).
+\end{align}
+In the third, I use the probability $\P{L=i, M>L}$ and take the sum over $i$:
+\begin{align}
+  \label{eq:48}
+\P{M>L} = \sum_{i} \P{L=i, M>L}  = \sum_{i} 2pq^{2i+1} = 2pq\sum_{i} 2pq^{2i} = \frac{2pq}{1-q^{2}}.
+\end{align}
+
+Hence, 
+\begin{align}
+\P{L=i\given M > L} 
+&=\frac{\P{L=i, M > L}}{\P{M>L}} \\
+&=\frac{2p q^{2i+1}}{2pq/(1-q^2)} \\
+&=q^{2i}(1-q^2) \\
+&= \P{L=i},
+\end{align}
+where the last equation follows since $L\sim \Geo{1-q^2}$.
+
+\end{solution}
+\end{exercise}
+
+
+What have we achieved up to now?
+From the technical point of view, we practiced with joint, marginal, and conditional PMFs.
+We also showed how to use the last equation on page 304 of the book, and we have seen how to use indicator functions and the fundamental bridge.
+With respect to our problem, we are sure that~\eqref{eq:6} is correct when $X, Y \sim \Geo{p}$ and~\cref{eq:7} is not.
+
+So, why is~\eqref{eq:7} incorrect when $X, Y\sim\Geo{p}$, while it is correct when $X,Y\sim\Exp{\lambda}$?
+For this, I'll analyze the latter case in as much detail as possible, hoping that this will provide me with a lead; at least this will familiarize me with the problem, which is important by itself.
+The work will be pretty technical at times, but there is no way around when dealing with joint densities, etc.
+
+
+
+\subsection{Continuous memoryless RVs}
+\label{sec:exerc-expon-distr}
+
+In this section we analyze the correctness of~\cref{eq:6} and \cref{eq:7} for continuous memoryless RVs, i.e., exponentially distributed RVs.
+This will offer a good opportunity to practice with several concepts: joint, marginal and conditional distributions of continuous RVs, and limits and moment-generating functions.
+(So, even if we don't solve the problem of~\cref{sec:confusing-problem}, we will obtain a lot of necessary and useful practice.)
+
+A general method to find the distribution of a function $g$ of two RVs is by means of a `pull-back'. Specifically, define the RV $R=g(X,Y)$. Then,  we pull back the event $\{R \in A\}$ to an event in the sample space of $X,Y$ to $\{(x,y) : g(x,y)\in A\}$, and then use the fundamental bridge: 
+\begin{equation}\label{eq:54}
+  \begin{split}
+\P{g(X, Y) \in A} 
+&= \E{\1{g(X,Y)}\in A} 
+= \iint \1{g(x,y) \in A} f_{XY}(x,y) \d x \d y \\
+&= \iint_{\{(x,y): g(x,y) \in A\}} f_{XY}(x,y) \d x \d y 
+= \iint_{g^{-1}(A)} f_{XY}(x, y) \d x \d y 
+  \end{split}
+\end{equation} 
+
+
+Henceforth, assume that $X, Y \iid, \sim \Exp{\lambda}$.
+
+\begin{exercise}\label{ex:4}
+First we need to recall some basic facts about the exponential distribution.
+It is essential that  \emph{YOU know all} elements of the solution of the following exercise by heart.
+Show that $\E X = 1/\lambda$.
+\begin{hint}
+  Use partial integration.
+\end{hint}
+\begin{solution}
+  \begin{align}
+\E X 
+&= \int_{0}^{\infty}  x f_{X}(x) \d x  \\
+&= \int_{0}^{\infty}  x \lambda e^{-\lambda x} \d x  \\
+&= - xe^{-\lambda x} \biggr|_{0}^{\infty} + \int_{0}^{\infty}  e^{-\lambda x} \d x  \\
+&=  - \frac 1 \lambda e^{-\lambda x} \biggr|_{0}^{\infty} = \frac 1 \lambda.
+  \end{align}
+Substitution is also a very important technique to solve such integrals. Here we go again:
+  \begin{align}
+\E X 
+&= \int_{0}^{\infty}  x f_{X}(x) \d x  \\
+&= \int_{0}^{\infty}  x \lambda e^{-\lambda x} \d x  \\
+&= \frac 1 \lambda \int_{0}^{\infty}  u  e^{- u} \d u, 
+  \end{align}
+  by the substitution $u=\lambda x \implies \d u = \d (\lambda x) \implies \d u = \lambda \d x \implies \d x = \d u / \lambda$.
+  With partial integration (do it!), the integral evaluates to $1$.
+\end{solution}
+\end{exercise}
+
+
+
+\begin{exercise}
+Show that the density $f_{L}(x)$ of $L$ is equal to $2\lambda e^{-\lambda x}$. Use this to see that $L\sim \Exp{2\lambda}$ and that $\E L = 1/(2\lambda)$. As a result, we have an independent check of~\cref{eq:36}.
+\begin{hint}
+  First compute the distribution $F_L(x)$ of $L$.
+\end{hint}
+\begin{solution}
+  \begin{align}
+    \label{eq:22}
+\P{L>x}  = \P{X>x, Y> x} = (\P{X>x})^2 = (1-\P{X\leq x})^2= (e^{-\lambda x})^2 = e^{-2\lambda x}.
+  \end{align}
+Hence, $F_{L}(x) = 1-e^{-2 \lambda x}$. But then, $f_L(x) = F_L'(x) = 2 \lambda e^{-2\lambda x}$. Thus, 
+  \begin{align}
+\E L
+&= \int_{0}^{\infty}  x f_{L}(x) \d x  \\
+&= \int_{0}^{\infty}  x 2 \lambda e^{-2\lambda x} \d x.
+  \end{align}
+Substitution of $u=2\lambda x$ and using the solution of~\cref{ex:4} gives the answer.
+
+Here is my favorite method to derive densities. For this I use infinitesimals such as $\d x$; the intuition is that $\d x$ is some really small number but not zero (A bit more formally, $\d x < 1/n$ for any $n$, but $\d x \neq 0$. For details, check out the web; search on nonstandard calculus.) The method is very intuitive, but, as always when using power tools, be aware, things can wreack havoc. If you don't want to learn this, please skip, it will not be part of the course proper.
+
+I write $\P{X\in [x, x+\d x]}$ to denote $f_{X}(x)\ dx$, etc. 
+\begin{align}
+  \label{eq:24}
+\P{L\in [x, x+\d x]}  
+&= \P{X \in[x, x+\d x], Y> x+\d x \O Y\in[x, x+\d x], X> x + \d x} \\
+&= 2\P{X \in[x, x+\d x], Y> x+\d x} \\
+&= 2 f_{X}(x) \d x (1-F_{Y}(x)) = 2 \lambda e^{-\lambda x} e^{-\lambda x} \d x.
+\end{align}
+\end{solution}
+\end{exercise}
+
+
+\begin{exercise}\label{ex:6}
+Compute $F_M(x) = \P{M\leq x}$. With this, show that  $f_{M}(x)=2(1-e^{-\lambda x}) \lambda e^{-\lambda x}$,  and then use this to compute $\E M$ to show that~\cref{eq:35} holds.
+\begin{solution}
+Here are two related ways. This is one:
+\begin{align}
+\P{M\leq x}   &= \P{X \leq x, Y \leq x} = (F_{X}(x))^{2},
+\end{align}
+since $X, Y$ iid.  
+
+The second is based on~\cref{eq:54}:
+\begin{align}
+\P{M\leq u}   
+&= \E{\1{M\leq u}} \\ 
+&=\int_0^{\infty} \int_0^{\infty} \1{x\leq u, y\leq u} f_{XY}(x,y) \d x \d y \\
+&= \int_0^{\infty} \int_0^{\infty} \1{x\leq u, y\leq u} f_{X}(x) f_{Y}(y) \d x \d y \\
+&= \int_0^{u} f_{X}(x) \d x \int_0^{u}  f_{Y}(y)  \d y \\
+&= F_{X}(u) F_Y(u) = (F_X(u))^2.
+\end{align}
+We get the same result.
+For the density:
+\begin{align}
+  \label{eq:26}
+  f_M(u) = F_M'(u) = 2 F_X(u) f_X(u) = 2(1-e^{-\lambda u}) \lambda e^{- \lambda u}.
+\end{align}
+This we use in the computation of the expectation:
+\begin{align}
+  \label{eq:27}
+\E M 
+&= \int_{0}^{\infty} x f_M(x) \d x = \\
+&= 2 \lambda \int_{0}^{\infty} x (1-e^{-\lambda x}) e^{-\lambda x} \d x = \\
+&= 2 \lambda \int_{0}^{\infty} x e^{-\lambda x} \d x -  2 \lambda \int_{0}^{\infty} x e^{-2 \lambda x} \d x \\
+&= 2 \E X - \E L, 
+\end{align}
+where the last equality follows from the previous exercises. 
+
+Here is again my favorite method to get a density.
+\begin{align}
+  \label{eq:28}
+\P{M\in [x, x+\d x]}  = 2\P{X\in [x, x+\d x], Y\leq x} = 2 f_X(x) F_X(x)\d x.
+\end{align}
+
+\end{solution}
+\end{exercise}
+
+\begin{exercise}
+We can also compute $f_{M}(y)$ (and $f_{L}(x)$ from the joint density $f_{LM}(x,y)$. Try this also, just to practice (and once you checked your answer, you will probably see that you forgot an important condition.)
+\begin{solution}
+First the joint distribution.
+  \begin{align}
+    \label{eq:51}
+\P{L\leq x, M \leq y}
+&= 2\P{X \leq x, x < Y \leq y} \\
+&= 2\P{X \leq x} \P{x < Y \leq y} \\
+&= 2 F_{X}(x) (F_Y(y)-F_Y(x)) \1{y>x}.
+  \end{align}
+Note the indicator! 
+Taking partial derivatives,
+\begin{align}
+  \label{eq:52}
+f_{LM}(x,y) 
+&=\partial_x\partial_{y}F_{LM}(x,y) \\  
+&=\partial_x\partial_{y}2 F_{X}(x) (F_Y(y)-F_Y(x)) \1{y>x}\\
+&=2 \partial_x F_{X}(x) \partial_{y} (F_Y(y)-F_Y(x)) \1 {y>x} \\
+&= 2f_X(x) f_Y(y)\1{y>x} \\ 
+&= f_X(x) f_Y(y).
+\end{align}
+Why could I remove the 2?
+\end{solution}
+\end{exercise}
+
+
+
+Ok,~\cref{eq:35} and \cref{eq:36} are correct for $X,Y\sim\Exp{\lambda}$.
+But, I have yet another way to check this, namely, from~\cref{eq:7} I see that $\E{M-L} = \E X$.
+Let's try to verify that also.
+For this, we can first compute the conditional density $f_{M-L| L}(y| x)$; once you did the next exercise you will directly see how to compute $\E{M-L}$.
+Besides this, we also have to practice with conditional densities.
+(And in Chapter 9 of the book you will learn that $\E{M-L\given L} = \E{M-L}$, and for this we also need $f_{M-L|L}$.)
+
+\begin{exercise}\label{ex:5}
+Show that $f_{M-L|L}(y| x) = \lambda e^{-\lambda y}$, i.e., $M-L| L \sim \Exp{\lambda}$.
+\begin{hint}
+Use Bayes' rule, and compute $f_{L, M-L}(x,y)$  first.
+\end{hint}
+\begin{solution}
+  \begin{align}
+    \label{eq:29}
+f_{M-L| L}(y| x) =  \frac{f_{L, M-L}(x, y)}{f_L(x)}.
+  \end{align}
+Clearly, we must first find $f_{L, M-L}(x, y)$. 
+First I'll use the standard method; then I'll use infinitesimals, which you can skip if you are not interested.
+
+The standard method is quite tricky, because we have to take care of the limits in the integration. In itself the idea is not difficult, i.e., compute $F_{L, M-L}(x, y)$, then take partial derivatives, but the technical details require attention.
+\begin{align}  \label{eq:23}
+\P{L\leq x, M-L\leq y} 
+&= 2\P{X\leq x, Y-X \leq y} \\
+&= 2\int_0^{\infty} \int_0^{\infty} \1{u\leq x, v-u\leq y, u \leq v} f_{X,Y}(u, v)  \d u \d v\\
+&= 2\int_0^{\infty} \int_0^{\infty} \1{u\leq x, v-u\leq y, u\leq v} \lambda^2e^{-\lambda u}e^{-\lambda v}\d u \d v\\
+&= 2\int_0^{x} \int_0^{\infty} \1{u\leq v\leq u+y} \lambda^2e^{-\lambda u}e^{-\lambda v}\d u \d v\\
+&= 2\int_0^{x} \lambda e^{-\lambda u} \int_u   ^{u + y}  \lambda e^{-\lambda v}\d v \d u\\
+&= 2\int_0^{x} \lambda e^{-\lambda u} (-e^{-\lambda v}) \biggr|_u^{u+y}\d u \\
+&= 2\int_0^{x} \lambda e^{-\lambda u} (e^{-\lambda u} - e^{-\lambda (u+y)})\d u \\
+&= 2\lambda\int_0^{x}  e^{-2 \lambda u}\d u  - 2\lambda \int_{0}^{x} e^{-\lambda (2u+y)})\d u \\
+&= 2\lambda\int_0^{x}  e^{-2 \lambda u}\d u  - 2\lambda e^{-\lambda y }\int_{0}^{x} e^{-2 \lambda u}\d u \\
+&= (1-e^{-\lambda y}) 2 \lambda \int_0^{x} e^{-2 \lambda u} \d u\\ 
+&= (1-e^{-\lambda y}) ( -e^{-2\lambda u}) \biggr|_0^{x} \\ 
+&= (1-e^{-\lambda y})(1- e^{-2\lambda x}).
+\end{align}
+For the density, we need to take the partial derivatives with respect to $x$ and $y$: 
+\begin{align}
+  \label{eq:25}
+f_{L, M-L}(x,y ) 
+&= \partial_x\partial_{y} F_{L, M-L}(x,y)   \\
+&= \partial_x\partial_{y} (1-e^{-\lambda y})(1- e^{-2\lambda x}) \\
+&= \lambda e^{-\lambda y} 2\lambda  e^{-2\lambda x} \\
+&= f_Y(x) f_L(x).
+\end{align}
+
+
+\begin{align}
+  \label{eq:19}
+&\P{L\in[x, x+\d x], M-L \in [y, y+\d y]}\\   
+&= \P{L\in[x, x+\d x], M \in [x+y, x + y+ \d x + \d y]}  \\
+&= 2\P{X\in[x, x+\d x]} \P{Y \in [x+y, x + y+ \d x +  \d y]}  \\
+&= 2f_X(x) \d x f_Y(x+y) (\d x + \d y) \\
+&= 2f_X(x) f_Y(x+y) \d x \d y  + 2f_X(x)f_Y(x+y)\d x^2
+\end{align}
+But the second term does not contribute anything in the $y$ direction, so if we integrate over $x$ and $y$, this  term remains  infinitesimal, so we can safely neglect it. We end up with
+\begin{align}
+&\P{L\in[x, x+\d x], M-L \in [y, y+\d y]}\\   
+&= 2\lambda e^{-\lambda x} \lambda e^{-\lambda(x+y)} \d x \d y\\
+&= 2\lambda e^{-2\lambda x} \lambda e^{-y} \d x \d y\\ 
+&= f_L(x) f_Y(y) \d x \d y.\label{eq:30}
+\end{align}
+If we plug this into~\cref{eq:29} we see that
+  \begin{align}
+f_{M-L| L}(y| x) =  f_Y(y) = \lambda e^{-\lambda y}
+  \end{align}
+We arrive at  the same result as in~\cref{eq:30}. 
+
+\end{solution}
+\end{exercise}
+
+\begin{exercise}
+Use the solution of~\cref{ex:5} to show that $\E{M-L} = \E X$.
+\begin{hint}
+Use the expression of $f_{L, M-L}(x,y)$  to find the density of $f_{M-L}(y)$.
+\end{hint}
+\begin{solution}
+  \begin{align}
+\E{M-L} 
+&= \int_{0}^{\infty} x f_{M-L}(x) \d x.
+  \end{align}
+Next, 
+\begin{align}
+  \label{eq:32}
+f_{M-L}(y) 
+&= \int_0^\infty f_{L, M-L}(x, y) \d x  = \int_0^\infty f_{L}(x) f_Y(y) \d x = f_Y(y) \int_0^{\infty }f_L(x) \d x = f_Y(y).
+\end{align}
+Hence, 
+\begin{align}
+  \label{eq:33}
+  \E{M-L} = \int_0^{\infty} y f_Y(y) \d y = \E Y = \E X. \quad X, Y \iid
+\end{align}
+
+\end{solution}
+\end{exercise}
+
+
+We did a number of checks for the case $X, Y, \iid, \sim\Exp{\lambda}$.
+But I have yet another idea to see whether the results we have obtained so far are consistent.
+For this I use Ex 5.43 of the book in which it is shown that the geometric distribution is the discrete analog of the exponential distribution. Now I want to see how, by taking proper limits, the results of this section can be obtained as limiting cases of those of~\cref{sec:set-1}. 
+
+\begin{exercise}\label{ex:7} We want to see intuitively---a formal proof is too hard for this course---how $X\sim \Geo{\lambda/n}$ leads to $Y\sim\Exp{\lambda}$ when $n\to\infty$. 
+This exercise is also important to understand how yearly, or monthly, interests relate to continuous-time compounding.
+
+Divide the interval $[0, \infty)$ into many small intervals of length $1/n$.
+Let  $X\sim \Geo{\lambda/n}$ for some $\lambda>0$ and $n\gg 0$, take  some $x\geq 0$,  let $i$ be such that $x\in[i/n, (i+1)/n)$.
+Then show that 
+\begin{align}
+\P{X/n \approx x} \approx \frac{\lambda} n \left(1-\frac \lambda n\right)^{xn} 
+\end{align}
+converges to $n^{-1}$ times the density $f_{Y}(x)$ for   $Y\sim \Exp{\lambda}$.
+\begin{solution}
+First, 
+\begin{align}
+\P{X/n \approx x} &= \P{X/n \in [i/n, (i+1)/n]} = \P{X \in [i, i+1]} = p q^{i} \approx p q^{n x}.
+\end{align}
+Now take $p=\lambda/n$ and $q=1-p=1-\lambda/n$, then,
+\begin{equation}
+\P{X/n \approx x} \approx \frac{\lambda} n \left(1-\frac \lambda n\right)^{xn} \to \lambda \d x e^{-\lambda x}, 
+\end{equation}
+where $\d x$ stands for the infinitesimal $\lim_{n}1/n$, and $\lim_{n\to\infty}(1-\lambda/n)^{n} = e^{-\lambda}$ is a standard limit (which, by the way, it not entirely trivial to prove. If you like mathematics, check the neat proof in Rudin's Principles of mathematical analysis). 
+\end{solution}
+\end{exercise}
+
+\begin{exercise}
+We can also obtain the result of~\cref{ex:7} with moment-generating functions (so that we can practice with this function again).
+Derive the moment-generating function $M_{X/n}(s)$ of $X/n$ when $X\sim \Geo{p}$. Then, let $p = \lambda/n$, and show that  $\lim_{n\to\infty}M_{X/n}(s)$ is the moment-generating function of $\Exp{\lambda}$.
+\begin{hint}
+  Use that, as in the Poisson distribution, $e^{-\lambda} = \sum_{i=0}^{\infty}\lambda^{i}/i!$.
+  In fact, this precisely Taylor's expansion of $e^{s/n}$.
+\end{hint}
+\begin{solution}
+  \begin{align}
+    \label{eq:20}
+M_{X/n}(s) 
+&= \E{e^{s X/n}} = \sum_{i} e^{s i/n} p q^{i} = p\sum_{i} (qe^{s/n})^{i} = \frac{p}{1-qe^{s/n}}.
+  \end{align}
+With $p=\lambda/n$ this becomes
+  \begin{align}
+M_{X/n}(s) 
+&= \frac{\lambda/n}{1-(1-\lambda/n) (1+s/n + 1/n^{2}\times(\cdots))} \\
+&= \frac{\lambda/n}{\lambda/n - s/n + 1/n^{2}\times (\cdots)} \\
+&= \frac{\lambda}{\lambda - s + 1/n\times(\cdots)} \\
+&\to \frac{\lambda}{\lambda - s}, \quad\text{as }  n\to \infty,
+  \end{align}
+  where we write $1/n^{2}\times(\cdots)$ for all terms that will disappear when we take the limit $n\to \infty$.
+  This is just handy notation to hide details in which we are not interested.
+\end{solution}
+\end{exercise}
+
+\begin{exercise}\label{ex:11}
+Check that $\lim_{n\to\infty}\E{L/n} = 1/(2\lambda)$ when $X\sim \Geo{\lambda/n}$, so that we retrieve~\cref{eq:36}.
+\begin{hint}
+  Use~\cref{ex:3}.
+\end{hint}
+\begin{solution}
+  \begin{align}
+    \label{eq:21}
+\E{L/n}  &= \frac 1 n \E L = \frac 1 n \frac{q^2}{1-q^{2}} \\
+ &= \frac 1 n \frac{(1-\lambda/n)^2}{1-(1-\lambda/n)^{2}} \\
+ &= \frac 1 n \frac{1-2 \lambda/n + (\lambda/n)^2}{2 \lambda /n + (\lambda/n)^{2}} \\
+ &= \frac{1-2 \lambda/n + (\lambda/n)^2}{2 \lambda + \lambda^{2}/n} \\
+&\to \frac 1{2\lambda}.
+  \end{align}
+\end{solution}
+\end{exercise}
+
+
+\begin{exercise}
+Here is yet another check on the correctness of $f_M(x)$. 
+Show that  the PMF $\P{M=k}$ of~\cref{eq:34} converges to $f_M(x)$ of~\cref{ex:6} when $n\to \infty$. Take $k$ suitable.
+\begin{solution} Take $p=\lambda/n$,  $q=1-\lambda/n$, and $k \approx x n$, hence $k/n \approx x$. Then,
+  \begin{align}
+    \label{eq:31}
+\P{M/n=k/n}  
+&= 2 p q^{k/n}(1-q^{k/n}) + p^2q^{2k/n} \\
+&= 2 \frac \lambda n \left(1-\frac \lambda n\right)^{k/n}\left(1-\left(1-\frac \lambda n\right)^{k/n}\right) + \frac{\lambda^2}{n^2}\left(1-\frac \lambda n \right)^{2k/n} \\
+&\to 2 \lambda \d x e^{-\lambda x} \left(1 - e^{-\lambda x}\right) + \lambda^{2} \d x^{2}e^{-2\lambda}.\label{eq:37}
+  \end{align}
+Now observe that the second term, proportional to $\d x^{2}$ can be neglected. 
+\end{solution}
+\end{exercise}
+
+All in all, we have checked and double checked all our expressions and limits for the geometric and exponential distribution.
+We had success too: the solution of the last exercise provides the key to understand why~\eqref{eq:6} and \eqref{eq:7} are true for exponentially distributed RVs, but not for geometric random variables.
+In fact, we see in~\cref{eq:37} that the second term, that is, the term that corresponds to $X=Y=i$ in~\cref{eq:38} becomes negligibly small when $n\to 0$.
+In words, the probability that $X$ and $Y$ are the same is non-negligible when they are discrete, but it is when $X$ and $Y$ are continuous. So, to resolve the problem of~\cref{sec:chapter-7} we must exploit that idea.
+
+\subsection{The solution}
+\label{sec:solution}
+
+
+Let us now try to repair~\cref{eq:7}  for the case $X,Y\sim\Geo{p}$. We should be careful about the non-negligible case that $M=L$, so we move on, carefully, step by step. The following must be true:
+\begin{align}
+  \label{eq:40}
+\E M &= \E L + \E{(M-L) \1{M>L}}  = \E L + 2\E{(Y-X) \1{Y>X}},
+\end{align}
+because either $M=L$ or $M>L$.
+Recall from earlier work that the factor 2 in the second equality follows from the fact that $X,Y$ iid.
+
+\begin{exercise}\label{ex:9}
+Show that 
+\begin{equation}
+  \label{eq:41}
+2\E{(Y-X) \1{Y>X}} = \frac{2q} {1-q^{2}}.
+\end{equation}
+Combine this with the expression for $\E L$ of~\cref{ex:3} to obtain \cref{eq:10} for $\E M = 2\E X - \E L$, thereby verifying its correctness of~\cref{eq:40}. 
+\begin{solution}
+  \begin{align}
+    \label{eq:42}
+\E{(Y-X) \1{Y>X}} 
+&= p^2\sum_{ij} (j-i)\1{j>i} q^iq^j\\
+&= p^2\sum_{i} q^i\sum_{j=i+1}^{\infty}(j-i)q^j\\
+&= p^2\sum_{i} q^i q^{i}\sum_{k=1}^{\infty}kq^k, \quad k = j-i\\
+&= p\sum_{i}  q^{2i}\E X \\
+&= \frac{p}{1-q^{2}}\E X \\
+&= \frac{p}{1-q^{2}}\frac q p \\
+&= \frac{q}{1-q^{2}}.
+  \end{align}
+With this, 
+\begin{align}
+  \label{eq:43}
+\E L + 2  \E{(Y-X) \1{Y>X}} = \frac{q^{2}}{1-q^2} +  \frac{2q}{1-q^{2}} = \frac q{1-q}\frac{q+2}{1+q},
+\end{align}
+where I use that $1-q^{2}=(1-q)(1+q)$.
+\end{solution}
+\end{exercise}
+
+While~\cref{eq:40} is correct, I am still not happy with the second part of~\eqref{eq:40} (I find this hard/unintuitive to interpret).
+Restarting again from scratch, here is another attempt: 
+\begin{align}
+  \label{eq:44}
+\E M = \E L + \E{ Z \1{M>L}},
+\end{align}
+where I take $Z\sim \FS{p}$, i.e., $Z$ has the first success distribution with parameter $p$, in other words, $Z \sim X+1$ with $X\sim\Geo{p}$.
+To see why this might be true, I reason like this.
+After `seeing' $L$, we want to restart.
+Let $Z$ be the time from the restart to $M$.
+When $Z\sim \Geo{p}$, it might happen that $Z=0$ (with positive probability $p$).
+But if $Z=0$, then $M=L$, and it that case, we should no restart.
+Hence, if $Z\sim \Geo{p}$ we are somehow `double counting'.
+By including the condition $M>L$ and by taking $Z\sim\FS{p}$ (so that $Z>0$) I can prevent this from happening.
+
+\begin{exercise}
+Show that 
+\begin{equation}
+  \label{eq:45}
+\E{Z\1{M>L}} = \frac{2q} {1-q^{2}},
+\end{equation}
+i.e., the same as~\cref{eq:41}, hence~\cref{eq:44} is correct.
+\begin{hint}
+Observe that $Z$   is independent from $X$ and $Y$, hence from $M$ and $L$
+\end{hint}
+\begin{solution} With the hint:
+  \begin{align}
+    \label{eq:46}
+\E{Z\1{M>L}}  = \E Z \E{\1{M>L}} = \E Z \P{M>L} = \frac 1 p \frac{2pq}{1-q^{2}} = \frac{2q}{1-q^{2}},
+  \end{align}
+where, from the book, $\E Z = 1/p$, and $\P{M>L}$ follows from~\cref{ex:10}. 
+\end{solution}
+\end{exercise}
+
+
+I am nearly happy, but I want to see that~\eqref{eq:44}, which is correct for discrete RVs, has the correct limiting behavior, similar to~\cref{ex:11}. 
+\begin{exercise}
+Show that $\E{Z/n\1{M>L}} \to 1/\lambda$, which is indeed the expectation of an $\Exp{\lambda}$ RV. And thus, when $X,Y\sim \Exp{\lambda}$, $\E M = \E L + \E X$.
+\begin{solution}
+By independence,
+  \begin{align}
+    \label{eq:47}
+\E{Z/n\1{M>L}} = \E{Z/n} \P{M>L}. 
+  \end{align}
+Then,
+\begin{align}
+  \label{eq:49}
+\P{M>L}   = \frac{2pq}{1-q^{2}} 
+= \frac{2\lambda/n (1-\lambda/n)}{1-(1-\lambda/n)^{2}} = 
+= \frac{2\lambda/n (1-\lambda/n)}{2\lambda/n -\lambda^{2}/n^{2}}  
+= \frac{2 (1-\lambda/n)}{2 -\lambda/n}  \to 1,
+\end{align}
+and
+\begin{align}
+  \label{eq:50}
+\E{Z/n} = \frac 1 n \E Z = \frac 1 n \frac p = \frac 1 {n \lambda/ n} = 1/\lambda.
+\end{align}
+\end{solution}
+
+\end{exercise}
+
+I am finally convinced!
+
+
+
+
+\opt{all-solutions-at-end}{
+\clearpage
+\Closesolutionfile{hint}
+\clearpage
+\Closesolutionfile{ans}
+\section{Hints}
+\input{hint}
+\section{Solutions}
+\input{ans}
+}
+
+
+
+\end{document}

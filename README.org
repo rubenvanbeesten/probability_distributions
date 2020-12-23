@@ -1,0 +1,59 @@
+#+title: Probability distributions: Things to do
+#+SUBTITLE: EBP038A05
+#+author: Nicky D. van Foreest
+#+date: 2020:11:15
+
+#+STARTUP: indent
+#+STARTUP: overview 
+#+OPTIONS:  toc:nil
+
+#+include: preamble.org
+
+#+PROPERTY: header-args  :session 
+
+
+This is still in an early stage of development.
+
+In this file, just edit,  do a pull request, send to github. 
+
+*** TODO Grading rules
+
+    At least 5.5 for exam to pass. Grade is max of exam grade and weighted average of exam and assignments
+
+    Assignments weight in total 20 %.
+
+*** TODO Assignments
+
+    one third simple, one third exam level, one third hard. Passing parts 1 and 2 accumulates up to an eight
+
+
+    
+*** TODO Memoryless excursions
+
+    Ready for feedback. Feel free to put you name behind this if you like reviewing this. First review on a high level. Once things are organized, we repair the details.
+
+*** TODO Notes
+
+    Read for feedback. Similar to previous point.
+
+    
+*** TODO tutorials
+
+    - Tutorials will be replaced by solving problems during the lectures. There will be one lecture a week.
+    - We need to organize something like office hours for questions so that students can ask questions. I think it would be a good idea to assemble these questions to set up a system of hints
+    - Can we use github discussions instead of the nestor discussion board? I like many things of github over nestor.
+
+
+    
+
+*** TODO Things to setup
+- Enable students to turn in assignments in nestor, so that we can grade them
+- Make assignments, review, assemble feedback and grade
+- Make an exam and a resit, review and grade
+- Make a tool to form student groups. (Nicky)
+- 
+    
+    
+** Organizational info
+
+   For info about contact/student assistents/and so on, check nestor.

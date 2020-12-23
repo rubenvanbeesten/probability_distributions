@@ -1,0 +1,532 @@
+% Created 2020-11-20 vr 21:49
+% Intended LaTeX compiler: pdflatex
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage{a4wide}
+\usepackage[english]{babel}
+\usepackage{mathpazo}
+\usepackage{mathtools,amsthm,amssymb,amsmath}
+\usepackage{minted}
+\setminted[python]{linenos=true}
+\setminted[python]{frame=lines}
+\theoremstyle{definition}
+\newtheorem{exercise}{Ex}[section]
+\newcommand{\Exp}[1]{\mathrm{Exp}(#1)}
+\newcommand{\FS}[1]{\mathrm{FS}(#1)}
+\newcommand{\Geo}[1]{\mathrm{Geo}(#1)}
+\newcommand{\NBin}[1]{\mathrm{NBin}(#1)}
+\renewcommand{\d}[1]{\,\textrm{d}#1}
+\renewcommand{\max}[1]{\,\mathrm{max}\{#1\}}
+\renewcommand{\min}[1]{\,\mathrm{min}\{#1\}}
+\newcommand{\given}{\,\middle|\,}
+\renewcommand{\P}[1]{\,\mathsf{P}\left[#1\right]}
+\newcommand{\E}[1]{\,\mathsf{E}\left[#1\right]}
+\newcommand{\V}[1]{\,\mathsf{V}\left[#1\right]}
+\newcommand{\1}[1]{\,I_{#1}} % indicator
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\iid}{\ensuremath{\mathrm{iid.}\,}}
+\author{Nicky D. van Foreest}
+\date{2020:11:15}
+\title{Probability distributions: Assignments\\\medskip
+\large EBP038A05}
+\begin{document}
+
+\maketitle
+
+
+\section*{General information}
+\label{sec:orgb865fed}
+
+Here we just provide the exercises of the assignments.  For information with respect to grading we refer to the  course manual.
+
+\begin{enumerate}
+\item For each assigment you have to turn in a pdf document typeset in \LaTeX{}. Include a title, group number, student names and ids, and date.
+\item When you have to turn in a graph, provide decent labels and a legend, ensure the axes have labels too.
+\item Whenever you have to program or simulate something, include your code. 
+\end{enumerate}
+
+\section{Assignment 1}
+\label{sec:org9cbca82}
+
+\subsection{Below exam level}
+\label{sec:below-exam-level}
+
+
+\begin{exercise}
+Let $X\sim\Exp{4}$. 
+\begin{enumerate}
+\item Find a simple expression for $\P{1 < X  \leq 4}$ and compute the value.  
+\item Use simulation to check this value. Include your code and explain any difficult point (if there is any). 
+\item Use a function in R to do the numerical integration.  In python it looks like this:
+\begin{minted}[]{python}
+import numpy as np
+from scipy.integrate import quad
+
+labda = 3
+
+
+def integrand(x):
+    return np.exp(-labda * x)
+
+
+I = quad(integrand, 1, 4)
+print(I)
+\end{minted}
+  
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Let $X$ be the result of the throw of a coin.
+It is given that $\P{X=H} = p = 1-\P{X=T}$.
+When $X=H$, we choose a fair dice with 4 sides with values $1,2,3,4$, when $X=T$ we choose a fair dice with 6 sides with values $1,\ldots,6$.
+Let $Y_i$ be the value of the $i$th throw with the dice.
+\begin{enumerate}
+\item What is the PMF of $X$ and $Y_1$?
+\item Marginalize  the answer of part a to show that $\P{X=H} = p$. 
+\item What is $\P{Y_{1}=1}$?
+\item What is $\P{X=1 \given Y_1=1}$?
+\item What is $\P{X=1 \given Y_1=1, Y_2=2}$?
+\item What is $\P{X=1 \given Y_1=Y_2=\cdots=Y_n = 1}$?
+\end{enumerate}
+
+\end{exercise}
+
+\begin{exercise} 
+Use simulation to estimate the answer of exercise 7.1 of BW.
+Here is a way to do it in python.
+Port this to R and explain how your code works.
+Then compare the value of the simulation to the exact value.
+Include the integrals in your answer to show how you found the exact answer.
+
+
+\begin{minted}[]{python}
+import numpy as np
+
+np.random.seed(3)
+
+num = 1000
+
+a = np.random.uniform(size=num)
+b = np.random.uniform(size=num)
+success = np.abs(a - b) < 0.25
+print(success.mean(), success.var())
+\end{minted}
+
+
+
+If you like, you can include a plot of the region (in time) in which Alice and Bob meet, and put marks on the points of the simulation that were `successful'. 
+
+
+
+
+\end{exercise}
+
+
+\subsection{Exam level, TBD}
+\label{sec:exam-level}
+
+
+\subsection{Above exam level, TBD}
+\label{sec:above-exam-level}
+
+
+\section{Assignment 2}
+\label{sec:assignment-2}
+
+
+
+\section{Ideas, completely messy at this moment}
+\label{sec:ideas-compl-messy}
+
+
+
+
+\subsection{Python code}
+\label{sec:org8074bd4}
+Look up on the web what  these words mean. 
+\begin{itemize}
+\item \texttt{for i in range(3)}
+\item \texttt{enumerate}
+\item \texttt{numpy}
+\item \texttt{import numpy as np}
+\item \texttt{np.zeros\_like}
+\item \texttt{np.infty}
+\item \texttt{np.random.seed}, we  use this to ensure we get the same random samples time and again
+\item \texttt{np.random.uniform}, \texttt{np.random.exponential}, and so on.
+\end{itemize}
+
+
+\begin{exercise}
+Let $X\sim\Exp{\lambda}$ and $Y \sim N(\mu, \sigma)$, independent of $X$.
+So, draw $X$ first and let the outcome be $x$; then draw $Y\sim N(x, \sigma)$.
+Take $\lambda=4$, $\mu = 5$, $\sigma=3$.
+\begin{enumerate}
+\item Make a 3D plot of $F_{X,Y}$.
+\item Make a 3D plot of $f_{X,Y}$.
+\item Plot $f_{X}$, i.e., plot $\mu e^{-\mu t}$.
+  Then use simulation to marginalize out $Y$ from $f_{X,Y}$ to obtain $\hat f_X$; we write $\hat f_X$ because it has been obtained from simulation.
+  Plot $\hat f_X$ in the same figure as $f_X$, and compare the result.
+\item Use simulation to estimate $f_{X|Y}$. Plot this in the same graph for various values of $X=x$. 
+\item Make a 3D plot of $f$
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Let $X\sim\Exp{\lambda}$ and $Y| X \sim N(X, \sigma)$. So,  draw $X$ first and let the outcome be $x$;  then draw $Y\sim N(x, \sigma)$. Take $\lambda = 5$, $\sigma=3$. 
+\begin{enumerate}
+\item Use simulation to estimate $\E Y$. 
+\item Make a 3D plot of $F_{X,Y}$.
+\item Make a 3D plot of $f_{X,Y}$.
+\item Plot $f_{X}$, i.e., plot $\lambda e^{-\lambda t}$.
+  Then use simulation to marginalize out $Y$ from $f_{X,Y}$ to obtain $\hat f_X$.
+  Plot $\hat f_X$ in the same figure as $f_X$, and compare the result.
+\item Use simulation to estimate $f_{X|Y}$. Plot this in the same graph for various values of $X=x$. 
+\item Make a 3D plot of $f$
+\end{enumerate}
+\end{exercise}
+
+
+
+
+
+\subsection{7.32}
+\label{sec:orga22aa79}
+
+\begin{enumerate}
+\item Solve this problem and explain your solution.
+\item Let \(L=\min\{X,Y\}\) and \(M=\max\{X,Y\}\). Use the memoryless property to explain that \(\E M = \E L + 1/\lambda\).
+\item Let \(L_{n}=\min\{X_{i} : i = 1,\ldots, n\}\) where \(X_i\sim \Exp(\lambda)\), and likewise  \(M_{n}=\max\{X_i\}\). Use the memoryless property to explain that \(\E{M_{n}} = \E{L_{n-1}} + \E{M_{n-1}}\).
+\item What is \(\E{M_n}\) for \(n=5\) and \(\lambda = 4\)?
+\item Explain the idea behind code below. In particular, why do we make a matrix of exponentially distributed random variables? Why is the \texttt{sort} along \texttt{axis=1}? Why is the mean along \texttt{axis=0}? Look up the meaning of \texttt{cumsum} in the \texttt{numpy} docs. Why is there a \texttt{cumsum} in the computation of \texttt{times}?
+\item Run the code, and include your output
+\end{enumerate}
+
+
+\begin{minted}[]{python}
+import numpy as np
+
+np.random.seed(10)
+
+labda = 4
+num = 5
+samples = 400
+
+X = np.random.exponential(1 / labda, size=(samples, num))
+print(X)
+X.sort(axis=1)
+print(X.mean(axis=0))
+print(X)
+
+times = np.array([1 / ((num - j) * labda) for j in range(num)])
+times = times.cumsum()
+print(times)
+\end{minted}
+
+
+
+
+\subsubsection{7.48}
+\label{sec:org56d10c5}
+\begin{enumerate}
+\item Solve  the problem and explain your solution.
+\item Below is the python code to estimate the mean and variance by means of simulation.   Explain how the algorithm works, in particular, how does \texttt{find\_maxima} work?.
+\item Replace the seed for the random number generator with your student number (without the "s" of course). Run this code, and include the numerical results in your report. If you prefer to use \texttt{R}, that is ok too, but then port the ideas of the code below to \texttt{R}.
+\end{enumerate}
+
+\begin{minted}[]{python}
+import numpy as np
+
+np.random.seed(3)
+
+num = 10
+
+X = np.random.uniform(size=num)
+print(X)
+
+
+def find_maxima(X):
+    Xstar = np.zeros_like(X)
+    M = -np.infty
+    for i, x in enumerate(X):
+        if x > M:
+            Xstar[i] = 1
+            M = x
+    return Xstar
+
+
+Xstar = find_maxima(X)
+print(Xstar)
+
+samples = 100
+Y = np.zeros(samples)
+for i in range(samples):
+    Xstar = find_maxima(np.random.uniform(size=num))
+    Y[i] = Xstar.sum()
+
+print(Y.mean(), Y.var())
+\end{minted}
+
+
+\subsection{Why is the Exponential Distribution so important?}
+\label{sec:org50b29b7}
+
+The exponential distribution plays a very important role in probability theory, but why? This assignment is meant to answer this question.  
+
+\subsubsection{Train arrivals}
+\label{sec:org25e266e}
+
+Suppose a train departs between 10:00 and 10:15 minutes, and that 250 people will take this train.
+As a very simple model, let's suppose that each person arrives uniformly distributed on the interval \([0,15]\).
+What is the distribution of the inter-arrival times of these people?
+In the next couple of exercises we will use simulation to show that the exponential distribution is a very reasonable model.
+
+The basic idea behind the simulation is as follows. First we use a random number generator to generate an array \(A\) of arrival times. Second, we compute the inter-arrival time
+\begin{equation}
+\label{eq:1}
+X_{i} = A_{i} - A_{i-1},\quad i = 1,2, \ldots,
+\end{equation}
+between the arrivals.
+Third, we compute the empirical distribution \(F_{e}\) of \(X\).
+Fourth, we plot  \(F_{e}(x)\) and  the theoretical distribution \(F(x) = 1-e^{-\lambda x}\) for a proper \(\lambda\). 
+Once all steps are done, hopefully (the graphs of) \(F_{e}(x)\) and \(F(x)\) are (very) similar, so that we can conclude that the inter-arrival times are approximately exponentially distributed. 
+
+For the \(\lambda\), observe that all arrivals occurred between \(m= \min A\) and \(M=\max A\). Thus, as a simple estimate take \(\lambda = n/(M-m)\). This is easy, because when you change the size of \(A\), or the distribution, then this estimate of \(\lambda\) scales in the right way.
+
+
+One of the nice, and bad, things of \texttt{R} is that many algorithms are included.
+This is handy when you know what you do, but it leaves you clueless  if you have to do something new.
+More generally, using standard functions does not help you develop algorithmic skills.
+However, this is very important if you plan to use large amounts of data in your later career, as actuary, consultant, banker, financial quant, whatever.
+For this reason we discuss here how to make an empirical distribution function, even though you can just invoke the \texttt{ecdf} function (empirical cumulative distribution function) in \texttt{R} to compute it for you.
+
+As a concrete, but simple example, suppose we are given the following set of ages of people \(X = (20, 25, 18, 18, 19)\). The empirical distribution function is defined as
+\begin{equation*}
+F_e(x) = n^{-1}\sum_{i=1}^n \1{X_i\leq x}.
+\end{equation*}
+To compute this efficiently, we first sort the ages: \((18, 18, 19, 20, 25)\). Next, we give a count number to each individual: \((1,2,3,4,5)\), and divide this count number by \(n=5\), since there are \(5\) persons. Finally, we plot the ages along the \(x\) axis, and \((1/5, 2/5, 3/5, 4/5, 5/5)\) along the \(y\) axis. When we plot this, we see that \(F_{e}(18) = 2/5\). To get things really correct, we should remove the double counts, such as the \(18\), but we skip this here. 
+
+
+You can choose between  python  or R to make the simulations and the plots.
+We include sample code for each to help you get started; it's up to you what you like to use.
+As an advice: learn both.
+\texttt{R} is handy for data analysis, but it is not used much besides academia; in business, machine learning, programming, python is much more common. 
+
+
+First we need to load some libraries. Check the web on what they do.
+
+
+\begin{minted}[]{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+\end{minted}
+
+Now we set a theme for \texttt{seaborn} to make nice graphs, and we set a seed for the random number generator of \texttt{numpy} so that we get the same random numbers every time we do a run.
+This helps to find bugs.
+(If you get different numbers each and every time, checking whether the results are correct becomes very tedious very rapidly.)
+We also set the labels on the axis.
+
+\begin{minted}[]{python}
+np.random.seed(3)
+sns.set_theme()
+
+plt.xlabel('x', fontsize=16)
+plt.ylabel('y', fontsize=16)
+\end{minted}
+
+
+Here is the algorithm to compute the \texttt{ecdf}.
+\begin{minted}[]{python}
+def ecdf(data):
+    x = np.sort(data)
+    n = x.size
+    y = np.arange(1, n + 1) / n
+    return (x, y)
+\end{minted}
+
+Now we compute the arrival times and sort them
+
+\begin{minted}[]{python}
+num = 250
+A = np.sort(np.random.uniform(0, 15, size=num))
+labda = A.size / (A.max() - A.min()) 
+\end{minted}
+
+Finally, compute the inter-arrival times and plot the \texttt{ecdf}.
+\begin{minted}[]{python}
+X = A[1:] - A[:-1]
+x, y = ecdf(X)
+plt.scatter(x=x, y=y)
+plt.plot(x, 1 - np.exp(-labda * x))
+# plt.show()
+
+\end{minted}
+
+
+\subsubsection*{R code}
+\label{sec:orgbbfd4db}
+
+
+\subsubsection{Exercises}
+\label{sec:org27b4ea4}
+\begin{exercise}
+Make a graph of the empirical and theoretical distrribution for $n=250$, i.e. the size of $A$ is 250, of $X$ and the theoretical distribution. Explain what we can see in this graph. 
+\end{exercise}
+
+\begin{exercise}
+Make a graph of $F_e$ and $F$  for $n=10$. Explain. 
+\end{exercise}
+
+\begin{exercise}
+Make a graph of  $|F_e - F|$  for $n=250$. What do you see?
+\end{exercise}
+
+\begin{exercise}
+Make a graph of  $\log(1-F_e)/\lambda$  for $n=250$. What do you see? Why did we take transform of $F_e$?
+\end{exercise}
+
+
+\begin{exercise}
+Take the arrival times as normally distributed with mean $\mu=7.5$ and $\sigma=3$, and make the graphs. Explain. 
+\end{exercise}
+
+Normally distributed, early and late arrivals, i.e., \(\mu\) = 7.5 and \(\sigma\) = 5, and then merge the ones that are in time with the ones that are late and early. 
+
+\subsubsection{Hospital planning}
+\label{sec:org797c22e}
+
+\subsubsection{Busy hours and different arrival rates}
+\label{sec:org67a19a4}
+
+
+\begin{itemize}
+\item change the number of arrivals \(n\),
+\item the arrival rate
+\item size of period to count the number of arrivals, relation to Poisson distribution.
+\end{itemize}
+
+
+
+
+\subsubsection{Compound Poisson distribution, hitting times, and overshoot distribution}
+\label{sec:org0740c9c}
+
+
+\subsection{Exercise rock, scissors, paper with multiple players.}
+\label{sec:org351adb7}
+
+
+
+\section{Bayesian statistics}
+\label{sec:org1f4616c}
+
+\subsection{Testing for rare deceases}
+\label{sec:orgb704f64}
+
+\subsubsection{Redoing the  computation of the  Example 2.3.9}
+\label{sec:orge3a48cf}
+
+I write \texttt{p\_D\_g\_T\$} for \(\P{D\given T}\). Here is how this can be implemented in python.
+
+\begin{minted}[]{python}
+sensitivity = 0.95
+specificity = 0.95
+p_D = 0.01
+
+p_T = sensitivity * p_D + (1-specificity)*(1-p_D)
+p_D_g_T  = sensitivity * p_D/p_T
+p_D_g_T
+\end{minted}
+
+\begin{enumerate}
+\item Make a plot of \(\P{D\given T}\) in which you vary the sensitivity from 0.9 to 0.99. Explain what you see.
+\item Make a plot of \(\P{D\given T}\) in which you vary the specificity from 0.9 to 0.99.
+\item Make a plot of \(\P{D\given T}\) in which you vary \(\P{D}\) from 0.01 to 0.5. Explain what you see.
+\item 
+\end{enumerate}
+
+
+
+\subsubsection{{\bfseries\sffamily TODO} Making the plot of Exercise 7.86}
+\label{sec:orgf534b47}
+
+\subsubsection{{\bfseries\sffamily TODO} Bayesian priors}
+\label{sec:orgac48e35}
+
+In line with Exercise 8.33, we are now going to analyze the effect on \(\P{D\given T}\) when the sensitivity is not known exactly.
+So, why is this interesting?
+In Example 2.3.9 the sensitivity is given, but in fact, in `real' experiments, this is not always known as accurately as assumed in this example.
+For example, in this paper: \href{https://www.thelancet.com/journals/lanres/article/PIIS2213-2600(20)30453-7/fulltext}{False-positive COVID-19 results: hidden problems and costs} it is claimed that `The current rate of operational false-positive swab tests in the UK is unknown; preliminary estimates show it could be somewhere between 0·8$\backslash$% and 4·0$\backslash$%.'.
+Hence, even though it is claimed that PCR tests `have analytical sensitivity and specificity of greater than 95$\backslash$%', it may be 4$\backslash$% lower.
+Simply put, the specificity and sensitivity are not precisely known, hence this must affect \(\P{D\given T}\).
+
+To help you, we show how to make one graph. Then we ask you to make a few on your own, and comment on them.
+
+
+
+\subsection{Measuring inter arrival-times}
+\label{sec:orgf820334}
+
+We have a device to measure the time between two arrivals, of jobs for instance, or customers in a shop, or particles in radio-active decay.
+After a measurement, the device has to recharge so it cannot measure arrivals that occur within 10 seconds from each other.
+Also, if there is no arrival within 50, it resets itself.
+Hence, the device cannot easily measure inter-arrival times longer than 1 minute. Assume that the inter-arrival times are exponentially distributed with some unknown \(\lambda\). Let \(\bar x = \sum_{n=1}^N x_{n} /N\) be the sample mean of \(N\) measured inter-arrival times. 
+
+\begin{enumerate}
+\item Explain that, if \(\lambda \ll 1\) minute,  \(\hat \lambda = \bar x - 10\) is a reasonable estimator for \(\lambda\).
+\item How would you obtain a reasonable estimate of \(\lambda\) when \(\lambda\) \(\gg\) 1 minute?
+\end{enumerate}
+
+
+
+
+\section{A/B testing}
+\label{sec:org180b96a}
+\subsubsection{Introduction}
+\label{sec:org41a02a9}
+
+In an A/B test the problem is to find out which of two alternatives is the better, in that it yields higher profit (webpages), cures more patients (medicine), and so on. In this assignment you have to study different policies to find out the better of two alternatives. 
+
+A/B testing is a very interesting topic, and lies at the heart of \emph{reinforcement learning}, see wikipedia for background, in particular with respect to machine learning, automatic car driving, and so on. 
+
+
+\subsubsection{{\bfseries\sffamily TODO} Use beta priors}
+\label{sec:org9297a86}
+\subsubsection{{\bfseries\sffamily TODO} Interesting to link this to the game of Alice and Bob in Van der Plas}
+\label{sec:orgafbfbd0}
+\url{http://jakevdp.github.io/blog/2014/06/06/frequentism-and-bayesianism-2-when-results-differ/}
+
+\subsection{Estimating the number of tanks}
+\label{sec:org0700c8f}
+
+
+\subsection{Koffiedingen van Douwe Egberts}
+\label{sec:orgbe91c90}
+
+\subsection{Batchgewijs testen door samen te voegen}
+\label{sec:org7f21ad2}
+
+
+
+\subsection{Sport uitslagen}
+\label{sec:org9a46c5b}
+
+Som 7.48 gaat over hoeveel maxima optreden. Wat is de verdeling van de maxima? Wat is de toename? Relatie met extreme waarde verdelingen. 
+
+\subsection{Random variable code en die van Niels}
+\label{sec:org57ced54}
+\end{document}

@@ -171,7 +171,8 @@ After the course you might be interested in the following two books that I liked
    3. $\P{EF} = \P{F\given E} \P{E}$. 
    If you want to understand probability in terms of betting, any sensible strategy you can imagine should satify   these rules, for otherwise people can use arbitrage (an essential idea in the financial theory and asset and option pricing) to consistently make  money from you.  
 2. E.T. Jaynes, Probability Theory: The Logic of Science. It is hard at times, but very interesting. it discusses  applications and ideas behind probability and statistics, and how to think about these topics as a sensible person (not just as a theoretician).
-3. C. Bishop, Pattern recognition and Machine learning. This is a really nice book on data analysis and  machine learning. After the course you can read the first two chapters. At the end of the master, you can read most of the book. 
+3. [[
+https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf][C. Bishop, Pattern Recognition and Machine Learning]]. This is a really nice book on data analysis and  machine learning. After the course you can read the first two chapters. At the end of the master, you can read most of the book. 
 
 
 

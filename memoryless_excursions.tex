@@ -1,8 +1,8 @@
 %\documentclass[a4paper,14pt]{extarticle}
 \documentclass[a4paper,12pt]{article}
 
-\usepackage[all-solutions-at-end]{optional}
-%\usepackage[check]{optional}
+%\usepackage[all-solutions-at-end]{optional}
+\usepackage[check]{optional}
 
 \usepackage{preamble}
 
@@ -33,10 +33,14 @@ Notes on joint distributions }
 Write $M=\max{X,Y}$ and $L=\min{X,Y}$ for given r.v.s $X$ and $Y$.
 It is simple to see that when $X$ and $Y$  have the same distribution 
 \begin{equation}
-  \label{eq:6}
 \E L + \E M = \E{L+M}=\E{X+Y} = 2\E X.
 \end{equation}
-When $X$ and $Y$ are memoryless and iid, it is  tempting to think that
+From this, we have that 
+\begin{equation}
+  \label{eq:6}
+\E M = 2\E X - \E L.
+\end{equation}
+Next, when $X$ and $Y$ are memoryless and iid, it is  tempting to think that
 \begin{equation}
   \label{eq:7}
 \E M = \E L  + \E X,
@@ -108,15 +112,34 @@ What is the domain of $X$?
 \begin{solution}
 Of course $X \in \{0, 1, 2, \ldots\}$.
 
-First the regular methods. The use of indicator variables is particularly important.
+Here are a couple of tricks with recursions; this is how I rederive the properties of a geometric r.v.
+\begin{align}
+  \label{eq:8}
+\P{X>0} &= \P{\textrm{failure}} = q\\
+\P{X>j} &= q \P{X>j-1} \implies \P{X>j}=q^{j}\P{X>0} = q^{j+1}.\\
+\P{X=j} &= \P{X>j-1} - \P{X>j} = q^{j}-q^{j+1} = (1-q)q^{j} = p q^{j}.\\
+\E X &= p\cdot 0 + q(1+\E X) \implies \E X = q/(1-q) = q/p.
+\end{align}
+
+Now the same answers, but with the regular method. 
   \begin{align}
     \label{eq:5}
 \P{X>j}    
 &= \sum_{i=j+1}^{\infty} \P{X=i} \\
 &= p\sum_{i=j+1}^{\infty} q^{i} \\
+&= p\sum_{i=0}^{\infty} q^{j+1+i} \\
 &= pq^{j+1}\sum_{i=0}^{\infty} q^{i} \\
-&= pq^{j+1}/p = q^{j+1},\\
+&= pq^{j+1}\frac 1 {1-q} = p q^{j+1} \frac 1 p = q^{j+1}.
+  \end{align}
+From this,
+  \begin{align}
+    \label{eq:56}
   \P{X\geq j}  &= \P{X>j-1} = q^{j}, \\
+  \end{align}
+
+The use of indicator variables is particularly important:
+  \begin{align}
+    \label{eq:58}
 \E X 
 &= \sum_{i=0}^{\infty} i\P{X=i} \\
 &=  \sum_{i=0}^{\infty} \sum_{j=0}^{\infty} \1{j<i} \P{X=i} \\
@@ -127,16 +150,6 @@ First the regular methods. The use of indicator variables is particularly import
 &=  q \sum_{j=0}^{\infty}  q^{j}\\
 &=  q/(1-q) = q/p.
   \end{align}
-
-
-Now a couple of tricks with recursions.
-\begin{align}
-  \label{eq:8}
-\P{X>0} &= \P{\textrm{failure}} = q\\
-\P{X>i} &= q \P{X>i-1} \implies \P{X>i}=q^{i+1}.\\
-\P{X=i} &= \P{X>i-1} - \P{X>i} = q^{i}-q^{i+1} = (1-q)q = p q.\\
-\E X &= p\cdot 0 + q(1+\E X) \implies \E X = q/(1-q.
-\end{align}
 
 \end{solution}
 \end{exercise}
@@ -158,7 +171,7 @@ What is the definition of memorylessness for discrete r.v.s?
 \end{solution}
 \end{exercise}
 
-\begin{exercise}
+\begin{exercise}\label{ex:12}
 Show that $\P{L\geq i}=q^{2i}$ and conclude that $L\sim\Geo{1-q^{2}}$. Just to keep you sharp: what is the domain of $L$?
 \begin{solution}
   \begin{align}
@@ -178,8 +191,11 @@ As henceforth all r.v.s we consider are non-negative, I'll drop the question to 
 
 \begin{exercise}\label{ex:3}
 Show that  $\E L=q^{2}/(1-q^{2})$.
+\begin{hint}
+$X\sim \Geo{1-q} \implies \E X = q/(1-q)$. Now use that $L\sim\Geo{1-q^{2}}$. 
+\end{hint}
 \begin{solution}
-$X\sim \Geo{1-q} \implies \E X = q/(1-q$. Now use that $L\sim\Geo{1-q^{2}}$. 
+  Immediate from the hint and~\cref{ex:12}. 
 \end{solution}
 \end{exercise}
 
@@ -189,13 +205,15 @@ Show that
   \label{eq:39}
 \E L + \E X = \frac q{1-q}\frac{1+2q}{1+q}.
 \end{equation}
+\begin{hint}
+Use that $1-q^2=(1-q)(1+q)$.
+\end{hint}
 \begin{solution}
   \begin{align}
     \label{eq:2}
 \E L     + \E X 
 &= \frac{q^{2}}{1-q^2} + \frac{q}{1-q} \\
 &= \frac q{1-q}\left(\frac{q}{1+q} + 1\right)\\
-&= \frac q{1-q}\frac{1+2q}{1+q}.
   \end{align}
 \end{solution}
 \end{exercise}
@@ -208,9 +226,6 @@ Supposing that~\cref{eq:6} is true, show that
 \end{equation}
 Show also that this is not the same as~\cref{eq:39} (unless $q=0$).
 Conclude that this violates the simultaneous truth of~\cref{eq:6} and \cref{eq:7}.
-\begin{hint}
-Use that $1-q^2=(1-q)(1+q)$.
-\end{hint}
 \begin{solution}
   \begin{align}
     \label{eq:11}
@@ -218,7 +233,8 @@ Use that $1-q^2=(1-q)(1+q)$.
 &= 2\E X - \E L \\
 &= 2\frac q{1-q}  - \frac{q^2}{1-q^2}\\
 &= \frac q{1-q}\left(2  - \frac{q}{1+q}\right)\\
-&= \frac q{1-q}\left(\frac{2+2q}{1+q}  - \frac{q}{1+q}\right).
+&= \frac q{1-q}\left(\frac{2+2q}{1+q}  - \frac{q}{1+q}\right)\\
+&= \frac q{1-q}\frac{2+q}{1+q}.
   \end{align}
 \end{solution}
 \end{exercise}
@@ -229,10 +245,10 @@ I believe that~\cref{eq:6} is correct, but then~\cref{eq:7} must be wrong.
 But why?
 And, perhaps I am mistaken, and \cref{eq:7} is correct, and the other is not.
 
-In fact, to convince myself that~\cref{eq:7} is indeed wrong, I pursued three different ideas to check~\cref{eq:10}.
+In fact, to convince myself that~\cref{eq:7} is indeed wrong, I pursued three ideas to check~\cref{eq:10}, hence~\cref{eq:6}
 
 \begin{exercise}\label{ex:1}
-Idea 1: Show that for the PMF of $M$ 
+Idea 1: Show that for the PMF of $M$: 
 \begin{equation}
   \label{eq:34}
 p_M(k) = \P{M=k} = 2 pq^{k}(1-q^{k}) + p^2q^{2k}.
@@ -242,6 +258,7 @@ Then use this to show~\cref{eq:10}.
   \begin{align}
     \label{eq:14}
 \P{M=k}     
+&= \P{\max{X, Y} = k} \\
 &=p^{2}\sum_{ij}\1{\max{i,j} =k} q^i q^j\\
 &=2 p^{2}\sum_{ij}\1{i=k}\1{j < k} q^i q^j + p^{2}\sum_{ij}\1{i=j=k} q^{i} q^j \\
 &=2 p^{2}q^{k}\sum_{j < k} q^j + p^{2}q^{2k}\\
@@ -285,7 +302,7 @@ $\P{M=k} = \P{M\leq k} - \P{M\leq k-1}$.
 
 
 \begin{exercise}\label{ex:2}
-Idea 3: show that  the  joint PMF
+Idea 3a: show that  the  joint PMF
 \begin{equation}
 p_{L,M}(i,j) = \P{L=i, M=j} = 2p^{2}q^{i+j}\1{j>i}+ p^{2}q^{2i}\1{i=j}.
 \end{equation}
@@ -300,9 +317,9 @@ p_{L,M}(i,j) = \P{L=i, M=j} = 2p^{2}q^{i+j}\1{j>i}+ p^{2}q^{2i}\1{i=j}.
 \end{exercise}
 
 \begin{exercise}\label{ex:8}
-Use~\cref{ex:2} to compute the marginal PMFs of $M$ and of $L$. This leads to another check on~\cref{eq:34}, hence on~\cref{eq:10}. 
+Idea 3b: Use~\cref{ex:2} to compute the marginal PMFs of $M$ and of $L$. 
 \begin{hint}
-For the first, marginalize out $L$, for the second, marginalize out $M$).
+For the first, marginalize out $L$, for the second, marginalize out $M$.
 \end{hint}
 \begin{solution}
   \begin{align}
@@ -351,7 +368,6 @@ Use the expression $\P{g(X,Y)\in A} = \mathop{\sum\sum}_{g(i, j) \in A} p_{X,Y}(
 
 \begin{align}
 \P{L=i,  M > L} 
-&= \P{X=i, Y > X \O Y=i, X > Y } \\
 &= 2\P{X=i,Y > X} \\
 &= 2\P{X=i}\P{Y > i} \\
 &= 2pq^i\cdot q^{i+1}\\
@@ -362,7 +378,7 @@ I use three (related) ways to compute $\P{M>L}$. In the first I convert the even
 \begin{align}
   \label{eq:3}
 \P{M>L} 
-&= \P{X>Y \O Y > X} \\
+&= \P{X>Y} + \P{Y > X} \\
 &= 2\P{X>Y} \\
 &= 2\sum_{j} \P{X>j,Y=j} \\
 &= 2\sum_{j}  \P{X>j}\P{Y=j} \\
@@ -572,7 +588,6 @@ f_{L,M}(x,y)
 &=2 \partial_x F_{X}(x) \partial_{y} (F_Y(y)-F_Y(x)) \1 {y>x} \\
 &= 2f_X(x) f_Y(y)\1{y>x} \\ 
 \end{align}
-Why could I remove the 2?
 
 Now,
 \begin{align}

@@ -74,7 +74,7 @@ I tend to use the following step-wise approach:
     \label{eq:55}
     \begin{split}
 \P{g(X, Y) \in A} 
-&= \E{\1{g(X,Y)}\in A} \\
+&= \E{\1{g(X,Y)\in A}} \\
 &= \iint \1{g(x,y) \in A} f_{X,Y}(x,y) \d x \d y \\
 &= \iint_{g^{-1}(A)} f_{X,Y}(x, y) \d x \d y,\\
 &= \iint_{\{(x,y): g(x,y) \in A\}} f_{X,Y}(x,y) \d x \d y,
@@ -96,7 +96,7 @@ In the exercises below we first try to see which of~\cref{eq:6} and \cref{eq:7} 
 \label{sec:set-1}
 
 
-Let $X,Y$ be $\iid \sim \Geo{p}$.
+Let $X,Y$ be $\iid \sim \Geo{p}$. Write $q = 1-p$.
 
 \begin{exercise}
 As a recap of earlier chapters of BH, show that
@@ -134,15 +134,15 @@ Now a couple of tricks with recursions.
   \label{eq:8}
 \P{X>0} &= \P{\textrm{failure}} = q\\
 \P{X>i} &= q \P{X>i-1} \implies \P{X>i}=q^{i+1}.\\
-\P{X=i} &= \P{X>i-1} - \P{X>i} = q^{i}-q^{i+1} = (1-q)q = p q.\\
-\E X &= p\cdot 0 + q(1+\E X) \implies \E X = q/(1-q.
+\P{X=i} &= \P{X>i-1} - \P{X>i} = q^{i}-q^{i+1} = (1-q)q^i = p q^i.\\
+\E X &= p\cdot 0 + q(1+\E X) \implies \E X = q/(1-q).
 \end{align}
 
 \end{solution}
 \end{exercise}
 
 \begin{exercise}
-Check that $X$, hence $Y$, is memoryless.
+Check that $X$, and hence $Y$, is memoryless.
 \begin{hint}
 What is the definition of memorylessness for discrete r.v.s?  
 \end{hint}
@@ -179,7 +179,7 @@ As henceforth all r.v.s we consider are non-negative, I'll drop the question to 
 \begin{exercise}\label{ex:3}
 Show that  $\E L=q^{2}/(1-q^{2})$.
 \begin{solution}
-$X\sim \Geo{1-q} \implies \E X = q/(1-q$. Now use that $L\sim\Geo{1-q^{2}}$. 
+$X\sim \Geo{1-q} \implies \E X = q/(1-q)$. Now use that $L\sim\Geo{1-q^{2}}$. 
 \end{solution}
 \end{exercise}
 
@@ -204,7 +204,7 @@ Show that
 Supposing that~\cref{eq:6} is true, show that
 \begin{equation}
   \label{eq:10}
-\E M = 2\E X  -\ EL = \frac q{1-q} \frac{2+q}{1+q}.
+\E M = 2\E X  -\E L = \frac q{1-q} \frac{2+q}{1+q}.
 \end{equation}
 Show also that this is not the same as~\cref{eq:39} (unless $q=0$).
 Conclude that this violates the simultaneous truth of~\cref{eq:6} and \cref{eq:7}.
@@ -300,7 +300,7 @@ p_{L,M}(i,j) = \P{L=i, M=j} = 2p^{2}q^{i+j}\1{j>i}+ p^{2}q^{2i}\1{i=j}.
 \end{exercise}
 
 \begin{exercise}\label{ex:8}
-Use~\cref{ex:2} to compute the marginal PMFs of $M$ and of $L$. This leads to another check on~\cref{eq:34}, hence on~\cref{eq:10}. 
+Use~\cref{ex:2} to compute the marginal PMFs of $M$ and of $L$. This leads to another check on~\cref{eq:34}, and hence on~\cref{eq:10}. 
 \begin{hint}
 For the first, marginalize out $L$, for the second, marginalize out $M$).
 \end{hint}
@@ -389,7 +389,7 @@ In the second,  I rewrite the event $\{M>L\}$ as a function of $X$ and $Y$, and 
 In the third, I use the probability $\P{L=i, M>L}$ and take the sum over $i$:
 \begin{align}
   \label{eq:48}
-\P{M>L} = \sum_{i} \P{L=i, M>L}  = \sum_{i} 2pq^{2i+1} = 2pq\sum_{i} 2pq^{2i} = \frac{2pq}{1-q^{2}}.
+\P{M>L} = \sum_{i} \P{L=i, M>L}  = \sum_{i} 2pq^{2i+1} = 2pq\sum_{i} q^{2i} = \frac{2pq}{1-q^{2}}.
 \end{align}
 
 Hence, 
@@ -425,7 +425,7 @@ We don't only solve the problem of~\cref{sec:confusing-problem}, in passing we w
 First we need to recall some basic facts about the exponential distribution.
 
 \begin{exercise}
-Show that $X$, hence $Y$, is memoryless.
+Show that $X$, and hence $Y$, is memoryless.
 \begin{solution}
   See BH.
 \end{solution}
@@ -547,7 +547,7 @@ where the last equality follows from the previous exercises.
 \end{exercise}
 
 \begin{exercise}
-We can also compute $f_{M}(y)$ (and $f_{L}(x)$ from the joint density $f_{L,M}(x,y)$ by marginalization. For this, use~\cref{eq:55} to rewrite 
+We can also compute $f_{M}(y)$ (and $f_{L}(x)$) from the joint density $f_{L,M}(x,y)$ by marginalization. For this, use~\cref{eq:55} to rewrite 
 \begin{equation*}
   F_{L,M}(x,y) = \P{L\leq x, M\leq y}
 \end{equation*}
@@ -751,7 +751,7 @@ Now take $p=\lambda/n$ and $q=1-p=1-\lambda/n$, then,
 \end{equation}
 \end{solution}
 \end{exercise}
-From BH.A.2.5, $\lim_{n\to\infty}(1-\lambda/n)^{n} = e^{-\lambda}$, which is a standard limit but, interestlingly, not entirely trivial to prove.\footnote{If you like mathematics, check the neat proof in Rudin's Principles of mathematical analysis.}
+From BH.A.2.5, $\lim_{n\to\infty}(1-\lambda/n)^{n} = e^{-\lambda}$, which is a standard limit but, interestingly, not entirely trivial to prove.\footnote{If you like mathematics, check the neat proof in Rudin's Principles of mathematical analysis.}
 Next, by introducing the highly intuitive definition $\d x = \lim_{n\to \infty} 1/n$, it follows from~\cref{eq:53} that 
 \begin{align}
 \P{X/n \approx x} \to \lambda e^{-\lambda x} \d x,\quad\text{ as } n \to \infty.
@@ -760,7 +760,7 @@ In fact, working with infinitesimals such as $\d x$ is one of my favorite method
 The intuition is that $\d x$ is some really small number but not zero.
 In a tiny bit more formal words, $\d x < 1/n$ for any $n$, but $\d x \neq 0$.
 For details, check out the web; search on nonstandard calculus.
-However, while the method is very intuitive, it's easy to mess up. (Power tools are nice, but often only when you know how to handle them and practice a lot.)wreack havoc.
+However, while the method is very intuitive, it's easy to mess up. (Power tools are nice, but often only when you know how to handle them and practice a lot.) wreak havoc.
 If you don't want to learn this, no problem, it will not be part of the course proper.
 
 In fact, if you don't like infinitesimals, it is also possible obtain this limit with moment-generating functions (and we can practice with this function again).
@@ -925,7 +925,7 @@ Then,
 and
 \begin{align}
   \label{eq:50}
-\E{Z/n} = \frac 1 n \E Z = \frac 1 n \frac p = \frac 1 {n \lambda/ n} = 1/\lambda.
+\E{Z/n} = \frac 1 n \E Z = \frac 1 n \frac 1 p = \frac 1 {n \lambda/ n} = 1/\lambda.
 \end{align}
 \end{solution}
 

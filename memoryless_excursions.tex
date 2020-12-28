@@ -569,10 +569,12 @@ Taking partial derivatives,
 f_{L,M}(x,y) 
 &=\partial_x\partial_{y}F_{L,M}(x,y) \\  
 &=\partial_x\partial_{y}2 F_{X}(x) (F_Y(y)-F_Y(x)) \1{y>x}\\
-&=2 \partial_x F_{X}(x) \partial_{y} (F_Y(y)-F_Y(x)) \1 {y>x} \\
-&= 2f_X(x) f_Y(y)\1{y>x} \\ 
+&=2 \partial_x \left( F_{X}(x) \partial_{y} (F_Y(y)-F_Y(x))  \1 {y>x} \right) \\
+&=2 \partial_x \left( F_{X}(x) f_Y(y)  \1 {y>x} \right)\\
+&= 2f_X(x) f_Y(y)\1{y>x} 
 \end{align}
-Why could I remove the 2?
+
+Note that $\partial_x$ means the same as $\frac{\partial}{\partial x}$.
 
 Now,
 \begin{align}
@@ -582,7 +584,7 @@ Now,
 &= 2 f_Y(y) \int_0^{y} f_{X}(x) \d x  \\
 &= 2f_Y(y) F_X(y), \\
 f_L(x) &=  \int_0^{\infty} f_{L,M}(x,y) \d y \\
-&= 2 f_{X}(x) \int_x^{\infty} f_Y(y) \d x \\
+&= 2 f_{X}(x) \int_x^{\infty} f_Y(y) \d y \\
 &= 2 f_{X}(x) (1-F_Y(x)).
 \end{align}
 

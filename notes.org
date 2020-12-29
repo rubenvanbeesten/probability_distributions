@@ -648,6 +648,9 @@ Why is $\E J = \E{R_n}$? And once you see this, realize that $\E{J^2} = \E{R_{n}
 
 ** 8.1 Change of variables
 
+
+
+
 In probability theory we often want to consider functions of r.v.s, as explained in 8.1 of BH.
 For instance, starting with $X$, we like to express $\P{Y \leq y}$ where $Y=g(X)$ for some function $g$.
 When $g$ is strictly increasing this is easy:
@@ -656,15 +659,21 @@ F_{Y}(y) = \P{Y\leq y} = \P{g(X) \leq y} = \P{X\leq g^{-1}(y)} = F_X(g^{-1}(y).
 \end{align} 
 However, when $g$ is not increasing everywhere, finding $F_Y$ in terms of $F_X$ is not so simple anymore because there are multiple points $x$ such that $g(x)=y$.
 Moreover, when we want to generalize to 2D cases (or yet more dimensions), working with CDFs becomes messy.
-Of course a good strategy to prevent dealing with complications is to avoid, or ignore, them.
-But this does not work in probability theory.
-Here are two examples.
+Of course, we can use the `manager's' or `politician's' strategy to deal with complications: just  avoid, or ignore, the complications. 
+But this strategy does not work for probability theory, not even for elementary probability problems. 
+Here are three examples.
 
-In 1D, take $g(x)= x^{2}$. We know that $\V{X} = \E{X^2}-(\E X)^2$. But $\E{X^2}= \E{g(X)}$, and $g$ is not monotone increasing. Hence, even to define the variance, we already have to deal with a function that is not one-to-one everywhere.
-In 2D, functions can have  saddle points, i.e., points in which the function increases in one direction and decreases in another. Then finding the set of points $x$ such that $g(x)\leq y$ is not an attractive task, to say the least.\footnote{We say that $x<y$ on $\R^2$ when both $x_1<y_1$ and $x_2< y_2$.}
+In 1D, take $g(x)= x^{2}$.
+We know that $\V{X} = \E{X^2}-(\E X)^2$.
+But $\E{X^2}= \E{g(X)}$, and $g$ is not monotone increasing.
+Hence, even to define the variance, we already have to deal with a function that is not one-to-one everywhere on $\R$.
+In 2D, a function can have saddle points, i.e., points in which the function increases in one direction and decreases in another.
+Then finding the set of points $x$ such that $g(x)\leq y$ (which we need for $\P{g(X) \leq y}$)is not an attractive task, to say the least.\footnote{We say that $x<y$ on $\R^2$ when both $x_1<y_1$ and $x_2< y_2$.}
+Finally, consider the maximum of a number of r.v.s, which is interesting for people that like to bet on horse races or 100 m sprint events.
+Then, as long $X<Y$, the second component of $g(X,Y)=(\min{X,Y}, \max{X,Y})$ remains constant under changes in $X$. 
 
 The easiest way to characterize $Y=g(X)$ is to work with the densities $f_Y$ and $f_X$.
-Then we only have to require /locally/ that $g$ is one-to-one, and we don't have to work with inequalities, but can focus on /points/ at which $g(x) = y$.  Thus, below we will concentrate on the transformation of densities. 
+Then we only have to require /locally/ that $g$ is one-to-one, and we don't have to work with inequalities, but can focus on /points/ at which $g(x) = y$.  Thus, below we will concentrate on the transformation of densities.  I like to warn you right away: the reasoning below may seem simple, but as soon as you'll try to explain it to yourself with the book /closed/, you'll see that it is quite hard to get the details right.  It's easy to mess things up; it happens to me regularly, hence I /check/. 
 
 To organize the relations between the r.v.s and $g$,  I always draw the figure below. The left panel corresponds to 1D transformations, the right to 2D transformations. 
 \begin{center}
@@ -724,11 +733,11 @@ It is simple to generalize when there are yet more points $x$ such that $g(x)=y$
 f_{Y}(y) = \sum_{x_{i}: g(x_{i})=y}f_{X}(x_{i})\frac 1{|g'(x_{i})|}.
 \end{align*}
 
-For the 2D case, we need the following theorem of analysis, which is not entirely straightforward to prove, hence we skip the proof. Let $A$ be the set of points $(x,y)$ such that $g(x,y) \in B$; in other words, $A$ is the inverse of $B$, i.e., $A=\{(x,y): g(x,y) = (u,v)  \in B\}$. Then it can be proven that
+For the 2D case, we need the following theorem of analysis, which is not entirely straightforward to prove, hence we skip the proof. Let $A$ be the set of points $(x,y)$ such that $g(x,y) \in B$; in other words, $A$ is the inverse of $B$, i.e., $A=\{(x,y): g(x,y) = (u,v)  \in B\}$. Then we have the /change-of-variables/ theorem for integration:
 \begin{align*}
 \iint_{B} f_{U,V}(u,v) \d u \d v = \iint_{A}f_{U,V}(g(x,y)) \frac{\partial (u,v)}{\partial (x,y)} \d x \d y,
 \end{align*}
-where $\partial(u,v)/\partial(x,y)$ is the absolute value of the Jacobian of $g$ computed at $(x,y)$. 
+where $\partial(u,v)/\partial(x,y)$ is the absolute value of the Jacobian of $g$ computed at $(x,y)$. (Here my notation deviates from BH, they don't include the absolute values in the definition of $\partial(u,v)/\partial(x,y)$, but this is inconsistent with most of the math's books, and it leads to a extra pair of bars, which is ugly.)
 The functions $g$ and $f_{U,V}$ and the set $B$ should be `reasonable'; the functions and sets you'll meet in practice are always reasonable.
 For a bit more detail, see the appendix of BH, for yet more detail check the web, and if you really like such stuff, read the following books of Bressoud (in that order): 
 Second Year Calculus: From Celestial Mechanics to Special Relativity, A Radical Approach to Real Analysis, and A Radical Approach to Lebesgue's Theory of Integration. 
@@ -741,7 +750,7 @@ But the integral at the RHS over $B$ can be rewritten as an integral over $A$ by
 \begin{align*}
 \iint_{A} f_{X,Y}(x,y)\d \d y = \iint_{A}f_{U,V}(g(x,y)) \frac{\partial (u,v)}{\partial (x,y)} \d x \d y.
 \end{align*}
-Hence,
+As this holds for any (reasonable) set $B$, 
 \begin{align*}
 f_{X,Y}(x,y) = f_{U,V}(g(x,y)) \frac{\partial (u,v)}{\partial (x,y)}.
 \end{align*}
@@ -749,47 +758,97 @@ Finally, since $(x,y) = g^{-1}(u,v)$,
 \begin{align*}
 f_{U,V}(u, v)) = f_{X,Y}(x,y) \frac{\partial (x,y)}{\partial (u,v)}.
 \end{align*}
-
+Analogous to the 1D case, this can be extended when there are several points $x_i$ such that $g(x_i)=y$. 
 
 There simple way to write the above to help memorize things. We have that $g(x,y) = (u,v)$ and we want the probability to be conserved under the transformation $g$. From this,
 \begin{align*}
 f_{U,V}(u,v) \d u \d v = f_{X,Y}(x,y) \d x \d y \implies  f_{,V}(u,v)  = f_{X,Y}(x,y) \frac{\partial(x,y)}{\partial (u,v)}.
 \end{align*}
+Likewise for 1D:
+\begin{align*}
+f_Y(y)\d y = f_X(x) \d x \implies f_{Y}(y) = f_X(x)\frac{\d x}{\d y}.
+\end{align*}
+As a piece of advice, memorize the LHS of these two formulas and the figures above. With these you can derive the rest. 
 
 
+The change-of-variables formula for integration relates directly to the substitution rule to solve 1D integrals. Specifically, when we have two 1D functions $f$ and $g$, then the substitution rule says that,
+\begin{align*}
+\int_{a}^b f(g(x)) g'(x)\d x = \int_{g(a)}^{g(b)} f(u) \d u.
+\end{align*}
+Writing $c=g(a)$ and $d=g(b)$, then this can be rewritten into
+\begin{align*}
+\int_c^d f(u)\d u = \int_{g^{-1}(c)}^{g^{-1}(d)} f(g(x)) g'(x)\d x,
+\end{align*}
+which is just the change-of-variables rule in 1D.
 
 *** Example
 
-Compute $\E X$ for $X\sim \Exp{\lambda}$ by converting integral to the form $\int x e^{-x} \d x$ with a coordinate transform.
+Take $X\sim \Exp{1}$, what is the density of $Y=g(X)=\lambda X$, and $\E Y$?
 
-Solution:  Here is my standard method. Writing $a$ and $b$ for the boundaries to show explicitly what is going on, 
+Solution:  Let's first use  the change-of-variables theorem. Take $y= g(x)= \lambda x$. Then, 
 \begin{align*}
-\int_{a}^b x \lambda e^{-\lambda x} \d x = 
-\int_{\lambda a}^{\lambda b} u e^{-\lambda x} \frac{\d u}\lambda
+f_{Y}(y) = f_X(x)\frac{\d x}{\d y} = f_{X}(x) \frac{1}{g'(x)} = e^{-y/\lambda} \frac 1 \lambda.
 \end{align*}
-by taking the substitution $u= \lambda x$, so that $\d u = \lambda \d x \implies \d x = \d u /\lambda$. So, I replace  $\lambda x$ by $u$, $\d x$ by $\d u/\lambda$, and I convert the boundaries to $\lambda a$ and $\lambda b$. 
-
-How does this work when we take $g(x)= \lambda x $, and take $Y=g(X)$? There are two ways to compute $\E Y$. The first is by 1D LOTUS:
+With this,
 \begin{align*}
-\E Y = \E{g(X)} = \int g(x) f_X(x) \d x= \int \lambda x \lambda e^{-\lambda x} \d x = 1;
+\E Y = \int_0^{\infty} y f_Y(y) \d y = \int_0^{\infty} y e^{-y/\lambda} \frac 1 \lambda  \d y.
 \end{align*}
-as there is a $\lambda x$ everywhere, I can just substitute $\lambda x$ for $u$. Note the, perhaps, surprising result that when we take $g(x) = \lambda x$, we convert $X\sim \Exp{\lambda}$ into  $Y\sim \Exp{1}$!
-Now with a change of variable $g(x) = \lambda x$: 
+To solve this integral, I recognize $y/\lambda$ in the exponent, and I want to get rid of the $1/\lambda$ factor. Hence, I write $u=y/\lambda$, and use this to see that
 \begin{align*}
-\E Y &= \int y f_Y(y) \d y, \\
-f_Y(y) &= f_X(g^{-1}(y)) \frac {\d x}{\d y } = \lambda e^{-\lambda g^{-1}(y)} (\d y/ \d x)^{-1} = \lambda e^{-\lambda y/ \lambda} \lambda^{-1} = e^{-y} \\
-\E Y &= \int y e^{-y} \d y = 1.
+u = y/\lambda \implies \d u = \d y /\lambda \implies \d y = \lambda \d u.
 \end{align*}
-The result is the same (as it should).
+Then, including $a$ and $b$ for the boundaries to show explicitly what is going on, 
+\begin{align*}
+\int_{a}^b y/\lambda e^{-y/\lambda} \d y = 
+\int_{a/\lambda }^{b/\lambda } u e^{-u} \lambda \d u = \lambda \int_{a/\lambda }^{b/\lambda } u e^{-u}  \d u.
+\end{align*}
+Since $0/\lambda = 0$ and $\infty/\lambda = \infty$,
+\begin{align*}
+\E Y = \lambda \int_{0 }^{\infty } u e^{-u}  \d u = \lambda \E X.
+\end{align*}
+Thus, to solve the integral over $y$, I used the /reverse/ of $g$ in the substitution. Indeed, to transform from $Y$ to $X$, I have to divide by $\lambda$.
 
-So, what do we do we take $X \sim \Exp{\lambda}$ so that $f_X(x)= \lambda e^{-\lambda x}$?
-Then we change the density in the `calculus direction', not in the `probability direction'! In other words, we follow the sequence $f_Z \circ g$ for $Z\sim \Exp{1}$, in other words, we set $z$ to $\lambda x$ and then we substitute $\lambda x$ in the density $e^{-z} \d z = e^{-\lambda x} \d (\lambda x) = \lambda e^{-\lambda x} \d x$.  And, as we saw already above, this is not the same as taking $X=g(Z)$, it's the `reverse'. 
 
-Be aware, it's easy to mess up; I do it regularly, but I know that I have to pay attention, and I check! And that helps (most of the time).
+*** Example
+ Let $U=X+Y$ and $V=X-Y$, and $X,Y\sim U[0,1]$ and independent. Find $f_{U,V}$.
+
+Solution: $(u,v) = g(x,y)  = (x+y, x-y)$. Hence $x=(u+v)/2$, $y=(u-v)/2$, and
+\begin{align*}
+\frac{\partial(u,v)}{\partial(x,y)} = 
+\begin{bmatrix}
+1 & 1 \\
+1 & -1
+\end{bmatrix} = |-2| =2.
+\end{align*}
+Hence,
+\begin{align*}
+f_{U,V}(u,v) = f_{X,Y}(x,y) \frac{\partial(x,y)}{\partial(u,v)} = f_{X,Y}(x,y)/2 = f_X(x) f_Y(y)/2 = \frac{u+v}2\frac{u-v}2 \frac 1 2 = \frac{u^2-v^2}8.
+\end{align*}
+
+*** Example
+Let $X$ and $Y$ be independent, and take $g(x,y) = (\min{x,y}, \max{x,y})$. Determine $f_{U,V}$, with $(U,V) = g(X,Y)$. Simplify for the case $X, Y$ iid.
+
+Solution:
+Now $g^{-1}(u,v) = \{(u,v), (v,u)\}$, i.e., a set of two points. For the Jacobian:
+\begin{align*}
+\frac{\partial(u,v)}{\partial(x,y)} = 
+\begin{bmatrix}
+\1{x\leq y} & \1{y < x} \\
+\1{y<x} & \1{x\leq y}
+\end{bmatrix} = |\1{x\leq y} - \1{x>y}| = 1.
+\end{align*}
+Hence,
+\begin{align*}
+f_{U,V}(u,v) = f_{X}(u)f_Y(v) + f_X(v)f_Y(u),
+\end{align*}
+where I use that $X$ and $Y$ are independent. If $X,Y$ iid, this becomes
+\begin{align*}
+f_{U,V}(u,v) = 2f_{X}(u)f_Y(v).
+\end{align*}
 
 
 
-** TODO Jaynes, sterren, normale verdeling
+
 ** Example 8.1.6
 This is very important. Location-scale transformations are used in python (scipy) and R to generate random numbers of many standard distributions.
 

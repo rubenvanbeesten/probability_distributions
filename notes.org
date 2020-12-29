@@ -41,7 +41,7 @@ Page 318, half way, the authors write `marginal distribution', but this must be 
 ** Example 7.1.24
 This works best with indicator functions.
 In fact, I often use indicators to restrict the area over which to integrate or compute probabilities (recall, $\P{A} = \E{\1{A}}$ for an event $A$).
-It is easy to use, and prevents many mistakes.
+It is easy to use, and prevents many mistakes. Consider this example, 
 
 \begin{align*}
 \P{T_1 < T_2 } 
@@ -646,12 +646,27 @@ Why is $\E J = \E{R_n}$? And once you see this, realize that $\E{J^2} = \E{R_{n}
 :END:
 
 
-** General background
+** 8.1 Change of variables
 
-Here is a figure that I use to memorize the logic. The left panel corresponds to 1D transformations, the right to 2D transformations. 
-In the explanation below, I only sketch ideas, and skip the technical conditions; you can find those in part in the book, and in detail on wikipedia.
+In probability theory we often want to consider functions of r.v.s, as explained in 8.1 of BH.
+For instance, starting with $X$, we like to express $\P{Y \leq y}$ where $Y=g(X)$ for some function $g$.
+When $g$ is strictly increasing this is easy:
+\begin{align}\label{eq:1D-CDF}
+F_{Y}(y) = \P{Y\leq y} = \P{g(X) \leq y} = \P{X\leq g^{-1}(y)} = F_X(g^{-1}(y).
+\end{align} 
+However, when $g$ is not increasing everywhere, finding $F_Y$ in terms of $F_X$ is not so simple anymore because there are multiple points $x$ such that $g(x)=y$.
+Moreover, when we want to generalize to 2D cases (or yet more dimensions), working with CDFs becomes messy.
+Of course a good strategy to prevent dealing with complications is to avoid, or ignore, them.
+But this does not work in probability theory.
+Here are two examples.
 
+In 1D, take $g(x)= x^{2}$. We know that $\V{X} = \E{X^2}-(\E X)^2$. But $\E{X^2}= \E{g(X)}$, and $g$ is not monotone increasing. Hence, even to define the variance, we already have to deal with a function that is not one-to-one everywhere.
+In 2D, functions can have  saddle points, i.e., points in which the function increases in one direction and decreases in another. Then finding the set of points $x$ such that $g(x)\leq y$ is not an attractive task, to say the least.\footnote{We say that $x<y$ on $\R^2$ when both $x_1<y_1$ and $x_2< y_2$.}
 
+The easiest way to characterize $Y=g(X)$ is to work with the densities $f_Y$ and $f_X$.
+Then we only have to require /locally/ that $g$ is one-to-one, and we don't have to work with inequalities, but can focus on /points/ at which $g(x) = y$.  Thus, below we will concentrate on the transformation of densities. 
+
+To organize the relations between the r.v.s and $g$,  I always draw the figure below. The left panel corresponds to 1D transformations, the right to 2D transformations. 
 \begin{center}
 \begin{tabular}{cc}
 \begin{tikzpicture}[shorten >=2pt]
@@ -675,57 +690,72 @@ In the explanation below, I only sketch ideas, and skip the technical conditions
 \end{tikzpicture}
 \end{tabular}
 \end{center}
-
-For the left panel, we are given a density $f_X$ that maps a point $x$ to a real number, and we are given a function $g$ that maps $x$ to $y$. The problem is to get the density $f_Y$ that can take us from $y$ to $\R$.  For this we can use the concept of /pullback/: start with $y$, compute $x=g^{-1}(y)$ from this, and then set
-\begin{align*}
-f_Y(y)= f_{X}(g^{-1}(x)).
-\end{align*}
-In words, we start with $y$, then we apply $g^{-1}$ to pull back $y$ to $x$, and once we are at $x$, we can apply $f_{X}$. 
-
+For the left panel, we are given a density $f_X$ that maps a point $x$ to a real number $f_X(x)$, and we are given a function $g$ that maps $x$ to $y$, i.e, $y=g(x)$.
+The problem is to express  the density $f_Y$, that maps $y$ to $\R$, in terms of $g$ and $f_{X}$. 
 For the right panel, we are given a (joint) density $f_{X,Y}$ that maps a point $(x,y)$ to a real number, and we are given  a transformation $g$ that maps $(x,y)$ to $(u,v)$.
-Again, we want to get the density $f_{U,V}$ that can take us from $(u,v)$ to $\R$.  With  a pullback we set
+Again, we want to express  the density $f_{U,V}$, that maps $(u,v)$ to $\R$, in terms of $g$ and $f_{X,Y}$.
+
+For the 1D case, we can take the derivative at the LHS and RHs of \cref{eq:1D-CDF}. Writing $x=g^{-1}(y)$, this gives with the chain rule
 \begin{align*}
-f_{U,V}(u,v) := f_{X,Y}(g^{-1}(u,v)),
+f_{Y}(y) = F_{Y}'(y) = \frac{\d }{\d y} F_{X}(g^{-1}(y)) = f_{X}(x) \frac{\d }{\d y} g^{-1}(y).
 \end{align*}
-where $(x,y)= g^{-1}(u,v)$.
-
-For the left panel again, observe that for the CDFs we can again use pullback to see that $F_Y(y)) = F_X(g^{-1}(y))$.  If you realize that $y=g(x)$, then we can rewrite this to
-$F_{Y}(g(x)) = F_X(x)$. Taking the derivative with respect to $x$ at the LHS and RHS we obtain
+To get the derivative of $g^{-1}$, we can apply the chain rule:
 \begin{align*}
-f_Y(g(x)) g'(x) = f_X(x) \iff  f_Y(y) \frac {\d y }{\d x} = f_X(x) \iff f_Y(y) \d y= f_X(x) \d x.
+g(g^{-1}(y)) = y \implies \frac{\d}{\d y} g(g^{-1}(y)) =1 \iff g'(g^{-1}(y)) \frac{\d}{\d y} g^{-1}(y) = 1 \implies  \frac{\d}{\d y} g^{-1}(y)  = 1 /g'(x),
 \end{align*}
-But this says, conceptually, that the `probability content' of an event should remain the same after a transformation under $g$. The RHS expression is the most useful to memorize; with this, you cannot go wrong in the transformations.
-
-For the 2D case this works exactly the same. Since  $F_{U, V}(g(x,y)) = F_{X,Y}(x, y)$, 
+where we use that $g^{-1}(y)=x$.  And so we get
 \begin{align*}
-f_{U,V}(u,v) | \frac{\partial (u,v)}{\partial (x,y)} | = f_{X,Y}(x,y) \iff 
-f_{U,V}(u,v) \d u \d v = f_{X,Y}(x,y) \d x \d y.
+f_{Y}(y) =f_{X}(x)\frac 1{g'(x)}.
 \end{align*}
-Conceptually, the Jacobian at the left tells us how area changes under the transformation under $g$ (compare scaling from m^2 to km^2).  Again, memorize the RHS.
-
-
-For the exercises below, I often made this figure not to mess up the sequence of steps.
-I advice you to do the same.
-And for those of you that do maths and/or theoretical physics as a second study, you'll encounter pullbacks later in your career too, in differential geometry as exterior algebra, and in (general) relativity.
-
-You should know that the transformation here works in the reverse direction of what you see in calculus.
-In the calculus setting, we typically have two functions, $g$ and $h$, where $y=g(x)$ and $z=h(y)$ and we want to see how $z$ depends on $x$.
-For this, we consider the composition $z = (h\circ g) (x) = h(g(x))$, and then $\d z/ \d x = h'(g(x)) g'(x)$ by the chain rule.
-In probability theory, we consider a r.v.
-$Y$ as a function $g$ of a r.v.
-$X$, i.e., $Y=g(X)$.
-Now, we want to find $F_{Y}$, which we compute as follows:
+There is one subtlety, when $g$ is decreasing at $x$, $f_{Y}(y) = -F_Y(y)$, but since at such a point we also have $g'(x)<0$, so that the signs cancel. Hence, in general we have
 \begin{align*}
-F_{Y}(y) = \P{Y\leq y} = \P{g(X) \leq y} = \P{ X \leq g^{-1}(y)} = F_X(g^{-1}(y)),
+f_{Y}(y) =f_{X}(x)\frac 1{|g'(x)|}.
 \end{align*}
-assuming that $g$ is increasing.
-Hence, $F_Y = F_X\circ g^{-1}$, i.e., with $g^{-1}$ instead of $g$.
 
-So, why is that?
-Well, if we want to define $Y$ as a function of $X$, then we see in the above equation that the CDFs must work with $g^{-1}$.
-If we would like to use $g$ in the CDFs, then we would get $Y=g^{-1}(X)$.
-So, either way, there the inverse of $g$ is involved.
-When you learn more about probability theory, you will see that setting $Y=g(X)$ and $F_{Y} = F_X\circ g_{-1}$ is more convenient.
+
+How to handle the case $g(x)=x^{2}$?
+Well, we can split the line into disjoint intervals in which $g$ is either strictly increasing or decreasing, and then we apply the above rule in each of intervals.
+Here, see that $g'(x)= 2x$, hence,
+\begin{align*}
+f_{Y}(y) = f_{X}(\sqrt{y})\frac 1{2\sqrt y} + f_{X}(-\sqrt{y})\frac 1{2\sqrt y}.
+\end{align*}
+It is simple to generalize when there are yet more points $x$ such that $g(x)=y$:
+\begin{align*}
+f_{Y}(y) = \sum_{x_{i}: g(x_{i})=y}f_{X}(x_{i})\frac 1{|g'(x_{i})|}.
+\end{align*}
+
+For the 2D case, we need the following theorem of analysis, which is not entirely straightforward to prove, hence we skip the proof. Let $A$ be the set of points $(x,y)$ such that $g(x,y) \in B$; in other words, $A$ is the inverse of $B$, i.e., $A=\{(x,y): g(x,y) = (u,v)  \in B\}$. Then it can be proven that
+\begin{align*}
+\iint_{B} f_{U,V}(u,v) \d u \d v = \iint_{A}f_{U,V}(g(x,y)) \frac{\partial (u,v)}{\partial (x,y)} \d x \d y,
+\end{align*}
+where $\partial(u,v)/\partial(x,y)$ is the absolute value of the Jacobian of $g$ computed at $(x,y)$. 
+The functions $g$ and $f_{U,V}$ and the set $B$ should be `reasonable'; the functions and sets you'll meet in practice are always reasonable.
+For a bit more detail, see the appendix of BH, for yet more detail check the web, and if you really like such stuff, read the following books of Bressoud (in that order): 
+Second Year Calculus: From Celestial Mechanics to Special Relativity, A Radical Approach to Real Analysis, and A Radical Approach to Lebesgue's Theory of Integration. 
+
+Now, to relate $Y$ to $X$, remark that $\P{X\in A} = \P{Y \in B}$, i.e., 
+\begin{align*}
+\iint_{A} f_{X,Y}(x,y)\d x \d y = \iint_{B} f_{U,V}(u,v) \d u \d v.
+\end{align*}
+But the integral at the RHS over $B$ can be rewritten as an integral over $A$ by the above theorem,
+\begin{align*}
+\iint_{A} f_{X,Y}(x,y)\d \d y = \iint_{A}f_{U,V}(g(x,y)) \frac{\partial (u,v)}{\partial (x,y)} \d x \d y.
+\end{align*}
+Hence,
+\begin{align*}
+f_{X,Y}(x,y) = f_{U,V}(g(x,y)) \frac{\partial (u,v)}{\partial (x,y)}.
+\end{align*}
+Finally, since $(x,y) = g^{-1}(u,v)$,
+\begin{align*}
+f_{U,V}(u, v)) = f_{X,Y}(x,y) \frac{\partial (x,y)}{\partial (u,v)}.
+\end{align*}
+
+
+There simple way to write the above to help memorize things. We have that $g(x,y) = (u,v)$ and we want the probability to be conserved under the transformation $g$. From this,
+\begin{align*}
+f_{U,V}(u,v) \d u \d v = f_{X,Y}(x,y) \d x \d y \implies  f_{,V}(u,v)  = f_{X,Y}(x,y) \frac{\partial(x,y)}{\partial (u,v)}.
+\end{align*}
+
 
 
 *** Example

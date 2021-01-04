@@ -97,7 +97,10 @@ Take $X\in\{-2, -1, 1, 2\}$ and $\eta = X^2$. What is the correlation coefficien
 \end{exercise}
 
 \begin{exercise}
-This is about the simplest model for an insurance company that I can think of. We start with an initial capital $I_0=2$. The company receives claims and contributions every period, a week say. In the $i$$ period, we receive a contribution $X_{i}$ uniform on the set $\{1, 2,\ldots,10$ and a claim $C_i$ uniform on $\{0, 1, \ldots 8$. 
+This is about the simplest model for an insurance company that I can think of.
+We start with an initial capital $I_0=2$.
+The company receives claims and contributions every period, a week say.
+In the $i$th period, we receive a contribution $X_{i}$ uniform on the set $\{1, 2,\ldots,10$ and a claim $C_i$ uniform on $\{0, 1, \ldots 8$.
 \begin{enumerate}
 \item What is the meaning of $I_1=I_0+X_1-C_1$?
 \item What is the meaning of $I_2=I_1+X_2-C_2$?
@@ -126,8 +129,8 @@ We have a machine that consists of two components. The machine works as long as 
 \item What is the interpreation of $\max{X_1, X_{2}}$?
 \item If $X_1, X_2$ idd $\sim \Exp{10}$ (in hours), what is the expected time until the machine fails? 
 \item If $X_1, X_2$ idd $\sim \Exp{10}$ (in hours), what is the probability that the machine is still `up' (i.e., not failed) at time $T=50$? 
-\item If $X_1\sim \Exp{10}$, $$X_2 \sim N(20, 3$, use simulation to estimate the expected time to fail. time $T=50$? 
-\item If $X_1\sim \Exp{10}$, $$X_2 \sim N(20, 3$, use simulation to determine  the probability that the machine is still `up' (i.e., not failed) at time $T=50$? 
+\item If $X_1\sim \Exp{10}$, $X_2 \sim \Norm{20, 3}$, use simulation to estimate the expected time to fail. time $T=50$? 
+\item If $X_1\sim \Exp{10}$, $X_2 \sim \Norm{20, 3}$, use simulation to determine  the probability that the machine is still `up' (i.e., not failed) at time $T=50$? 
 \end{enumerate}
 \end{exercise}
 
@@ -427,11 +430,11 @@ plt.plot(x, 1 - np.exp(-labda * x))
 \label{sec:chapter-8}
 
 \begin{exercise}
-Let $X, Y$ iid $$\sim \Uni{[0,1]}$. 
+Let $X, Y$ iid $\sim \Unif{[0,1]}$. 
 \begin{enumerate}
 \item What is the joint CDF of $X+Y, XY$?
 \item What is the joint PDF of $X+^Y XY$?
-\item Compute $\PX+Y\leq 1, XY\leq 2/9$.
+\item Compute $\P{X+Y\leq 1, XY\leq 2/9}$.
 \end{enumerate}
 \end{exercise}
 

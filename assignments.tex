@@ -1,43 +1,12 @@
-% Created 2020-11-20 vr 21:49
-% Intended LaTeX compiler: pdflatex
 \documentclass[a4paper]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{graphicx}
-\usepackage{grffile}
-\usepackage{longtable}
-\usepackage{wrapfig}
-\usepackage{rotating}
-\usepackage[normalem]{ulem}
-\usepackage{amsmath}
-\usepackage{textcomp}
-\usepackage{amssymb}
-\usepackage{capt-of}
-\usepackage{hyperref}
-\usepackage{minted}
-\usepackage{a4wide}
-\usepackage[english]{babel}
-\usepackage{mathpazo}
-\usepackage{mathtools,amsthm,amssymb,amsmath}
-\usepackage{minted}
-\setminted[python]{linenos=true}
-\setminted[python]{frame=lines}
-\theoremstyle{definition}
-\newtheorem{exercise}{Ex}[section]
-\newcommand{\Exp}[1]{\mathrm{Exp}(#1)}
-\newcommand{\FS}[1]{\mathrm{FS}(#1)}
-\newcommand{\Geo}[1]{\mathrm{Geo}(#1)}
-\newcommand{\NBin}[1]{\mathrm{NBin}(#1)}
-\renewcommand{\d}[1]{\,\textrm{d}#1}
-\renewcommand{\max}[1]{\,\mathrm{max}\{#1\}}
-\renewcommand{\min}[1]{\,\mathrm{min}\{#1\}}
-\newcommand{\given}{\,\middle|\,}
-\renewcommand{\P}[1]{\,\mathsf{P}\left[#1\right]}
-\newcommand{\E}[1]{\,\mathsf{E}\left[#1\right]}
-\newcommand{\V}[1]{\,\mathsf{V}\left[#1\right]}
-\newcommand{\1}[1]{\,I_{#1}} % indicator
-\newcommand{\abs}[1]{\left\vert#1\right\vert}
-\newcommand{\iid}{\ensuremath{\mathrm{iid.}\,}}
+
+%\usepackage[all-solutions-at-end]{optional}
+\usepackage[check]{optional}
+
+
+\usepackage{preamble}
+
+
 \author{Nicky D. van Foreest}
 \date{2020:11:15}
 \title{Probability distributions: Assignments\\\medskip
@@ -70,7 +39,7 @@ Let $X\sim\Exp{4}$.
 \begin{enumerate}
 \item Find a simple expression for $\P{1 < X  \leq 4}$ and compute the value.  
 \item Use simulation to check this value. Include your code and explain any difficult point (if there is any). 
-\item Use a function in R to do the numerical integration.  In python it looks like this:
+\item Use numerical integration to compute $\P{1<X\leq 4}$.  In python it looks like this:
 \begin{minted}[]{python}
 import numpy as np
 from scipy.integrate import quad
@@ -90,6 +59,79 @@ print(I)
 \end{exercise}
 
 \begin{exercise}
+We throw an unbiased dice with six sides; the result of the $i$th throw is $X_i$. 
+\begin{enumerate}
+\item What is the sample space of the two throws $(X_{1}, X_2)$?
+\item What is the joint CDF?
+\item What is the joint PMF?
+\item  Marginalize out $X_2$ to show that $\P{X_1=5} = 1/6$.
+\item Use the fundemental bridge and indicators to compute $\P{X_1>X_2}$.
+\item Use the fundemental bridge and indicators to compute $\P{|X_1-X_2| < 1 } = 1/6$.
+\item Use the fundemental bridge and indicators to compute $\P{|X_1-X_2|\leq 1 }$.
+\item Use simulation to estimate  $\P{|X_1-X_2|\leq 1 }$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+We select a random married couple (a man and a woman). His height is $X\sim \Norm{1.8, 0.1}$, her height is $Y\sim \Norm{1.7, 0.08}$ in meters. 
+\begin{enumerate}
+\item What is the sample space of $(X, X$?
+\item What is the joint CDF?
+\item What is the joint PDF?
+\item  Marginalize out $Y$ to show that $X\sim \N{1.8, 0.1}$.
+\item Use the fundemental bridge and indicators to write  $\P{X>X}$ as an integral.
+\item Use the fundemental bridge and indicators to write  $\P{|X-Y| < 0.1 }$ as an integral.
+\item Use a numerical integrator to compute the probability of the previous part
+\item Use simulation to estimate the probability of the previous part.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+I select a random guy from the street, his height $X\sim\N{1.8, 0.1}$, and I select a random woman from the street, her height is $Y\sim\N{1.7, 0.08}$.
+I claim that since I selected the man and the woman independently, their heights are independent.
+Comment on this claim: Is it true, why, if it false, why, and what information do you have to add to the model to make the claim true?
+\end{exercise}
+
+\begin{exercise}
+Take $X\in\{-2, -1, 1, 2\}$ and $\eta = X^2$. What is the correlation coefficient of $X$ and $\eta$? Comment on your answer. 
+\end{exercise}
+
+\begin{exercise}
+This is about the simplest model for an insurance company that I can think of. We start with an initial capital $I_0=2$. The company receives claims and contributions every period, a week say. In the $i$$ period, we receive a contribution $X_{i}$ uniform on the set $\{1, 2,\ldots,10$ and a claim $C_i$ uniform on $\{0, 1, \ldots 8$. 
+\begin{enumerate}
+\item What is the meaning of $I_1=I_0+X_1-C_1$?
+\item What is the meaning of $I_2=I_1+X_2-C_2$?
+\item Provide an interpretation in terms of the inventory of rice, say, at a supermarket for $I_{1}$ and $I_{1}'$.
+\item Provide also an interpretation in terms of a degradation and repair process of an item.
+  (if you find this difficult, search a bit on the web on reliability theory.)
+  Comment on how good you think this model is to analyze such degradation and repair processes.
+\item What is the interpretation of $I_1'=\max\{I_0-C_1,0\} + X_1$?
+\item What is the interpretation of $I_2'=\max\{I_1'-C_2,0\} + X_2$?
+\item What is  $\P{I_1 < 0}$?
+\item What is  $\P{I_1' < 0}$?
+\item What is  $\P{I_2 < 0}$?
+\item What is  $\P{I_2' < 0}$?
+\item Use simulation to estimate $\P{I_{10}<10}$.
+\item What is the interpretation of $\bar I_{n} = \min{I_{i} : 0\leq i\leq n}$? 
+\item  Use simulation to estimate $\P{\bar I_{10} \geq 0}$.
+\item Similar,   use simulation to estimate $\P{\bar I_{10}' \geq 0}$.
+\item Explain the difference outcomes between the previous two parts. 
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+We have a machine that consists of two components. The machine works as long as not both components have failed. Let $X_i$ be the lifetime of component $i$. 
+\begin{enumerate}
+\item What is the interpreation of $\min{X_1, X_{2}}$?
+\item What is the interpreation of $\max{X_1, X_{2}}$?
+\item If $X_1, X_2$ idd $\sim \Exp{10}$ (in hours), what is the expected time until the machine fails? 
+\item If $X_1, X_2$ idd $\sim \Exp{10}$ (in hours), what is the probability that the machine is still `up' (i.e., not failed) at time $T=50$? 
+\item If $X_1\sim \Exp{10}$, $$X_2 \sim N(20, 3$, use simulation to estimate the expected time to fail. time $T=50$? 
+\item If $X_1\sim \Exp{10}$, $$X_2 \sim N(20, 3$, use simulation to determine  the probability that the machine is still `up' (i.e., not failed) at time $T=50$? 
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
 Let $X$ be the result of the throw of a coin.
 It is given that $\P{X=H} = p = 1-\P{X=T}$.
 When $X=H$, we choose a fair dice with 4 sides with values $1,2,3,4$, when $X=T$ we choose a fair dice with 6 sides with values $1,\ldots,6$.
@@ -102,8 +144,10 @@ Let $Y_i$ be the value of the $i$th throw with the dice.
 \item What is $\P{X=1 \given Y_1=1, Y_2=2}$?
 \item What is $\P{X=1 \given Y_1=Y_2=\cdots=Y_n = 1}$?
 \end{enumerate}
-
 \end{exercise}
+
+
+
 
 \begin{exercise} 
 Use simulation to estimate the answer of exercise 7.1 of BW.
@@ -281,6 +325,9 @@ print(Y.mean(), Y.var())
 \end{minted}
 
 
+
+
+
 \subsection{Why is the Exponential Distribution so important?}
 \label{sec:org50b29b7}
 
@@ -375,6 +422,18 @@ plt.plot(x, 1 - np.exp(-labda * x))
 # plt.show()
 
 \end{minted}
+
+\section{Chapter 8}
+\label{sec:chapter-8}
+
+\begin{exercise}
+Let $X, Y$ iid $$\sim \Uni{[0,1]}$. 
+\begin{enumerate}
+\item What is the joint CDF of $X+Y, XY$?
+\item What is the joint PDF of $X+^Y XY$?
+\item Compute $\PX+Y\leq 1, XY\leq 2/9$.
+\end{enumerate}
+\end{exercise}
 
 
 \subsubsection*{R code}

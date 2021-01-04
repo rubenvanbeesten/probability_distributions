@@ -39,12 +39,11 @@ To deal with in detail, you have to do a course on probability based on measure-
 Page 318, half way, the authors write `marginal distribution', but this must be the marginal density.
 
 ** Example 7.1.24
-This works best with indicator functions.
-In fact, I often use indicators to restrict the area over which to integrate or compute probabilities (recall, $\P{A} = \E{\1{A}}$ for an event $A$).
-It is easy to use, and prevents many mistakes. Consider this example, 
+This works best with an indicator function and the fundamental bridge (recall, $\P{A} = \E{\1{A}}$ for an event $A$).
+It is easy to use, and prevents many mistakes. Consider this example. 
 
 \begin{align*}
-\P{T_1 < T_2 } 
+\P{T_1 < T_2 } = \E\1{T_1<T_2} = 
 &= \int_0^\infty \int_0^\infty \1{t_1<t_2} \P{T_1 \in \d{t_1}, T_2 \in \d{t_2}} \\
 &= \int_0^\infty \int_0^{t_2}  \P{T_1 \in \d{t_1}} \P{T_2 \in \d{t_2}}\\
 &= \int_0^\infty \int_0^{t_2}  \lambda_1 e^{-\lambda_1 t_1} \d{t_1} \, \lambda_2 e^{-\lambda_2 t_2} \d{t_2}.

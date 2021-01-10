@@ -46,10 +46,10 @@ Next, when $X$ and $Y$ are memoryless and iid, it is  tempting to think that
 \E M = \E L  + \E X,
 \end{equation}
 because of  the following interpretation.
-There are two machines each working on a job in parallel.
+There are two machines, each working on a job in parallel.
 Let $X$ and $Y$ be the production times at either machine.
 Then, we first wait until the first job finishes; this time is evidently $L=\min{X, Y}$.
-Then, due to memoryless, the service time of the remaining job `restarts'; this takes an expected time $\E X$ to complete.
+Then, due to memorylessness, the service time of the remaining job `restarts'; this takes an expected time $\E X$ to complete.
 
 Using~\cref{eq:6} and \cref{eq:7}  we can solve for $\E M$ and $\E L$.
 Adding the two equations and canceling $\E L$ at both sides gives $2\E M = 3 \E X $, hence:
@@ -57,23 +57,31 @@ Adding the two equations and canceling $\E L$ at both sides gives $2\E M = 3 \E 
 \E M &= \frac 3 2 \E X,\label{eq:35}\\
 \E L &= \E M - \E X = \frac 1 2 \E X.\label{eq:36}
 \end{align}
+You might want to compare this to BH 7.2.2, where they analyze the case with uniform $X, Y$.
 
-However, as we will see in the first set of exercises below, this is \emph{ not true for discrete} memoryless r.v.s, i.e., when $X, Y \sim \Geo{p}$, while it is true when $X, Y \sim \Exp{\lambda}$, cf., BW Ex.5.6.5.\footnote{BH: Blitzstein and Hwang}
-In the exercises below I try to help you find out why this is so, and how to adapt~\cref{eq:6} and/or \cref{eq:7} so that they also hold when $X,Y\sim\Geo{p}$.
+However, as we will see in the first set of exercises below, this is \emph{ not true for discrete} memoryless r.v.s, i.e., when $X, Y \sim \Geo{p}$, while it is true when $X, Y \sim \Exp{\lambda}$, cf., BH Ex.5.6.5.\footnote{BH: Blitzstein and Hwang}
+In the exercises below, I try to help you find out why this is so, and how to adapt~\cref{eq:6} and/or \cref{eq:7} so that they also hold when $X,Y\sim\Geo{p}$.
 
-Actually, these exercises serve a few much more general goals. They are meant to
+Actually, these exercises serve some much more general goals. They are meant to
 \begin{enumerate}
-\item become familiar with all concepts of Section 7.1 of BH.
+\item become familiar with all concepts  BH 7.1.
 \item  provide a recap of concepts and results of  earlier chapters in the book,
+\item illustrate the change of variables formulas of BH 8.
 \item  motivate to read (and memorize) the material of BH A1, A.2.5, A.6, A.7, A.8, A.9 and A.10.
 \end{enumerate}
-Once you solved all these exercises below, the exercises of BH will be considerably much simpler.
-All exercises have solutions, and focus on computational steps. I will provide motivation and  explanations in the online lectures (on youtube).
+Once you solved all these exercises below, the exercises of BH will be much simpler.
+All exercises below have solutions which focus on the computational steps. I will provide motivation and  explanations in the online lectures.
 
+Below I use the notation $\partial_x = \partial / \partial x$, and $G_{X}(x)=1-F_{X}(x)$ for the survivor function of the r.v. $X$.
 
-I tend to use the following step-wise approach:
+To solve the problems, I often  use the following step-wise approach:
 \begin{enumerate}
-\item To compute probabilities of functions of r.v.s: use the fundamental bridge and the formula
+\item To compute probabilities of functions of r.v.s: I use the fundamental bridge, specifically, for discrete r.v.s
+  \begin{equation}
+    \label{eq:60}
+\P{g(X,Y}\in A\} = \sum_{i}\sum_j \1{(i, j)\in A} \P{X=i, Y=j}, 
+  \end{equation}
+and for continuous r.v.s, 
   \begin{equation}
     \label{eq:55}
     \begin{split}
@@ -81,19 +89,25 @@ I tend to use the following step-wise approach:
 &= \E{\1{g(X,Y)\in A}} \\
 &= \iint \1{g(x,y) \in A} f_{X,Y}(x,y) \d x \d y \\
 &= \iint_{g^{-1}(A)} f_{X,Y}(x, y) \d x \d y,\\
-&= \iint_{\{(x,y): g(x,y) \in A\}} f_{X,Y}(x,y) \d x \d y,
+&= \iint_{\{(x,y): g(x,y) \in A\}} f_{X,Y}(x,y) \d x \d y.
     \end{split}
   \end{equation}
-or the discrete variant of this, and then do the integrals.
-Conceptually this approach is easy, but carrying out the integration is not always simple.
-However, the advantage is that I don't need special tricks to solve the problem; it is just (quite a bit of) straightforward work.
+Conceptually this approach is easy, but simplifying  the summation or integration is not always simple.
+However, the advantage is that I don't need special tricks or knowledge to solve the problem; it's just (quite a bit of) straightforward work.
 With practice, this approach always works.
-\item The joint CDF $F_{X,Y}$ follows from step 1, because $F_{X,Y}(x,y) = \P{X\leq x, Y\leq y}$.
-\item To get the joint density $f_{X,Y}$ say, I often first compute the joint distribution $F_{X,Y}$ and then take partial derivatives.
+\item The joint CDF $F_{X,Y}$ follows from step 1, because $F_{X,Y}(x,y) = \P{X\leq x, Y\leq y} = \E{\1{X\leq x, Y\leq y}}$.
+\item To get the joint density $f_{X,Y}$, I often first compute the joint distribution $F_{X,Y}$ and then take partial derivatives because $f_{X,Y} = \partial_{x}\partial_y F_{X,Y}$.
   This approach is `trick-free', but requires at times the hard work of solving the integrals to find $F_{X,Y}$.
 \end{enumerate}
 
-In the exercises below we first try to see which of~\cref{eq:6} and \cref{eq:7} is (and is not) true for memoryless discrete r.v.s, then we consider memoryless continuous r.v.s. Once we have dealt with these two cases, we can  resolve the confusing problem.
+Solving the exercises of~\cref{sec:exerc-expon-distr} requires quite a lot of technical stuff with integrals.
+With the tools of BH ch 8 this can be done (considerably) easier.
+So we redo the work of~\cref{sec:exerc-expon-distr}, but now with change of variables techniques and densities. Read it once you study BH ch 8.
+
+
+
+
+In the exercises below we first try to see which of~\cref{eq:6} and \cref{eq:7} is  not) true for memoryless discrete r.v.s, then we consider memoryless continuous r.v.s. Once we have dealt with these two cases, we can  resolve the confusing problem.
 
 
 \subsection{Discrete memoryless r.v.s}
@@ -454,7 +468,7 @@ Show that $\E X = 1/\lambda$.
   Use partial integration.
 \end{hint}
 \begin{solution}
-It is essential that  you know all elements of this solution  by heart.
+It is essential that  you know both methods to solve this integral.
   \begin{align}
 \E X 
 &= \int_{0}^{\infty}  x f_{X}(x) \d x  \\
@@ -477,192 +491,134 @@ Substitution is also a very important technique to solve such integrals. Here we
 
 Now we can shift our attention to the r.v.s $L$ and $M$.
 
+
 \begin{exercise}
-  Show that the density $f_{L}(x)$ of $L$ is equal to $2\lambda e^{-\lambda x}$.
-  Use this to see that $L\sim \Exp{2\lambda}$ and that $\E L = 1/(2\lambda)$.
+  Show that $F_L(x) = 1-e^{-2\lambda x}$, hence  $L\sim \Exp{2\lambda}$ and therefore $\E L = 1/(2\lambda)$.
   Realize that with this we have an independent check of~\cref{eq:36}.
-\begin{hint}
-  First compute the distribution $F_L(x)$ of $L$.
-\end{hint}
 \begin{solution}
-  \begin{align}
+Using independence and the specific property of the r.v. $L$ that $\{L>x\} \iff \{X>x, Y>x\}$:
+ \begin{align}
     \label{eq:22}
-\P{L>x}  = \P{X>x, Y> x} = (\P{X>x})^2 = (1-\P{X\leq x})^2= (e^{-\lambda x})^2 = e^{-2\lambda x}.
+G_L(x) = \P{L>x}  &= \P{X>x, Y> x} = G_X(x)^{2} = e^{-2\lambda x}.
   \end{align}
-Hence, $F_{L}(x) = 1-e^{-2 \lambda x}$, hence $L\sim \Exp{2\lambda}$. But then, $f_L(x) = F_L'(x) = 2 \lambda e^{-2\lambda x}$. 
-
-With infinitesimals we can get the same result, but mind, this technique requires some serious thought: 
-\begin{align}
-  \label{eq:24}
-f_L(x) \d x 
-&= \P{L \in [x, x+\d x]} \\
-&= \P{X \in [x, x+\d x], Y > x}  + \P{Y \in [x, x+\d x], X > x} \\
-&= f_X(x)(1-F_Y(x)) + f_Y(x) (1-F_X(x) )\d x \\
-&= 2f_X(x)(1-F_Y(x)) \d x \\
-&= 2 \lambda e^{-\lambda x} e^{-\lambda x} \d x  = 2 \lambda e^{-2 \lambda}\d x.
-\end{align}
-
-
-Thus, 
-  \begin{align}
-\E L
-&= \int_{0}^{\infty}  x f_{L}(x) \d x  \\
-&= \int_{0}^{\infty}  x 2 \lambda e^{-2\lambda x} \d x.
-  \end{align}
-Substitution of $u=2\lambda x$ and using the solution of~\cref{ex:4} gives the answer.
-
+The result follows since  $F_{L}(x) = 1-G_{L}(x)$.
 \end{solution}
 \end{exercise}
 
-
 \begin{exercise}\label{ex:6}
-Compute $F_M(x) = \P{M\leq x}$. With this, show that  $f_{M}(x)=2(1-e^{-\lambda x}) \lambda e^{-\lambda x}$,  and then use this to compute $\E M$ to show that~\cref{eq:35} holds.
+Compute $F_M(v) = \P{M\leq v}$. With this, show that  $f_{M}(v)=2(1-e^{-\lambda v}) \lambda e^{-\lambda v}$,  and then use this to compute $\E M$ to show that~\cref{eq:35} holds.
 \begin{solution}
 Here are two related ways. This is one:
 \begin{align}
-\P{M\leq x}   &= \P{X \leq x, Y \leq x} = (F_{X}(x))^{2},
+\P{M\leq v}   &= \P{X \leq v, Y \leq v} = (F_{X}(v))^{2},
 \end{align}
 since $X, Y$ iid.  
 
-The second is based on~\cref{eq:55}:
+The second is based on the fundamental bridge:
 \begin{align}
-\P{M\leq u}   
-&= \E{\1{M\leq u}} \\ 
-&=\int_0^{\infty} \int_0^{\infty} \1{x\leq u, y\leq u} f_{XY}(x,y) \d x \d y \\
-&= \int_0^{\infty} \int_0^{\infty} \1{x\leq u, y\leq u} f_{X}(x) f_{Y}(y) \d x \d y \\
-&= \int_0^{u} f_{X}(x) \d x \int_0^{u}  f_{Y}(y)  \d y \\
-&= F_{X}(u) F_Y(u) = (F_X(u))^2.
+\P{M\leq v}   
+&= \E{\1{M\leq v}} \\ 
+&=\int_0^{\infty} \int_0^{\infty} \1{x\leq v, y\leq v} f_{XY}(x,y) \d x \d y \\
+&= \int_0^{\infty} \int_0^{\infty} \1{x\leq v, y\leq v} f_{X}(x) f_{Y}(y) \d x \d y \\
+&= \int_0^{v} f_{X}(x) \d x \int_0^{v}  f_{Y}(y)  \d y \\
+&= F_{X}(v) F_Y(v) = (F_X(v))^2.
 \end{align}
 We get the same result.
-
-
 
 Now  the density:
 \begin{align}
   \label{eq:26}
-  f_M(u) = F_M'(u) = 2 F_X(u) f_X(u) = 2(1-e^{-\lambda u}) \lambda e^{- \lambda u}.
+  f_M(v) = F_M'(v) = 2 F_X(v) f_X(v) = 2(1-e^{-\lambda v}) \lambda e^{- \lambda v}.
 \end{align}
-Here is again my favorite method to get the density
-\begin{align}
-  \label{eq:28}
-f_M(u) \d u = \P{M\in [u, u+\d u]}  = 2\P{X\in [u, u+\d u], Y\leq u} = 2 f_X(u) F_X(u)\d u.
-\end{align}
-
- We use the density to  compute the expectation of $M$:
+With this, 
 \begin{align}
   \label{eq:27}
 \E M 
-&= \int_{0}^{\infty} x f_M(x) \d x = \\
-&= 2 \lambda \int_{0}^{\infty} x (1-e^{-\lambda x}) e^{-\lambda x} \d x = \\
-&= 2 \lambda \int_{0}^{\infty} x e^{-\lambda x} \d x -  2 \lambda \int_{0}^{\infty} x e^{-2 \lambda x} \d x \\
+&= \int_{0}^{\infty} v f_M(v) \d v = \\
+&= 2 \lambda \int_{0}^{\infty} v (1-e^{-\lambda v}) e^{-\lambda v} \d v = \\
+&= 2 \lambda \int_{0}^{\infty} v e^{-\lambda v} \d v -  2 \lambda \int_{0}^{\infty} v e^{-2 \lambda v} \d v \\
 &= 2 \E X - \E L, 
 \end{align}
 where the last equality follows from the previous exercises. 
-
 \end{solution}
 \end{exercise}
 
+We can also compute $f_{M}(y)$ (and $f_{L}(x)$ by marginalization of the joint density $f_{L,M}(x,y)$ .
+However, to get $f_{L,M}$, we first need $F_{L,M}$.
 \begin{exercise}
-We can also compute $f_{M}(y)$ (and $f_{L}(x)$) from the joint density $f_{L,M}(x,y)$ by marginalization. For this, use~\cref{eq:55} to rewrite 
+Use the fundamental bridge~\cref{eq:55} to show that
 \begin{equation*}
-  F_{L,M}(x,y) = \P{L\leq x, M\leq y}
+  F_{L,M}(u,v) = \P{L\leq u, M\leq v} = 2\int_0^u (F_Y(v)- F_Y(x)) f_X(x) \d x, 
 \end{equation*}
-in terms of $F_X$ and $F_Y$.
-Once you checked your answer, you might see that you forgot an important condition in the earlier exercises..
-\begin{solution}
-First the joint distribution.
-  \begin{align}
-    \label{eq:51}
-F_{L,M}(x,y) &= \P{L\leq x, M \leq y} \\
-&= 2\P{X \leq x, x < Y \leq y} \\
-&= 2\P{X \leq x} \P{x < Y \leq y} \\
-&= 2 F_{X}(x) (F_Y(y)-F_Y(x)) \1{y>x}.
-  \end{align}
-Note the indicator! 
-Taking partial derivatives,
+with $u\leq v$ (of course). Then take partial derivatives to show that
 \begin{align}
   \label{eq:52}
-f_{L,M}(x,y) 
-&=\partial_x\partial_{y}F_{L,M}(x,y) \\  
-&=\partial_x\partial_{y}2 F_{X}(x) (F_Y(y)-F_Y(x)) \1{y>x}\\
-&=2 \partial_x \left( F_{X}(x) \partial_{y} (F_Y(y)-F_Y(x))  \1 {y>x} \right) \\
-&=2 \partial_x \left( F_{X}(x) f_Y(y)  \1 {y>x} \right)\\
-&= 2f_X(x) f_Y(y)\1{y>x} 
+f_{L,M}(u,v) = 2f_X(u) f_Y(v)\1{u\leq v}.
 \end{align}
-Note that $\partial_x$ means the same as $\frac{\partial}{\partial x}$.
 
-Now,
+\begin{solution}
+First the joint distribution. With $u\leq v$,
+  \begin{align}
+    \label{eq:51}
+F_{L,M}(u,v) &= \P{L\leq u, M \leq v} \\
+&= 2\iint \1{x \leq u, y\leq v, x\leq y} f_{X,Y}(x,y)\d x \d y \\
+&= 2\int_0^u \int_x^v f_Y(y) \d y f_X(x) \d x & \text{independence} \\
+&= 2\int_0^u (F_Y(v)- F_Y(x)) f_X(x) \d x 
+  \end{align}
+Taking partial derivatives,
 \begin{align}
-  \label{eq:54}
-  f_M(y) &=  \int_0^{\infty} f_{L,M}(x,y) \d x \\
-&= 2 \int_0^{y} f_{X}(x) f_Y(y) \d x \\
-&= 2 f_Y(y) \int_0^{y} f_{X}(x) \d x  \\
-&= 2f_Y(y) F_X(y), \\
-f_L(x) &=  \int_0^{\infty} f_{L,M}(x,y) \d y \\
-&= 2 f_{X}(x) \int_x^{\infty} f_Y(y) \d y \\
-&= 2 f_{X}(x) (1-F_Y(x)).
+f_{L,M}(u,v) 
+&=\partial_v\partial_{u}F_{L,M}(u,v) \\  
+&=2 \partial_v\partial_{u} \int_0^u (F_Y(v)- F_Y(x)) f_X(x) \d x  \\
+&=2 \partial_v \left\{(F_Y(v)- F_Y(u)) f_X(u) \right \}  \\
+&=2 f_X(u)\partial_v F_Y(v)  \\
+&=2 f_X(u)f_Y(v)
 \end{align}
-
-
-
 \end{solution}
 \end{exercise}
 
-In Chapter 8 you will learn  how to work with transformations. Do this exercise when you read Chapter 8.
 \begin{exercise}
-Find a function $g$ that maps $X,Y$ to $L,M$. Then compute $f_{L,M}$ by using change of variables. 
+In~\cref{eq:52} marginalize out $L$ to find $f_M$, and marginalize out $M$ to find $f_L$
 \begin{solution}
-We need $g$ first, and then we compute the Jacobian. 
 \begin{align}
-(u,v) = g(x, y) = (\min{x,y}, \max{x,y}).
-\end{align}
-Hence, $g^{-1}(u,v) = \{(u,v), (v, u)\}$; note that this occurs because $g$ is not one-to-one.
-However, this is not a real problem because we can easily keep track of `each branch' of $g^{-1}$. 
-
-Next, noting that $\partial_{x}\min{x,y} = \1{x\leq y}$, 
-\begin{align}
-\frac{\partial (u,v)}{\partial(x,y)} = 
-  \begin{vmatrix}
-    \1{x\leq y} & \1{y<x} \\
-    \1{x > y} & \1{y \geq x} \\
-  \end{vmatrix} = |\1{x\leq y} - \1{x>y}| = 1.
-\end{align}
-
-Now with the change of variable formula (in which I drop the Jacobian right away as it is $1$), 
-\begin{align}
-  \label{eq:30}
-f_{L,M}(u,v) = f_{X,Y}(u,v) + f_{X,Y}(v,u)= 2f_{X,Y}(u,v)\1{u\leq v}.
+  \label{eq:54}
+  f_M(v) &=  \int_0^{\infty} f_{L,M}(u,v) \d u \\
+&= 2 \int_0^{v} f_{X}(u) f_Y(v) \d u \\
+&= 2 f_Y(v) \int_0^{v} f_{X}(u) \d u  \\
+&= 2f_Y(v) F_X(u), \\
+f_L(u) &=  \int_0^{\infty} f_{L,M}(u,v) \d v \\
+&= 2 f_{X}(u) \int_u^{\infty} f_Y(v) \d v \\
+&= 2 f_{X}(u) G_{Y}(u).
 \end{align}
 \end{solution}
 \end{exercise}
 
 We can conclude that~\cref{eq:35} and \cref{eq:36} are correct for $X,Y\sim\Exp{\lambda}$.
 But, I have yet another way to check this, namely, from~\cref{eq:7} I see that $\E{M-L} = \E X$.
+
 Let's try to verify that also.
 For this, we can first compute the conditional density $f_{M-L| L}(y| x)$; once you did the next exercise you will directly see how to compute $\E{M-L}$.
-Besides this, we also have to practice with conditional densities.\footnote{And in BH Chapter 9 of the book you will learn that $\E{M-L\given L} = \E{M-L}$, and for this we also need $f_{M-L|L}$.}
 
 \begin{exercise}\label{ex:5}
-Show that $f_{M-L|L}(y| x) = \lambda e^{-\lambda y}$, i.e., $M-L| L \sim \Exp{\lambda}$.
-\begin{hint}
-Use Bayes' rule, and compute $f_{L, M-L}(x,y)$  first.
-\end{hint}
-\begin{solution}
-  \begin{align}
-    \label{eq:29}
-f_{M-L| L}(y| x) =  \frac{f_{L, M-L}(x, y)}{f_L(x)}.
-  \end{align}
-Clearly, we must first find $f_{L, M-L}(x, y)$. 
-
-First I'll use the standard method.
-This is a bit tricky, because we have to take care of the limits in the integration.
-In itself the idea is not difficult, i.e., compute $F_{L, M-L}(x, y)$, then take partial derivatives, but the technical details require attention.
+Show that 
 \begin{align}  \label{eq:23}
+F_{L,M-L}(x,y) &= (1-e^{-\lambda y})(1- e^{-2\lambda x}) = F_Y(y) F_L(x).
+\end{align}
+% hence, 
+% \begin{align}
+%   \label{eq:25}
+% f_{L, M-L}(x,y )  &= f_L(x)f_Y(y)
+% \end{align}
+Conclude that $M-L$ and $L$ are independent, and $M-L\sim Y$, hence $\E{M-L} = \E Y = \E X$, as $X$ and $Y$ are iid.
+\begin{solution}
+I'll use the standard method, i.e., the fundamental bridge.
+In itself the idea is not difficult, but the technical details require attention, in particular the limits in the integrations.
+\begin{align} 
 \P{L\leq x, M-L\leq y} 
 &= 2\P{X\leq x, Y-X \leq y} \\
 &= 2\int_0^{\infty} \int_0^{\infty} \1{u\leq x, v-u\leq y, u \leq v} f_{X,Y}(u, v)  \d u \d v\\
 &= 2\int_0^{\infty} \int_0^{\infty} \1{u\leq x, v-u\leq y, u\leq v} \lambda^2e^{-\lambda u}e^{-\lambda v}\d u \d v\\
-&= 2\int_0^{x} \int_0^{\infty} \1{u\leq v\leq u+y} \lambda^2e^{-\lambda u}e^{-\lambda v}\d u \d v\\
+&= 2\int_0^{x} \int_0^{\infty} \1{u\leq v\leq u+y} \lambda^2e^{-\lambda u}e^{-\lambda v}\d v \d u\\
 &= 2\int_0^{x} \lambda e^{-\lambda u} \int_u   ^{u + y}  \lambda e^{-\lambda v}\d v \d u\\
 &= 2\int_0^{x} \lambda e^{-\lambda u} (-e^{-\lambda v}) \biggr|_u^{u+y}\d u \\
 &= 2\int_0^{x} \lambda e^{-\lambda u} (e^{-\lambda u} - e^{-\lambda (u+y)})\d u \\
@@ -672,121 +628,52 @@ In itself the idea is not difficult, i.e., compute $F_{L, M-L}(x, y)$, then take
 &= (1-e^{-\lambda y}) ( -e^{-2\lambda u}) \biggr|_0^{x} \\ 
 &= (1-e^{-\lambda y})(1- e^{-2\lambda x}).
 \end{align}
-For the density, we need to take the partial derivatives with respect to $x$ and $y$: 
-\begin{align}
-  \label{eq:25}
-f_{L, M-L}(x,y ) 
-&= \partial_x\partial_{y} F_{L, M-L}(x,y)   \\
-&= \partial_x\partial_{y} (1-e^{-\lambda y})(1- e^{-2\lambda x}) \\
-&= \lambda e^{-\lambda y} 2\lambda  e^{-2\lambda x} \\
-&= f_Y(x) f_L(y).
-\end{align}
-
-If we plug this into~\cref{eq:29} we see that
-  \begin{align}
-f_{M-L| L}(y| x) =  f_Y(y) = \lambda e^{-\lambda y}
-  \end{align}
-We arrive at  the same result as in~\cref{eq:30}. 
-
-\end{solution}
-\end{exercise}
-
-\begin{exercise}
-Use the solution of~\cref{ex:5} to show that $\E{M-L} = \E X$.
-\begin{hint}
-Use the expression of $f_{L, M-L}(x,y)$  to find the density of $f_{M-L}(y)$.
-\end{hint}
-\begin{solution}
-  \begin{align}
-\E{M-L} 
-&= \int_{0}^{\infty} x f_{M-L}(x) \d x.
-  \end{align}
-Next, 
-\begin{align}
-  \label{eq:32}
-f_{M-L}(y) 
-&= \int_0^\infty f_{L, M-L}(x, y) \d x  = \int_0^\infty f_{L}(x) f_Y(y) \d x = f_Y(y) \int_0^{\infty }f_L(x) \d x = f_Y(y).
-\end{align}
-Hence, 
-\begin{align}
-  \label{eq:33}
-  \E{M-L} = \int_0^{\infty} y f_Y(y) \d y = \E Y = \E X. \quad X, Y \iid
-\end{align}
-
-\end{solution}
-\end{exercise}
-
-\begin{exercise}
-Here is another opportunity to check our work, but now with changing variables, cf. Chapter 8.
-Find $f_{L,M-L}(x,y)$ by means of changing of variables from $L,M$ to $L,M-L$.
-\begin{solution}
-  The function $h(x,y)= (x, y-x)\1{x\leq y}$ maps $(L,M)$ to $(L, M-L)$. Then, $h^{-1}(u,v) = (u, u+v)$. For the Jacobian
-  \begin{align}
-    \label{eq:57}
-\frac{\partial (u,v)}{\partial(x,y)} = 
-    \begin{vmatrix}
-      \1{x\leq y} & 0 \\
--\1{x\leq y} & \1{x\leq y}
-    \end{vmatrix} = \1{x\leq y}.
-  \end{align}
-And with this,
-\begin{align}
-  \label{eq:19}
-f_{L, M-L}(u,v) 
-&= f_{L, M}(u, u+v) \1{u\leq u+v}  \\
-&= f_{L,M}(u, u+v) \\
-&= 2 f_{X}(u) f_Y(u+v) \\
-&= 2 \lambda^{2}e^{-2u} e^{-\lambda v} \\
-&= f_{L}(u) f_Y(v).
-\end{align}
-
 \end{solution}
 \end{exercise}
 
 
 We did a number of checks for the case $X, Y, \iid, \sim\Exp{\lambda}$.
-But I have yet another idea to see whether the results we have obtained so far are consistent.
-For this I use BH Ex 5.43 in which it is shown that the geometric distribution is the discrete analog of the exponential distribution. Now I want to see how, by taking proper limits, the results of this section can be obtained as limiting cases of those of~\cref{sec:set-1}. 
+But I have still another idea to see whether the results we have obtained so far are consistent.
+For this I use BH Ex 5.43 in which it is shown that the geometric distribution is the discrete analog of the exponential distribution.
+Now I want to see that  by taking proper limits, I can  obtain the same results.
 
 More specically, I want to see intuitively\footnote{A formal proof is too hard for this course.} how $X\sim \Geo{\lambda/n}$ approaches  $Y\sim\Exp{\lambda}$ as $n\to\infty$.
 
 \begin{exercise}\label{ex:7} 
 Divide the interval $[0, \infty)$ into many small intervals of length $1/n$.
-Let  $X\sim \Geo{\lambda/n}$ for some $\lambda>0$ and $n\gg 0$, take  some $x\geq 0$,  let $i$ be such that $x\in[i/n, (i+1)/n)$.
-Then show that 
+Let  $X\sim \Geo{\lambda/n}$ for some $\lambda>0$ and $n\gg 0$. Then take  some $x\geq 0$ and  let $i$ be such that $x\in[i/n, (i+1)/n)$.
+Show that 
 \begin{align}\label{eq:53}
 \P{X/n \approx x} \approx \frac{\lambda} n \left(1-\frac \lambda n\right)^{xn}.
 \end{align}
 \begin{solution}
 First, 
 \begin{align}
-\P{X/n \approx x} &= \P{X/n \in [i/n, (i+1)/n]} = \P{X \in [i, i+1]} = p q^{i} \approx p q^{n x}.
+\P{X/n \approx x} &= \P{X/n \in [i/n, (i+1)/n]} = \P{X \in [i, i+1]} = p q^{i} \\
+&\approx p q^{n x} = \frac{\lambda} n \left(1-\frac \lambda n\right)^{xn},
 \end{align}
-Now take $p=\lambda/n$ and $q=1-p=1-\lambda/n$, then,
-\begin{equation}
-\P{X/n \approx x} \approx \frac{\lambda} n \left(1-\frac \lambda n\right)^{xn}.
-\end{equation}
+since $p=\lambda/n$, $q=1-p=1-\lambda/n$, and $i=nx$.
 \end{solution}
 \end{exercise}
-From BH.A.2.5, $\lim_{n\to\infty}(1-\lambda/n)^{n} = e^{-\lambda}$, which is a standard limit but, interestingly, not entirely trivial to prove.\footnote{If you like mathematics, check the neat proof in Rudin's Principles of mathematical analysis.}
-Next, by introducing the highly intuitive definition $\d x = \lim_{n\to \infty} 1/n$, it follows from~\cref{eq:53} that 
+From BH.A.2.5, $\lim_{n\to\infty}(1-\lambda/n)^{n} = e^{-\lambda}$.\footnote{This is a standard limit but not entirely trivial to prove.If you like mathematics, check the neat proof in Rudin's Principles of mathematical analysis.}
+Next, by introducing the highly intuitive definition $\d x = \lim_{n\to \infty} 1/n$, it follows from~\cref{eq:53} that
 \begin{align}
-\P{X/n \approx x} \to \lambda e^{-\lambda x} \d x,\quad\text{ as } n \to \infty.
+\P{X/n \approx x} \to \lambda e^{-\lambda x} \d x = f_{X}(x) \d x,\quad\text{ as } n \to \infty.
 \end{align}
-In fact, working with infinitesimals such as $\d x$ is one of my favorite methods, for instance to derive densities.
-The intuition is that $\d x$ is some really small number but not zero.
-In a tiny bit more formal words, $0<\d x < 1/n$ for any $n$, but $\d x \neq 0$.
-For details, check out the web; search on `nonstandard calculus'.
-However, while the method is very intuitive, it's easy to mess up. (Power tools are nice, but often only when you know how to handle them and practice a lot.) 
-If you don't want to learn this, no problem, it will not be part of the course proper.
+% In fact, working with infinitesimals such as $\d x$ is one of my favorite methods, for instance to derive densities.
+% The intuition is that $\d x$ is some really small number but not zero.
+% In a tiny bit more formal words, $0<\d x < 1/n$ for any $n$, but $\d x \neq 0$.
+% For details, check out the web; search on `nonstandard calculus'.
+% However, while the method is very intuitive, it's easy to mess up. (Power tools are nice, but often only when you know how to handle them and practice a lot.) 
+% If you don't want to learn this, no problem, it will not be part of the course proper.
 
-In fact, if you don't like infinitesimals, it is also possible obtain this limit with moment-generating functions (and we can practice with this function again).
+If you don't like this trick with $\d x$, is also possible obtain this limit with moment-generating functions.
 
 \begin{exercise}
 Derive the moment-generating function $M_{X/n}(s)$ of $X/n$ when $X\sim \Geo{p}$.
 Then, let $p = \lambda/n$, and show that $\lim_{n\to\infty}M_{X/n}(s) = M_{Y}(s)$, where $Y \sim \Exp{\lambda}$.
 \begin{hint}
-  Use that, as in the Poisson distribution, $e^{-\lambda} = \sum_{i=0}^{\infty}\lambda^{i}/i!$.
+  If you recall the Poisson distribution, you know that $e^{\lambda} = \sum_{i=0}^{\infty}\lambda^{i}/i!$.
   In fact, this precisely Taylor's expansion of $e^{s/n}$.
 \end{hint}
 \begin{solution}
@@ -844,9 +731,8 @@ Now observe that the second term, proportional to $\d x^{2}$ can be neglected.
 All in all, we have checked and double checked all our expressions and limits for the geometric and exponential distribution.
 We had success too: the solution of the last exercise provides the key to understand why~\eqref{eq:6} and \eqref{eq:7} are true for exponentially distributed r.v.s, but not for geometric random variables.
 In fact, in the solutions we can see the term corresponding to $X=Y=i$ for $X,Y\sim \Geo{p}$ becomes negligibly small when $n\to 0$.
-In words, the probability that $X$ and $Y$ are the same is non-negligible when they are discrete, but it is when $X$ and $Y$ are continuous.
+In other words, $\P{X=Y}>0$  when $X$ and $Y$ are discrete, but $\P{X=Y}=0$ when  $X$ and $Y$ are continuous.
 So, to resolve our leading problem we should exploit that idea.
-
 \subsection{The solution}
 \label{sec:solution}
 
@@ -952,6 +838,131 @@ It took me a long time, and a lot of work, to understand how to resolve the conf
 Perhaps how to tackle this problem is clear to any other person, but I had a nice time working on it, and I learned a lot.
 In particular, I find~\cref{eq:44} a nice and revealing equation.
 
+
+
+\subsection{Working with densities}
+
+You should notice that working with densities is often easier than working with the fundamental bridge because you can work with equalities rather than inequalities.
+However, don't forget to properly scale lengths and areas; use the Jacobian!
+
+
+\begin{exercise}
+Derive the density $f_L(u)$ from the joint density $f_{X,Y}$.
+\begin{solution}
+Hence, with $u=x$,
+\begin{align}
+\P{L \approx u} = 2 \P{X \approx x, Y > x}. 
+\end{align}
+Hence, as $u=x \implies \d u/\d x = 1$, 
+\begin{align*}
+  f_{L}(u) \d u = 2f_{X}(x) G_{Y}(x) \d x \implies   f_{L}(u)  = 2f_{X}(u) G_{Y}(u).
+\end{align*}
+\end{solution}
+\end{exercise}
+
+\begin{exercise}\label{ex:6}
+Derive the density $f_M(v)$ from the joint density $f_{X,Y}$.
+\begin{solution}
+With $v=y$
+\begin{align}
+\P{M \approx v} = 2 \P{X \leq v, Y \approx v}. 
+\end{align}
+As $v=y \implies \d v/\d y = 1$, 
+\begin{align}
+f_M(v) \d v =  2F_{X}(y) f_{Y}(x)\d x \implies f_M(v) =  2F_{X}(v) f_{Y}(v).
+\end{align}
+\end{solution}
+\end{exercise}
+
+\begin{exercise}
+Find a function $g$ that maps $X,Y$ to $L,M$. Then compute $f_{L,M}$ by using change of variables. 
+\begin{solution}
+We need $g$ first, and then we compute the Jacobian. 
+\begin{align}
+(u,v) = g(x, y) = (\min{x,y}, \max{x,y}).
+\end{align}
+Hence, $g^{-1}(u,v) = \{(u,v), (v, u)\}$; note that this occurs because $g$ is not one-to-one.
+However, this is not a real problem because we can easily keep track of `each branch' of $g^{-1}$. 
+
+Next, noting that $\partial_{x}\min{x,y} = \1{x\leq y}$, 
+\begin{align}
+\frac{\partial (u,v)}{\partial(x,y)} = 
+  \begin{vmatrix}
+    \1{x\leq y} & \1{y<x} \\
+    \1{x > y} & \1{y \geq x} \\
+  \end{vmatrix} = |\1{x\leq y} - \1{x>y}| = 1.
+\end{align}
+
+Now with the change of variable formula in which I drop the Jacobian right away as it is $1$ and substitute $u=x$ and $y=v$,
+\begin{align}
+  \label{eq:30}
+f_{L,M}(u,v)\1{u\leq v} = 2f_{X,Y}(u,v)\1{u\leq v}.
+\end{align}
+\end{solution}
+\end{exercise}
+
+
+
+\begin{exercise}
+Here is another opportunity to check our work, but now with changing variables, cf. Chapter 8.
+Find $f_{L,M-L}(x,y)$ by means of changing of variables from $L,M$ to $L,M-L$.
+\begin{solution}
+  The function $h(x,y)= (x, y-x)\1{x\leq y}$ maps $(L,M)$ to $(L, M-L)$. Then, $h^{-1}(u,v) = (u, u+v)$. For the Jacobian
+  \begin{align}
+    \label{eq:57}
+\frac{\partial (u,v)}{\partial(x,y)} = 
+    \begin{vmatrix}
+      \1{x\leq y} & 0 \\
+-\1{x\leq y} & \1{x\leq y}
+    \end{vmatrix} = \1{x\leq y}.
+  \end{align}
+And with this,
+\begin{align}
+  \label{eq:19}
+f_{L, M-L}(u,v) 
+&= f_{L, M}(u, u+v) \1{u\leq u+v}  \\
+&= f_{L,M}(u, u+v) \\
+&= 2 f_{X}(u) f_Y(u+v) \\
+&= 2 \lambda^{2}e^{-2u} e^{-\lambda v} \\
+&= f_{L}(u) f_Y(v).
+\end{align}
+
+\end{solution}
+\end{exercise}
+
+
+Now two exercises just to practice with the method.
+
+\begin{exercise}
+Compute $f_{L^2}(l)$, where $L=\min{X,Y}$ and $X, Y$ iid $\sim \Exp{\lambda}$. 
+\begin{solution}
+With $l = x^{2}, x\leq y$
+\begin{align*}
+f_{L^2}(l) \d l = 2f_{X}(x) G_{Y}(x) \d x.
+\end{align*}
+As $\d l/\d x = 2 x = 2 \sqrt l$, 
+\begin{align*}
+f_{L^2}(l)  = 2f_{X}(\sqrt{l}) G_{Y}(\sqrt l ) \d x / \d l = f_{X}(\sqrt{l}) G_{Y}(\sqrt l ) /\sqrt l.
+\end{align*}
+\end{solution}
+
+\end{exercise}
+
+
+\begin{exercise}
+We have three r.v.s, $X, Y, Z$, iid. Let $L=\min{X, Y, Z}$ and $M=\max{X, Y, Z}$. Find $f_{L,M}(u,v)$.
+\begin{solution}
+There are $3!$ ways to order $X, Y, Z$. Therefore, with $u=x \leq y \leq z = v$,
+\begin{align*}
+  f_{L,M}(u,v) \d u \d v= 6 f_{X}(x) (F_{Y}(z)-F_{Y}(x)) f_{Z}(z) \d x \d z
+\end{align*}
+Since $\partial(u,v)/\partial (x, z) = 1$, 
+\begin{align*}
+  f_{L,M}(u,v)\1{u\leq v}= 6 f_{X}(u) (F_{Y}(v)-F_{Y}(u)) f_{Z}(v)\1{u\leq v}.
+\end{align*}
+
+\end{solution}
+\end{exercise}
 
 
 

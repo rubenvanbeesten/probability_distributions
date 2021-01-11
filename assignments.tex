@@ -1,5 +1,5 @@
 \documentclass[a4paper]{article}
-
+\newcommand{\wk}[1]{\textbf{#1}} 
 %\usepackage[all-solutions-at-end]{optional}
 \usepackage[check]{optional}
 
@@ -59,15 +59,15 @@ print(I)
 \end{exercise}
 
 \begin{exercise}
-We throw an unbiased dice with six sides; the result of the $i$th throw is $X_i$. 
+We throw an unbiased die with six sides; the result of the $i$th throw is $X_i$. 
 \begin{enumerate}
 \item What is the sample space of the two throws $(X_{1}, X_2)$?
 \item What is the joint CDF?
 \item What is the joint PMF?
 \item  Marginalize out $X_2$ to show that $\P{X_1=5} = 1/6$.
-\item Use the fundemental bridge and indicators to compute $\P{X_1>X_2}$.
-\item Use the fundemental bridge and indicators to compute $\P{|X_1-X_2| < 1 } = 1/6$.
-\item Use the fundemental bridge and indicators to compute $\P{|X_1-X_2|\leq 1 }$.
+\item Use the fundamental bridge and indicators to compute $\P{X_1>X_2}$.
+\item Use the fundamental bridge and indicators to compute $\P{|X_1-X_2| < 1 } = 1/6$.
+\item Use the fundamental bridge and indicators to compute $\P{|X_1-X_2|\leq 1 }$.
 \item Use simulation to estimate  $\P{|X_1-X_2|\leq 1 }$.
 \end{enumerate}
 \end{exercise}
@@ -75,13 +75,13 @@ We throw an unbiased dice with six sides; the result of the $i$th throw is $X_i$
 \begin{exercise}
 We select a random married couple (a man and a woman). His height is $X\sim \Norm{1.8, 0.1}$, her height is $Y\sim \Norm{1.7, 0.08}$ in meters. 
 \begin{enumerate}
-\item What is the sample space of $(X, X$?
+\item What is the sample space of $(X, Y)$?
 \item What is the joint CDF?
 \item What is the joint PDF?
 \item  Marginalize out $Y$ to show that $X\sim \N{1.8, 0.1}$.
-\item Use the fundemental bridge and indicators to write  $\P{X>X}$ as an integral.
-\item Use the fundemental bridge and indicators to write  $\P{|X-Y| < 0.1 }$ as an integral.
-\item Use a numerical integrator to compute the probability of the previous part
+\item Use the fundamental bridge and indicators to write  $\P{X>Y}$ as an integral.
+\item Use the fundamental bridge and indicators to write  $\P{|X-Y| < 0.1 }$ as an integral.
+\item Use a numerical integrator to compute the probability of the previous part.
 \item Use simulation to estimate the probability of the previous part.
 \end{enumerate}
 \end{exercise}
@@ -93,14 +93,14 @@ Comment on this claim: Is it true, why, if it false, why, and what information d
 \end{exercise}
 
 \begin{exercise}
-Take $X\in\{-2, -1, 1, 2\}$ and $\eta = X^2$. What is the correlation coefficient of $X$ and $\eta$? Comment on your answer. 
+Take $X\in\{-2, -1, 1, 2\}$ and $\eta = X^2$. What is the correlation coefficient of $X$ and $\eta$? Comment on your answer. \wk{Is $X$ uniformly distributed on $\{-2, -1, 1, 2\}$? Or should an arbitrary distribution with support $\{-2, -1, 1, 2\}$ be considered?}
 \end{exercise}
 
 \begin{exercise}
 This is about the simplest model for an insurance company that I can think of.
 We start with an initial capital $I_0=2$.
 The company receives claims and contributions every period, a week say.
-In the $i$th period, we receive a contribution $X_{i}$ uniform on the set $\{1, 2,\ldots,10$ and a claim $C_i$ uniform on $\{0, 1, \ldots 8$.
+In the $i$th period, we receive a contribution $X_{i}$ uniform on the set $\{1, 2,\ldots,10\}$ and a claim $C_i$ uniform on $\{0, 1, \ldots 8\}$.
 \begin{enumerate}
 \item What is the meaning of $I_1=I_0+X_1-C_1$?
 \item What is the meaning of $I_2=I_1+X_2-C_2$?
@@ -125,20 +125,20 @@ In the $i$th period, we receive a contribution $X_{i}$ uniform on the set $\{1, 
 \begin{exercise}
 We have a machine that consists of two components. The machine works as long as not both components have failed. Let $X_i$ be the lifetime of component $i$. 
 \begin{enumerate}
-\item What is the interpreation of $\min{X_1, X_{2}}$?
-\item What is the interpreation of $\max{X_1, X_{2}}$?
-\item If $X_1, X_2$ idd $\sim \Exp{10}$ (in hours), what is the expected time until the machine fails? 
-\item If $X_1, X_2$ idd $\sim \Exp{10}$ (in hours), what is the probability that the machine is still `up' (i.e., not failed) at time $T=50$? 
-\item If $X_1\sim \Exp{10}$, $X_2 \sim \Norm{20, 3}$, use simulation to estimate the expected time to fail. time $T=50$? 
-\item If $X_1\sim \Exp{10}$, $X_2 \sim \Norm{20, 3}$, use simulation to determine  the probability that the machine is still `up' (i.e., not failed) at time $T=50$? 
+\item What is the interpretation of $\min{X_1, X_{2}}$?
+\item What is the interpretation of $\max{X_1, X_{2}}$?
+\item If $X_1, X_2$ iid $\sim \Exp{10}$ (in hours), what is the expected time until the machine fails? 
+\item If $X_1, X_2$ iid $\sim \Exp{10}$ (in hours), what is the probability that the machine is still `up' (i.e., not failed) at time $T=50$? 
+\item If $X_1\sim \Exp{10}$, $X_2 \sim \Norm{20, 3}$, use simulation to estimate the expected time until the machine fails.
+\item If $X_1\sim \Exp{10}$, $X_2 \sim \Norm{20, 3}$, use simulation to determine the probability that the machine is still `up' (i.e., not failed) at time $T=50$. 
 \end{enumerate}
 \end{exercise}
 
 \begin{exercise}
 Let $X$ be the result of the throw of a coin.
 It is given that $\P{X=H} = p = 1-\P{X=T}$.
-When $X=H$, we choose a fair dice with 4 sides with values $1,2,3,4$, when $X=T$ we choose a fair dice with 6 sides with values $1,\ldots,6$.
-Let $Y_i$ be the value of the $i$th throw with the dice.
+When $X=H$, we choose a fair die with 4 sides with values $1,2,3,4$, when $X=T$ we choose a fair die with 6 sides with values $1,\ldots,6$.
+Let $Y_i$ be the value of the $i$th throw with the die.
 \begin{enumerate}
 \item What is the PMF of $X$ and $Y_1$?
 \item Marginalize  the answer of part a to show that $\P{X=H} = p$. 

@@ -455,7 +455,12 @@ Let $X, Y$ iid $\sim \Unif{[0,1]}$.
 \label{sec:orgbbfd4db}
 
 
-\subsubsection{Exercises}
+
+\section{Lots of  ideas, very messy currently}
+\label{sec:lots-ideas-very}
+
+
+\subsection{Empirical distribution functions}
 \label{sec:org27b4ea4}
 \begin{exercise}
 Make a graph of the empirical and theoretical distrribution for $n=250$, i.e. the size of $A$ is 250, of $X$ and the theoretical distribution. Explain what we can see in this graph. 
@@ -479,20 +484,6 @@ Take the arrival times as normally distributed with mean $\mu=7.5$ and $\sigma=3
 \end{exercise}
 
 Normally distributed, early and late arrivals, i.e., \(\mu\) = 7.5 and \(\sigma\) = 5, and then merge the ones that are in time with the ones that are late and early. 
-
-\subsubsection{Hospital planning}
-\label{sec:org797c22e}
-
-\subsubsection{Busy hours and different arrival rates}
-\label{sec:org67a19a4}
-
-
-\begin{itemize}
-\item change the number of arrivals \(n\),
-\item the arrival rate
-\item size of period to count the number of arrivals, relation to Poisson distribution.
-\end{itemize}
-
 
 
 
@@ -568,6 +559,7 @@ Hence, the device cannot easily measure inter-arrival times longer than 1 minute
 
 
 
+
 \section{A/B testing}
 \label{sec:org180b96a}
 \subsubsection{Introduction}
@@ -603,4 +595,138 @@ Som 7.48 gaat over hoeveel maxima optreden. Wat is de verdeling van de maxima? W
 
 \subsection{Random variable code en die van Niels}
 \label{sec:org57ced54}
+
+\section{Maximum of independent r.v.s; Example 5.6.5}
+\label{sec:orgb2a351d}
+
+\begin{enumerate}
+\item Make 1d array of uniform 0,1 random rvs
+\item compute mean and variance
+\item Why include a seed
+\item include seed
+\item Make [n, p] matrix, n samples along rows
+\item Sort along axis  1
+\item Sort along axis 0
+\item Compute mean and std along axis 0
+\item Make large number of data, with e.g sample-no = 1000, and redo the above
+\item Change to exponential distribution
+\item Show how to use the online documentation for np.random.exponential
+\item Show the effect of the scale parameter
+\item Compare mean to theoretical value
+\item Change to geometric distribution
+\end{enumerate}
+
+
+\subsubsection{code}
+\label{sec:orga01964c}
+
+
+\begin{minted}[]{python}
+import numpy as np
+
+np.random.seed(3)
+
+sample_no = 300
+rvs_no = 2
+
+#a = np.random.uniform(size=[sample_no, rvs_no])
+labda = 2
+a = np.random.exponential(scale=labda, size=[sample_no, rvs_no])
+a.sort(axis=1)
+#a
+a.mean(axis=0), a.std(axis=0)
+\end{minted}
+
+\begin{minted}[]{python}
+labda/2, 3*labda/2
+\end{minted}
+
+
+\section{Arithmetic with discrete r.v.s}
+\label{sec:orgb53976d}
+
+
+Bekijken het maximale verschil van de verdeling van de som van 3 uniformen, en de normale verdeling. 
+
+afrondregels, bijv \(2.11*3= 6\), omdat \(3\) maar op 1 digit bekend is. Wat is de kwaliteit van deze afrondregel?
+
+\section{Ping pong balls in an Airbus Beluga, Example 7.1.25}
+\label{sec:org08202e8}
+
+How many ping pong balls fit into an Airbus Beluga? One way to answer this is as follows. According to this \href{https://en.wikipedia.org/wiki/Airbus\_Beluga}{wikipage} the cargo volume of this airplane is 1500 m\textsuperscript{3}. But this volume is based on the physical dimensions that is available to store containers, tanks, and so on. So, I estimate the volume as twice that amount, i.e., 3000 m\textsuperscript{3}. The volume of a ping pong ball is 4  \(\pi\) r\textsuperscript{3}/3 = \texttt{33.5} cm\textsuperscript{2} with \(r=2\) cm.  A plain division gives
+\texttt{90000000.0}  balls. (I do not take into the sphere packing factor.)
+
+But, I know that the volume of the plane and a ping pong ball is an estimate, rather than a precise number, such as I assumed just above. It seems reasonable to approximate both as a random variable. So, writing \(V\) for the volume of the plane, and \(v\) for a ping pong ball, assume that
+   \begin{align*}
+V &\sim N(2500, 500), & v\&sim N(33.5, 0.5),
+\end{align*}
+where the variances express my trust in my guess work. Then, the number of balls \(N\) is \(N = V/v\). 
+Characterize the mean and variance of this answer.
+
+How does this relate to by Example 7.1.25? There, \(\E N = \infty\), but 
+
+More generally,  check density for sum,product, and ratio of two normal (or other distributions)  by means of simulations.
+
+\begin{minted}[]{python}
+3000*10**6/33.5
+\end{minted}
+
+
+\section{Bayes' Billiards}
+\label{sec:orgf93559e}
+Take \(n=100\) samples. 
+
+\subsection{One coin}
+\label{sec:org1e9a031}
+\begin{enumerate}
+\item Take success probability \(p=1/2\).
+\item Make matrix with \(n\) rows, \(n\) columns. Each row is an experiment of \(n\) throws of the coin.
+\item Plot the histogram of the number of heads.
+\end{enumerate}
+
+\subsection{Three coins}
+\label{sec:orga657159}
+\begin{enumerate}
+\item Take three coins with success probabilities \(p=1/4, 1/2, 3/4\).
+\item Make a simulation for each coin.
+\item If we select a coin with probability \(1/3\), the total histogram is the 1/3 times the sum of the histograms of each of the coins. That is, \(\P{X=k} = \P{X=k|C = i}\P{C=i}\), where \(C\) is one of chosen coins;  here we take \(\P{C=i} = 1/3\).
+\end{enumerate}
+
+\subsection{five coins}
+\label{sec:orga1a3b28}
+\begin{enumerate}
+\item Select with uniform probability one out of five coins with success probabilities \(p=i/5\),  \(i=1,\ldots, 5\).
+\item Make a simulation for each coin.
+\item Make the histogram \(\P{X=k} = \P{X=k|C = i}\P{C=i}\), where \(\P{C=i} = 1/5\).
+\end{enumerate}
+
+\section{Bootstrapping example}
+\label{sec:org6006a3a}
+
+\section{Code of others}
+\label{sec:org9764e8d}
+
+With a bit of searching you find lots of information, which is perhaps  useful;  use it at your own risk!
+
+\begin{itemize}
+\item \url{https://github.com/buruzaemon/stats-110}
+\item \url{https://github.com/buruzaemon/IntroductionToProbabilityPy}
+\end{itemize}
+
+
+
+
+\section{The baker of Poincare}
+\label{sec:org94bc890}
+
+
+Henri Poincaré was a French mathematician who taught at the Sorbonne around 1900. The following anecdote about him is probably fabricated, but it makes an interesting probability problem.
+Supposedly Poincaré suspected that his local bakery was selling loaves of bread that were lighter than the advertised weight of 1 kg, so every day for a year he bought a loaf of bread, brought it home and weighed it. At the end of the year, he plotted the distribution of his measurements and showed that it fit a normal distribution with mean 950 g and standard deviation 50 g. He brought this evidence to the bread police, who gave the baker a warning.
+For the next year, Poincaré continued the practice of weighing his bread every day. At the end of the year, he found that the average weight was 1000 g, just as it should be, but again he complained to the bread police, and this time they fined the baker.
+
+
+Why? Because the shape of the distribution was asymmetric. Unlike the normal distribution, it was skewed to the right, which is consistent with the hypothesis that the baker was still making 950 g loaves, but deliberately giving Poincaré the heavier ones.
+Exercise 5.6 Write a program that simulates a baker who chooses n loaves from a distribution with mean 950 g and standard deviation 50 g, and gives the heaviest one to Poincaré. What value of n yields a distribution with mean 1000 g? What is the standard deviation?
+\end{document}
+
 \end{document}

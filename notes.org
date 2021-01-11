@@ -723,7 +723,6 @@ f_{Y}(y) = \sum_{x_{i}: g(x_{i})=y}f_{X}(x_{i})\frac 1{|g'(x_{i})|}.
 
 There is a simple way to  memorize this. We have that $g(x) = y$ and we want the probability to be conserved under the transformation $g$. From this,
 \begin{align*}
-\begin{align*}
 f_Y(y)\d y = f_X(x) \d x \implies f_{Y}(y) = f_X(x)\frac{\d x}{\d y}.
 \end{align*}
 
@@ -1229,29 +1228,22 @@ Skip the b part. The problem is not well-specified. Suppose the drunk hits $b$ a
 
 For 9.1.10.b, a more useful problem is to compute $\E T$, i.e., the expected time to hit $b$ for the first time, assuming the drunk stays on $0,\dots, b$, starts at some level $a$, and $\E T < \infty$.
 
-** TODO Definition 9.2.1
+** Definition 9.2.1
 This definition is subtle, and it takes time to understand.
-Here is a slightly different explanation (For me, different explanations often helps to understand; if one does not stick, often another one does.)
+Here is a slightly different explanation; perhaps it's useful for you.
 Take some random variable $X$, say.
-Then, as in Chapter 7, or in Example 9.1.7, we are interested in the expectation of $g(X)$.
-Specifically, for Example 9.1.7, I computed above the expectation of $g(V)$ with $g(v)= (v-b)\1{\alpha v\leq b}$.
+Then, as in Chapter 7,  we can be interested in  $\E{g(X)}$, i.e., the expectation of the /random variable/ $g(X)$.
+As another example, in  Example 9.1.7, I computed $\E{g(V)}$ with $g(v)= (v-b)\1{\alpha v\leq b}$, and $V$ as r.v.
 
-For conditional expectation, we can compute $\E{Y \given X=x}$, that is, we compute $\int f_{Y| X}(y | x) \d y$ when $Y$ is continuous.
-Observe now that this is just a function of $x$: $g(x) = \int f_{Y| X}(y | x)\d y$. And, as earlier, we can be interested in computing the expectation of $g(X)$. It is true that $X$ plays some sort of double role---first we use it in the conditioning to find $g$, and then we plug it into  $g$ again---and this is perhaps confusing. But I finally `got  it', when I understood that $g$ can be interpreted as just some function, and then we compute $\E{g(X)}$.
+When $Y$ is continuous we can compute $\E{Y \given X=x}$ with  the conditional CDF
+\begin{align*}
+\E{Y\given X=x } =\int f_{Y| X}(y | x) \d y.
+\end{align*}
+(For discrete r.v., replace the integral by the PMF.)
+Observe that this is /just a function of $x$/; define this function as $g(x) = \int f_{Y| X}(y | x)\d y$. And now, as before, we consider the random variable $g(X)$, and give this r.v. a name: the conditional expectation of $Y$ given $X$. 
 
-The letter $E$ is a bit overloaded at times. Sometimes we take the expectation with respect to the joint PMF, sometimes with respect to $f_X$, sometimes with respect to $f_{Y|X}$. It can be helpful to label the expectation to make explicit what we mean. For instance, in
-\begin{align*}
-\E{Y\given X} = \int y f_{Y|X}(y|x) \d y
-\end{align*}
-we integrate over $y$, /not/ over  $x$ and $y$, while in
-\begin{align*}
-\E{Y} = \iint y f_{X,Y}(x, y) \d x \d y = \int y f_Y(y) \d y,
-\end{align*}
-we do integrate over $x$ and $y$, and use marginalization to obtain the second equation. Hence, it might be helpful to write $\E{Y\given X}{Y}$ in the former to show that intgegrate over $y$. And then it is clear that
-\begin{align*}
-\E Y = \E{\E{Y|given X}{Y}}{X},
-\end{align*}
-because in the RHS the last expectation is over $x$ (with density $f_X$). 
+It is true that $X$ plays some sort of double role---first we use it in the conditioning in the definition of the function $g$, and then we plug it into  $g$ again---and this is perhaps confusing. But I finally `got  it', when I understood that $g$ can be interpreted as just some function. And then we compute $\E{g(X)}$, and so on.
+
 
 
 *** Warning 9.2.2
@@ -1360,51 +1352,87 @@ Then, use independence to simplify $\E{e^{s T}\given N = n}$ to $\left(\E{e^{s X
 *** 9.37
 Bootstrapping is used in statistics to, for instance, construct confidence intervals. It is a much used and intuitive technique. The extra exercise below helps you to recall some ideas of Ch 1.
 
-I like to work with a, so-called, /common/ r.v.
-We say that the r.v.s $X_i$ are independent and identically distributed as the common r.v.
-$X$, which means that $X_i\sim F_X$ with $F_X$ the CDF of the r.v.
-$X$.
-I write $X^{*}$ for the common r.v.
-of $X^{*}_j$.
+# I like to work with a, so-called, /common/ r.v.
+# We say that the r.v.s $X_i$ are independent and identically distributed as the common r.v.
+# $X$, which means that $X_i\sim F_X$ with $F_X$ the CDF of the r.v.
+# $X$.
+# I write $X^{*}$ for the common r.v.
+# of $X^{*}_j$.
 
-Here are the solution; for the moment, I don't know a set of good hints to coach to the answer. If you do, tell me.
+I prefer to write $Y_{j}= X_j^{*}$, as this writes (and types) easier. 
+
+Here are the solution; for the moment, I don't know a set of good hints to coach to the answer.
+If you do, tell me.
+It took me quite a bit of effort to get the details right.
 
 **** a. 
 
 # Here you should assume that the $X_i$ are not yet known. Thus, the expectation over $X_i$ is taken with respect to the CDF $F_X$. 
 
-Suppose $S_{j}\sim \DUnif{\{1, \ldots, n\}}$ is the \(j\)th sample. Then, $X_j^{*} = \sum_{i=1}^n X_i\1{S_j = i}$. And then, using the independence of $X_j$ and $S_j$, 
+Suppose $S_{j}\sim \DUnif{\{1, \ldots, n\}}$ is the \(j\)th sample. Then, $Y_j = \sum_{i=1}^n X_i\1{S_j = i}$. And then, using the independence of $X_j$ and $S_j$, and $\1{S_j=i}\1{S_j=k} = 0$ if $i\neq k$,
 \begin{align*}
-\E{X_j^*}&= \sum_i \E{X_i}\E{\1{S_{j}=i}} = \mu, \\
-\V{X_j^*}&= \E{(\sum_{i} X_{i}\1{S_j=i})^{2}} - (\E{X_{j}})^{2}=  \E{X^2} - \mu^2=\sigma^{2}.
+\E{Y_j}&= \sum_i \E{X_i}\E{\1{S_{j}=i}} = \mu, \\
+\V{Y_j}&= \E{(\sum_{i} X_{i}\1{S_j=i})^{2}} - (\E{X_{j}})^{2} \\
+&=\E{\sum_{i} X_{i}^{2} \1{S_{j}=1} + \sum_i\sum_{k\neq i} X_iX_k \1{S_j=i}\1{S_j=k}} - \mu^{2} \\
+&= \sum_{i} \E{X^2_{i}}\E{\1{S_j}=1} - \mu^2 \\
+&= \frac 1 n \sum_{i} \E{X^2_{j}} - \mu^2  = \sigma^{2.}
 \end{align*}
 
 
-**** TODO b. 
+**** b. 
 
-Now we are given the outcomes (samples) $X_i=x_i$ of $n$ experiments. 
+Now we are given the outcomes (samples) $X_i=x_i$ of $n$ experiments.
+I prefer to write $\EE{D}{Y} = \E{Y\given X_{1},\ldots, X_{n}}$.
+It is shorter, and by labeling the expectation with the data $D=\{X_{1},\ldots, X_{n}\}$, I am reminded that the expectation is taken only with respect to the random variables $S_{j}$ (the data $D$ is considered fixed).
 
 \begin{align*}
-\E{\hat X^{*}\given X_1,\ldots,X_n} &=  \frac 1 n \E{\sum_{j} X^{*}_j\given X_1,\ldots,X_n} 
-=\frac 1 n \E{\sum_{j} \sum_{i} X_{i} \1{S_j=i}\given X_1,\ldots,X_n}  \\
-& =\frac 1 n \sum_{i} X_{i} \sum_{j}\E{\1{S_j=i}}  
- =\frac 1 n \sum_{i} X_{i}.
+\EE{D}{\bar Y} &=  \EE{D}{\frac 1 n \sum_{j} Y_j} 
+=\frac 1 n \EE{D}{\sum_{j} \sum_{i} X_{i} \1{S_j=i}} \\
+& =\frac 1 n \sum_{i} X_{i} \sum_{j}\EE{D}{\1{S_j=i}}  
+ =\frac 1 n \sum_{i} X_{i} := \bar X.
 \end{align*}
+Given $D$, $X_i$ is just a number, hence can be taken out of expectation.
 This is not the same as $\mu$!.
 The conditional variance:
 \begin{align*}
-\V{\bar X^{*} | X_1, \ldots X_n} =
-%\V{\frac 1 n \sum_{j} \sum
-%\frac 1 {n^{2}} \V{\sum_{j} X_{j}^{*} | X_1, \ldots X_n} = \frac 1 n \V{X^{*}} = \frac 1 n \E{X^{*}^2} - \bar }
+\VV{D}{\bar Y} &= 
+\VV{D}{\frac 1 n \sum_{j} Y_{j}} \\
+&=  \frac 1 {n^{2}}\VV{D}{\sum_{j} Y_{j}}\\
+&= \frac 1 {n^{2}} \sum_{j}\VV{D}{ Y_{j}} & \text{by the hint}\\
+&= \frac 1 {n} \VV{D}{ Y_{1}} & \text{$Y_{j}$ are iid.}
+\end{align*}
+Let's guess what $\VV{D}{Y_{1}}$ is. We select arbitrarily an element of the data $D$. The variance must then be $\frac 1 n \sum_{j}(X_j^{2}-\bar X)^{2}$. We must be able to get this from our  definition $Y_1 = \sum_{i}X_i\1{S_1=i}$. Again using that  $\1{S_1=i}\1{S_1=j} = 0$ if $i\neq j$,
+\begin{align*}
+\VV{D}{Y_{1}} 
+&= \VV{D}{\sum_{i} X_{i}\1{S_1}=i} \\
+&= \sum_{i} \left(\VV{D}{X_{i}\1{S_1}=i} + \sum_{j\neq i} \cov{X_{i}\1{S_{1}=i},X_{j}\1{S_1=j}}\right)  \\
+&= \sum_{i} \left(X_i^{2}\VV{D}{\1{S_1}=i} + \sum_{j\neq i} X_{i}X_{j}\cov{\1{S_{1}=i},\1{S_1=j}}\right)  \\
+&= \sum_{i} \left(X_i^{2} \frac{n-1}{n^{2}} - \sum_{j\neq i} X_{i}X_{j}\EE{D}{\1{S_{1}=i}}\EE{D}{\1{S_1=j}}\right)\\
+&=  \frac{n-1}{n^{2}} \sum_{i} X_i^{2} - \frac 1 {n^{2}}\sum_{i}\sum_{j\neq i} X_{i}X_{j}\\
+&=  \frac 1 n  \sum_{i} X_i^{2} - \frac 1 {n^{2}}\sum_{i} X_i^{2}- \frac 1 {n^{2}}\sum_{i}\sum_{j\neq i} X_{i}X_{j}\\
+&=  \frac 1 n  \sum_{i} X_i^{2} - (\bar X)^{2} = \sum_{i}(X_{i}-\bar X)^{2}.
 \end{align*}
 
-**** c.  
-$\E{\bar X^{*}}$ is simple, use linearity and the tower property. For the variance, use Eve's law. Here are the details for the latter.
+
+
+**** c.
+$\E{\bar Y}$ is simple, use linearity and Adam's law (i.e, the tower property). For the variance, use Eve's law. 
+
 \begin{align*}
-\E{\V{\bar X^{*} | X_1, \ldots X_n}} &=  \E{\frac 1 n \sum_{i=1}^n (X_i-\bar X)^2} = \E{(X-\bar X)^2}, \\
-\E{(X-\bar X)^2} &=  \E{X^{2}} -\E{\bar X^2} \\
-\E{\bar X^2} \\
+\E{\bar Y} = \E{\EE{D}{\bar Y}} = \E{\bar X} = \frac 1 n \sum_{i}\E{X_{i}} = \E X = \mu.
 \end{align*}
+
+
+Here are the details for $\V{\bar Y}$.
+\begin{align*}
+\V{\EE{D}{\bar Y}} &= \V{\bar X}= \frac 1{n^{2}} \sum_{i} \V{X_{i}} = \frac 1 n \sigma^{2},\\
+\E{\VV{D}{\bar Y}} &=  \E{\frac 1 n \sum_{i=1}^n (X_i-\bar X)^2} = \frac{n-1}n \E{\frac 1 {n-1}  \sum_{i=1}^n (X_i-\bar X)^2} = \frac{n-1}n \E{S_{n}^{2}},
+\end{align*}
+where we use  BH.Def 6.3.3 and BH.Th 6.3.4. The rest is simple.
+
+**** d.
+We add randomness twice, first we draw  samples to get $D$, and then we draw randomly from $D$. 
+
 
 **** Extra exercise.
 How many different bootstrap samples are possible?
@@ -1480,11 +1508,23 @@ This is good exercise to rehearse your knowledge on Beta distributions.
 I prefer to say that I model my uncertainty about the value of $p$ by means of a prior. 
 
 **** a. 
-I use recursions, because I like that:
+Since we include then win, the number of games $T|p$ (since we assume $p$ given) must be $\sim\FS{p}$. 
+
+I use recursions, because I like using recursions. 
 \begin{align*}
 \E{T\given p} = 1 + q \E{T\given p} \implies \E{T\given p} = 1/p.
 \end{align*}
 And thus, $\E{T\given p} \sim \FS{p}$.  To get $\E T$ use the tower property. For this, write the integral with the Beta distribution, Definition 8.3.1. Take the integral with respect to $p$!
+
+Spoiler alert. Here is the rest.
+\begin{align*}
+\E{1/p}
+&= \frac{1}{\beta(a,b)}\int_0^{1}\frac 1 p p^{a-1}(1-p)^{b-1} \d p
+= \frac{1}{\beta(a,b)}\int_0^{1} p^{a-2}(1-p)^{b-1} \d p
+= \frac{\beta(a-1, b)}{\beta(a,b)} \\
+&= \frac{a+b-1}{a-1}.
+\end{align*}
+To get the last equation,  use the definition of $\beta(a,b)$ in terms of factorials (see the Bayes' billiards story) to simplify. This is easy, many terms cancel.
 
 BTW, with Bayesian analysis, it is simple to mix up the `thing' against with one has to integrate, $x$, or $p$, or something else.
 I make mistakes with this, I suspect you will too.
@@ -1492,7 +1532,16 @@ Hence, be warned.
 
 
 
-**** TODO b.
+**** b.
+
+We should compare the expectation $\E{1/p}$ we computed in part a to $1+\E G$, where $G\sim\Geo{x}$, with $x=a/(a+b)$. Clear, $1+\E G = 1 + (1-x)/x= 1/x = (a+b)/a$, and this is smaller than $\E T$ of the part a.
+
+I must miss something here.
+The prior is $\Beta{a, b}$.
+Then Beta-Binomial conjugacy story, we assume that Vishy won $a-1$ games, and lost $b-1$ games.
+My guess for Vishy winning the next game would be $(a-1)/(a+b-2)$, not $a/(a+b-1)$. 
+But I make an error here. Check the BH problem 9.57. You'll see that we should indeed use $a/(a+b-1$!  Tricky!
+
 
 **** c.
 Use Story 8.3.3
@@ -1749,4 +1798,3 @@ Use the CLT.
 
 
 
-* TODO derive density for sum,product, and ratio of two normal r.v. by means of infinitesimals.

@@ -201,11 +201,11 @@ f_{Y,Z}(y, z) = \int \frac 1 {2\pi} e^{-(y-x)^2/2} e^{-(z-x)^2/2} \frac 1 {\sqrt
 \end{align*}
 It remains to simplify $(y-x)^2 + (z-x)^2 + x^2$. With a bit of work, it follows that this can be written as
 \begin{align*} 
-3(x-(y+z)/3)^{2} - (y+z)/9+y^2+z^2.
+3(x-(y+z)/3)^{2} - (y+z)^2/3+y^2+z^2.
 \end{align*}
 When plugging this in the integral, the last two terms appear in front of the integral. The term $(y+z)/2$ is just a shift, hence can be neglected in the integration over $x$. The $3$ has to be absorbed in the standard deviation $\sigma=1/\sqrt{3}$. And therefore,
 \begin{align*}
-f_{Y,Z}(y, z) = \frac 1 {2\pi} \frac 1 {\sqrt{3}} e^{-y^2/2 - z^2/2 + (y+z)^2/18}.
+f_{Y,Z}(y, z) = \frac 1 {2\pi} \frac 1 {\sqrt{3}} e^{-y^2/2 - z^2/2 + (y+z)^2/6}.
 \end{align*}
 
 *** 7.13
@@ -319,7 +319,7 @@ For those of you that are interested in physics, the theory of random walk helps
 
 The notation of the book is a bit clumsy.
 Let $X_i$ be the movement along the \(x\)-axis at step $i$, and $Y_i$ along the \(y\)-axis.
-Then $S_n=\sum_{i=1}^n X_i$ and $T_n=\sum_{j=1}^n Y_{j}, and $R_n^2= (S_n+T_n)^2$. For your convenience, I'll stick to the notation of the book.
+Then $S_n=\sum_{i=1}^n X_i$ and $T_n=\sum_{j=1}^n Y_{j}, and $R_n^2= S_n^2+T_n^2$. For your convenience, I'll stick to the notation of the book.
 
 **** a.
 If you don't how to prove such a thing, it is always good to think about whether you can find a counter example.
@@ -384,18 +384,18 @@ BTW, iii. follows directly from iv. In iv., take $W_3$ equal to a constant $a_2$
 **** Final remarks
 
 Let's put all the above in a yet more general frame.  The covariance has a number of interesting properties:
-1. /bilinearity/: $\cov{aX, Y + Z}=a\cov{X,Y} + a\cov{X, Z}$ for $a\in \R$. 
+1. /bilinearity/: The covariance is linear in both arguments. The linearity in the first argument means that $\cov{X+Y, Z}=\cov{X,Z}+\cov{Y,Z}$ and $\cov{aX, Z}=a\cov{X,Z}$ for $a\in \R$. The linearity in the second argument means that $\cov{X, Y+Z}=\cov{X,Y}+\cov{X,Z}$ and $\cov{X, aZ}=a\cov{X,Z}$ for $a\in \R$. 
 2. /symmetry/: $\cov{X, Y}=\cov{Y,X}$, from which we define $\V X = \cov{X,X}$. 
 3. $\cov{X,a} = 0$ for all $a\in R$.
 If you memorize the first two properties of covariance, all the rest follows.
 
 Now, take three vectors $x,y, z\in \R^2$ (it's easy to generalize to $\R^n)$. Then we want the area $D(x,y)$ of the parallelogram spanned by vectors $x$ and $y$ to satisfy:
-1. /bilinearity/: $D(a x,y+z) = a D(x,y) + a D(x, z)$.
+1. /bilinearity/: The determinant is linear in both arguments. The linearity in the first argument means that $D(x+y, z) = D(x, z) + D(y, z)$ and $D(ax, z)=a D(x, z)$ for $a\in \R$. The linearity in the second argument means that  $D(x, y+z) = D(x, y) + D(x, z)$  and $D(x, az)=a D(x, z)$ for $a\in \R$.
 2. $D(x,x)$ = 0
 3. $D( (1,0), (0,1)) = 1$.
 These properties are entirely natural. The first property means that stretching vectors and stacking parallelograms result in stretching and adding areas.
 The second says that the area of a parallelogram spanned by two parallel vectors is zero. The third specifies that the area of the unit square is 1. Now it can be proven that there exists just one function $D$ that satisfies these properties, and that is the determinant. Moreover, it can be shown that the second property can be replaced by
-- /skew-symmetry/: $D(x,y) = - D(x,y).
+- /skew-symmetry/: $D(x,y) = - D(x,y)$.
 (Note that $D(x,x) = -D(x,x) \implies 2 D(x,x) = 0 \implies D(x,x) = 0$.)
 Let us use the properties to compute the area of a parallelogram spanned by the vectors $(a,b)$ and $(c,d)$. Then
 \begin{align*}
@@ -471,7 +471,9 @@ Recall, it's not just mathematics we are dealing with; modeling is also importan
 What confused me was what would happen if $X<4$?
 But then I realized that the question is about expectations, so I just have to focus on the cases in which $X\geq 4$.
 
-As always, conditioning is the way out. What if there are $X=n\geq 4$ courses? Then, I can select $4$ of those $n$. The number of combinations for this is $\ldots$? Now, multiply this with the probability that $X=n$. Finally, take the sum and simplify. You'll get an elegant answer for the expectated number of different choices 
+As always, conditioning is the way out. What if there are $X=n\geq 4$ courses? Then, I can select $4$ of those $n$. The number of combinations for this is $\ldots$? Now, multiply this with the probability that $X=n$. Finally, take the sum and simplify. You'll get an elegant answer for the expectated number of different choices
+
+\wk{In my view, this is not really conditioning, but using LOTUS to calculate $\E \binom{X}{4}$.}
 
 **** b.
 Read well. We are spreading the courses over mornings and afternoons. Hence, we are thinning the stream of courses. The morning receives half of the courses, the afternoon the other half. So each has $\lambda/2$. Bigger hint: chicken and egg story.

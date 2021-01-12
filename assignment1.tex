@@ -14,8 +14,6 @@
 \subsection{Have you read well?}
 \label{sec:have-you-read}
 
-Here are a bunch of questions to help you read the book well. The questions are simple checks, not at exam level, but lower. 
-
 
 \begin{exercise}
 In your own words, explain what is
@@ -37,7 +35,7 @@ We have two r.v.s $X$ and $Y$, both $\sim\Unif{[0,1]}$, and $Y>X$.
 \end{exercise}
 
 \begin{exercise}
-Claim (that is, is the following clam correct?):  We have two continuous r.v.s. $X, Y$. Claim: even though the joint CDF factors into the product of the marginal CDFs of $X$ and $Y$, it  is still possible in general that the joint PDF does not factors into a product of marginals PDFs of $X$ and $Y$.
+Claim (that is, is the following clam correct?):  We have two continuous r.v.s. $X, Y$. Claim: even though the joint CDF factors into the product of the marginal it  is still possible in general that the joint PDF does not factors into a product of marginals PDFs of $X$ and $Y$.
 \end{exercise}
 
 \begin{exercise}
@@ -67,8 +65,18 @@ Claim: We have two rvs $X$ and $Y$ on $\R^{+}$. It is given that $F_{X,Y}(x,y) =
 \end{exercise}
 
 \begin{exercise}
-`The man on the street' says that two throws of a die are independent, but does not mention the joint CDF. What do you think of this claim of independence.  From this exercise you should memorize this: \textbf{independence is a property of the joint CDF, not of the rvs}.
+`The man on the street' says that two throws of a die are independent, but does not mention the joint CDF.
+What do you think of this claim of independence?
+(Hint, from this exercise you should memorize this: \textbf{independence is a property of the joint CDF, not of the rvs}.)
 \end{exercise}
+
+
+\begin{exercise}
+I select a random guy from the street, his height $X\sim\Norm{1.8, 0.1}$, and I select a random woman from the street, her height is $Y\sim\Norm{1.7, 0.08}$.
+I claim that since I selected the man and the woman independently, their heights are independent.
+Comment on this claim.
+\end{exercise}
+
 
 \begin{exercise}
 Correct? For any two rvs $X$ and $Y$ on $\R^{+}$ with marginals $F_{X}$ and $F_{Y}$. Then $\P{X\leq x, Y\leq y} = F_{X}(x) F_{Y}(x)$.
@@ -86,7 +94,6 @@ Correct? $X, Y$ two discrete rvs with CDF $F_{X,Y}$. We can compute the PDF as $
 \subsection{Exercises at about exam level}
 \label{sec:below-exam-level}
 
-Most of the exercises of the book are at about (or just a bit above)  exam level. 
 
 
 \begin{exercise}
@@ -99,7 +106,7 @@ We throw an unbiased die with six sides; the result of the $i$th throw is $X_i$.
 \item Use the fundamental bridge and indicators to compute $\P{X_1>X_2}$.
 \item Use the fundamental bridge and indicators to compute $\P{|X_1-X_2| < 1 } = 1/6$.
 \item Use the fundamental bridge and indicators to compute $\P{|X_1-X_2|\leq 1 }$.
-\item Use simulation to estimate  $\P{|X_1-X_2|\leq 1 }$.
+\item How would you use simulation to estimate  $\P{|X_1-X_2|\leq 1 }$?
 \end{enumerate}
 \end{exercise}
 
@@ -112,20 +119,12 @@ We select a random married couple (a man and a woman). His height is $X\sim \Nor
 \item What is the joint PDF?
 \item  Marginalize out $Y$ to show that $X\sim \N{1.8, 0.1}$.
 \item Use the fundamental bridge and indicators to write  $\P{X>Y}$ as an integral.
-\item Use the fundamental bridge and indicators to write  $\P{|X-Y| < 0.1 }$ as an integral.
-\item Use a numerical integrator to compute the probability of the previous part.
-\item Use simulation to estimate the probability of the previous part.
+\item Use the fundamental bridge and indicators to write  $\P{|X-Y| < 0.1 }$ as an integral. You don't have to solve the integral.
 \end{enumerate}
 \end{exercise}
 
 \begin{exercise}
-I select a random guy from the street, his height $X\sim\N{1.8, 0.1}$, and I select a random woman from the street, her height is $Y\sim\N{1.7, 0.08}$.
-I claim that since I selected the man and the woman independently, their heights are independent.
-Comment on this claim: Is it true, why, if it false, why, and what information do you have to add to the model to make the claim true?
-\end{exercise}
-
-\begin{exercise}
-Take $X\sim\Unif{\{-2, -1, 1, 2\}}$ and $\eta = X^2$. What is the correlation coefficient of $X$ and $\eta$? Comment on your answer. 
+Take $X\sim\Unif{\{-2, -1, 1, 2\}}$ and $\eta = X^2$. What is the correlation coefficient of $X$ and $\eta$? 
 If we would consider another distribution for $X$, would that change the correlation?
 \end{exercise}
 
@@ -135,23 +134,19 @@ We start with an initial capital $I_0=2$.
 The company receives claims and contributions every period, a week say.
 In the $i$th period, we receive a contribution $X_{i}$ uniform on the set $\{1, 2,\ldots,10\}$ and a claim $C_i$ uniform on $\{0, 1, \ldots 8\}$.
 \begin{enumerate}
+\item What is the interpretation of $\bar I_{n} = \min{I_{i} : 0\leq i\leq n}$? 
 \item What is the meaning of $I_1=I_0+X_1-C_1$?
 \item What is the meaning of $I_2=I_1+X_2-C_2$?
-\item Provide an interpretation in terms of the inventory of rice, say, at a supermarket for $I_{1}$ and $I_{1}'$.
-\item Provide also an interpretation in terms of a degradation and repair process of an item.
-  (if you find this difficult, search a bit on the web on reliability theory.)
-  Comment on how good you think this model is to analyze such degradation and repair processes.
-\item What is the interpretation of $I_1'=\max\{I_0-C_1,0\} + X_1$?
-\item What is the interpretation of $I_2'=\max\{I_1'-C_2,0\} + X_2$?
+\item What is the interpretation of $I_1'=\max{I_0-C_1,0} + X_1$?
+\item What is the interpretation of $I_2'=\max{I_1'-C_2,0} + X_2$?
 \item What is  $\P{I_1 < 0}$?
 \item What is  $\P{I_1' < 0}$?
 \item What is  $\P{I_2 < 0}$?
 \item What is  $\P{I_2' < 0}$?
-\item Use simulation to estimate $\P{I_{10}<10}$.
-\item What is the interpretation of $\bar I_{n} = \min{I_{i} : 0\leq i\leq n}$? 
-\item  Use simulation to estimate $\P{\bar I_{10} \geq 0}$.
-\item Similar,   use simulation to estimate $\P{\bar I_{10}' \geq 0}$.
-\item Explain the difference outcomes between the previous two parts. 
+\item Provide an interpretation in terms of the inventory of rice, say, at a supermarket for $I_{1}$ and $I_{1}'$.
+\item Provide also an interpretation in terms of a degradation and repair process of an item.
+  (if you find this difficult, search a bit on the web on reliability theory.)
+  Comment on how good you think this model is to analyze such degradation and repair processes.
 \end{enumerate}
 \end{exercise}
 
@@ -162,8 +157,6 @@ We have a machine that consists of two components. The machine works as long as 
 \item What is the interpretation of $\max{X_1, X_{2}}$?
 \item If $X_1, X_2$ iid $\sim \Exp{10}$ (in hours), what is the expected time until the machine fails? 
 \item If $X_1, X_2$ iid $\sim \Exp{10}$ (in hours), what is the probability that the machine is still `up' (i.e., not failed) at time $T=50$? 
-\item If $X_1\sim \Exp{10}$, $X_2 \sim \Norm{20, 3}$, use simulation to estimate the expected time until the machine fails.
-\item If $X_1\sim \Exp{10}$, $X_2 \sim \Norm{20, 3}$, use simulation to determine the probability that the machine is still `up' (i.e., not failed) at time $T=50$. 
 \end{enumerate}
 \end{exercise}
 
@@ -176,15 +169,18 @@ Let $Y_i$ be the value of the $i$th throw with the die.
 \item What is the PMF of $X$ and $Y_1$?
 \item Marginalize  the answer of part a to show that $\P{X=H} = p$. 
 \item What is $\P{Y_{1}=1}$?
-\item What is $\P{X=1 \given Y_1=1}$?
-\item What is $\P{X=1 \given Y_1=1, Y_2=2}$?
-\item What is $\P{X=1 \given Y_1=Y_2=\cdots=Y_n = 1}$?
+\item What is $\P{X=H \given Y_1=1}$?
+\item What is $\P{X=H \given Y_1=1, Y_2=2}$?
+\item What is $\P{X=H \given Y_1=Y_2=\cdots=Y_n = 1}$?
 \end{enumerate}
 \end{exercise}
 
 
 \begin{exercise}
-Check first BH 7.2.3. If $X, Y$ iid $\sim \Pois{\lambda}$, then prove first that $X+Y\sim \Pois{2\lambda}$, but $X-Y$ is not $\sim\Pois{0}$. But when $X, Y$ iid $\sim \Norm{0, 1}$, then $X-Y\sim\Norm{0,2}$. Explain this difference between the Poisson and normal distribution. 
+Check first BH 7.2.3.
+When $X, Y$ iid $\sim \Norm{0, 1}$, then $X-Y\sim\Norm{0,2}$.
+However, when $X, Y$ iid $\sim \Pois{\lambda}$, then prove first that $X+Y\sim \Pois{2\lambda}$, but note that $X-Y$ is not $\sim\Pois{0}$.
+Explain this difference between the Poisson and normal distribution.
 \end{exercise}
 
 
@@ -207,17 +203,6 @@ For $N \sim \Pois{\lambda}$ it is shown in BH 7.1.9 that $X$ and $Y$ are indepen
 
 \subsection{Coding skills}
 \label{sec:coding-skills}
-
-You have to get used to programming and checking your work with computers, for instance by using simulation.
-These coding exercises address this skill.
-You should know that much of programming is `monkey see, monkey do'.
-This means that you take code of others, try to understand it, and then adapt it to your needs.
-For this reason we include the code to answer the question.
-The idea is that you copy the code, you are to run it, and you can explain how it works.
-
-We include python and R code, and leave the choice to you what to use.
-In the exam we will also include both languages in the same problem, so  you can stay in the language you like.
-You should know, however, that many of you  will need both languages later in life.
 
 
 
@@ -335,9 +320,9 @@ print(N.mean(), N.std())
 print(2500/33.5)
 print(np.sqrt(500*0.5))
 \end{minted}
-
-
 \end{exercise}
+
+\end{document}
 
 \subsection{TODO for another year}
 
@@ -348,4 +333,3 @@ For another time: afrondregels, bijv \(2.11*3= 6\), omdat \(3\) maar op 1 digit 
 More generally,  check density for sum,product, and ratio of two normal (or other distributions)  by means of simulations.
 \end{exercise}
 
-\end{document}

@@ -30,16 +30,37 @@ Derive the results of BH 7.3.6 without smart tricks. Thus, you have to use the f
 \begin{align*}
 \E{M L} &= \E X \E Y = 1, & \E{M} &= 3/2, & \E L &= 1/2, \\
 \E{L^{2}} &=  1/4, & \E{M^{2}} &= 2\E{X^{2}} - \E{L^{2}} = 7/2 \\ 
-\V{M}&=\E{M^2} - (\E M)^{2}, & \V L = \E{L^2}-(\E L)^2.
+\V{M}&=\E{M^2} - (\E M)^{2}, & \V L &= \E{L^2}-(\E L)^2.
 \end{align*}
+You can use the document `Memoryless exercursions' to see how to solve these problems. 
 \end{exercise}
 
 
 \subsection{Coding skills}
 \label{sec:progr-assignm}
 
+\begin{todo} 
+Maximum of independent r.v.s, BH.5.6.5.
+\begin{enumerate}
+\item Make 1d array of uniform 0,1 random rvs
+\item compute mean and variance
+\item Why include a seed
+\item include seed
+\item Make [n, p] matrix, n samples along rows
+\item Sort along axis  1
+\item Sort along axis 0
+\item Compute mean and std along axis 0
+\item Make large number of data, with e.g sample-no = 1000, and redo the above
+\item Change to exponential distribution
+\item Show how to use the online documentation for np.random.exponential
+\item Show the effect of the scale parameter
+\item Compare mean to theoretical value
+\item Change to geometric distribution
+\end{enumerate}
+\end{todo}
 
-\begin{exercise}
+
+\begin{todo}
 Let $X\sim\Exp{\lambda}$ and $Y \sim N(\mu, \sigma)$, independent of $X$.
 So, draw $X$ first and let the outcome be $x$; then draw $Y\sim N(x, \sigma)$.
 Take $\lambda=4$, $\mu = 5$, $\sigma=3$.
@@ -52,9 +73,9 @@ Take $\lambda=4$, $\mu = 5$, $\sigma=3$.
 \item Use simulation to estimate $f_{X|Y}$. Plot this in the same graph for various values of $X=x$. 
 \item Make a 3D plot of $f$
 \end{enumerate}
-\end{exercise}
+\end{todo}
 
-\begin{exercise}
+\begin{todo}
 Let $X\sim\Exp{\lambda}$ and $Y| X \sim N(X, \sigma)$. So,  draw $X$ first and let the outcome be $x$;  then draw $Y\sim N(x, \sigma)$. Take $\lambda = 5$, $\sigma=3$. 
 \begin{enumerate}
 \item Use simulation to estimate $\E Y$. 
@@ -66,15 +87,12 @@ Let $X\sim\Exp{\lambda}$ and $Y| X \sim N(X, \sigma)$. So,  draw $X$ first and l
 \item Use simulation to estimate $f_{X|Y}$. Plot this in the same graph for various values of $X=x$. 
 \item Make a 3D plot of $f$
 \end{enumerate}
-\end{exercise}
+\end{todo}
 
 
 
-
-
-\subsection{7.32}
-\label{sec:orga22aa79}
-
+\begin{todo}
+On BH.7.32
 \begin{enumerate}
 \item Solve this problem and explain your solution.
 \item Let \(L=\min\{X,Y\}\) and \(M=\max\{X,Y\}\). Use the memoryless property to explain that \(\E M = \E L + 1/\lambda\).
@@ -104,12 +122,11 @@ times = np.array([1 / ((num - j) * labda) for j in range(num)])
 times = times.cumsum()
 print(times)
 \end{minted}
+\end{todo}
 
 
-
-
-\subsubsection{7.48}
-\label{sec:org56d10c5}
+\begin{todo}
+On BH.7.48
 \begin{enumerate}
 \item Solve  the problem and explain your solution.
 \item Below is the python code to estimate the mean and variance by means of simulation.   Explain how the algorithm works, in particular, how does \texttt{find\_maxima} work?.
@@ -148,10 +165,11 @@ for i in range(samples):
 
 print(Y.mean(), Y.var())
 \end{minted}
+\end{todo}
 
 
 
-\subsection{Applications}
+\subsection{TODO Applications}
 \label{sec:applications}
 
 Use Story 13.4.2 to generate exponentially distributed inter-arrival times. (It is not forbidden to use results we have not discussed yet.)

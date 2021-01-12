@@ -1,17 +1,22 @@
+% arara: pdflatex: { shell: yes }
+% arara: pythontex: {verbose: yes, rerun: modified }
+% arara: pdflatex: { shell: yes }
+
+
 \documentclass[a4paper]{article}
 \newcommand{\wk}[1]{\textbf{#1}} 
-%\usepackage[all-solutions-at-end]{optional}
+
+
 \usepackage[check]{optional}
-
-
 \usepackage{preamble}
 
 
-\author{Nicky D. van Foreest}
-\date{2020:11:15}
-\title{Probability distributions: Assignments\\\medskip
-\large EBP038A05}
+\author{Nicky D. van Foreest and student assistents}
+\date{\today}
+\title{Probability distributions EBP038A05: 2020-2021\\
+Assignments}
 \begin{document}
+ 
 
 \maketitle
 
@@ -21,14 +26,41 @@
 
 Here we just provide the exercises of the assignments.  For information with respect to grading we refer to the  course manual.
 
+
+The assignments contain several sections.
+The first section is meant to help you read the book well and become familiar with definitions and concepts of probability theory.
+These questions are mostly simple checks, not at exam level, but lower.
+The second section contains some exercises at about the exam level to get you started.
+Most of the selected exercises of the book are also at about (or just a bit above) exam level.
+The section with challenges is for those students that like a challenge; the problems are above exam level.
+The final section is about coding skills.
+We explain the rationale next.
+
+
+You have to get used to programming and checking your work with computers, for instance by using simulation.
+These coding exercises address this skill.
+You should know that much of programming is `monkey see, monkey do'.
+This means that you take code of others, try to understand it, and then adapt it to your needs.
+For this reason we include the code to answer the question.
+The idea is that you copy the code, you  run it and include the numerical results in your report. You should be able to explain how the code works. For this reason we include questions in which you have explain how the most salient parts of the code works. 
+
+We include python and R code, and leave the choice to you what to use.
+In the exam we will also include both languages in the same problem, so  you can stay in the language you like.
+You should know, however, that many of you  will need both languages later in life. 
+
 \begin{enumerate}
 \item For each assigment you have to turn in a pdf document typeset in \LaTeX{}. Include a title, group number, student names and ids, and date.
 \item When you have to turn in a graph, provide decent labels and a legend, ensure the axes have labels too.
-\item Whenever you have to program or simulate something, include your code. 
 \end{enumerate}
 
-\subfile{assignment1}
 
+
+\subfile{assignment1}
+\subfile{assignment2}
+\subfile{assignment3}
+\subfile{assignment4}
+\subfile{assignment5}
+\subfile{assignment6}
 \end{document}
 
 
@@ -84,25 +116,6 @@ Som 7.48 gaat over hoeveel maxima optreden. Wat is de verdeling van de maxima? W
 \subsection{Random variable code en die van Niels}
 \label{sec:org57ced54}
 
-\section{Maximum of independent r.v.s; Example 5.6.5}
-\label{sec:orgb2a351d}
-
-\begin{enumerate}
-\item Make 1d array of uniform 0,1 random rvs
-\item compute mean and variance
-\item Why include a seed
-\item include seed
-\item Make [n, p] matrix, n samples along rows
-\item Sort along axis  1
-\item Sort along axis 0
-\item Compute mean and std along axis 0
-\item Make large number of data, with e.g sample-no = 1000, and redo the above
-\item Change to exponential distribution
-\item Show how to use the online documentation for np.random.exponential
-\item Show the effect of the scale parameter
-\item Compare mean to theoretical value
-\item Change to geometric distribution
-\end{enumerate}
 
 
 \subsubsection{code}

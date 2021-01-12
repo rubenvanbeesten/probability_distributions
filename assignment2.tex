@@ -1,0 +1,302 @@
+\documentclass[assignments]{subfiles}
+
+\begin{document}
+
+
+\section{Assignment 2}
+
+
+\subsection{Have you read well?}
+
+
+\begin{exercise}
+What is the difference between 1D LOTUS and 2D LOTUS?
+\end{exercise}
+
+\begin{exercise}
+Example 7.2.2. Write down the integral to compute $\E{(X-Y)^{2}}$. You don't have to solve the integral.
+\end{exercise}
+
+\begin{exercise}
+In queueing theory  the concept of squared coefficient of variance $SCV$ of a rv $X$ is very important. It is defined as $C = \V{X}/(\E X)^{2}$. Is the SCV of $X$ equal to $\text{Corr}(X,X)$? Can it happen that $C>1$?
+\end{exercise}
+
+
+\subsection{Exercises at about exam level}
+\label{sec:exercises-at-about}
+
+\begin{exercise}
+Derive the results of BH 7.3.6 without smart tricks. Thus, you have to use the fundamental bridge to show that 
+\begin{align*}
+\E{M L} &= \E X \E Y = 1, & \E{M} &= 3/2, & \E L &= 1/2, \\
+\E{L^{2}} &=  1/4, & \E{M^{2}} &= 2\E{X^{2}} - \E{L^{2}} = 7/2 \\ 
+\V{M}&=\E{M^2} - (\E M)^{2}, & \V L = \E{L^2}-(\E L)^2.
+\end{align*}
+\end{exercise}
+
+
+\subsection{Coding skills}
+\label{sec:progr-assignm}
+
+
+\begin{exercise}
+Let $X\sim\Exp{\lambda}$ and $Y \sim N(\mu, \sigma)$, independent of $X$.
+So, draw $X$ first and let the outcome be $x$; then draw $Y\sim N(x, \sigma)$.
+Take $\lambda=4$, $\mu = 5$, $\sigma=3$.
+\begin{enumerate}
+\item Make a 3D plot of $F_{X,Y}$.
+\item Make a 3D plot of $f_{X,Y}$.
+\item Plot $f_{X}$, i.e., plot $\mu e^{-\mu t}$.
+  Then use simulation to marginalize out $Y$ from $f_{X,Y}$ to obtain $\hat f_X$; we write $\hat f_X$ because it has been obtained from simulation.
+  Plot $\hat f_X$ in the same figure as $f_X$, and compare the result.
+\item Use simulation to estimate $f_{X|Y}$. Plot this in the same graph for various values of $X=x$. 
+\item Make a 3D plot of $f$
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Let $X\sim\Exp{\lambda}$ and $Y| X \sim N(X, \sigma)$. So,  draw $X$ first and let the outcome be $x$;  then draw $Y\sim N(x, \sigma)$. Take $\lambda = 5$, $\sigma=3$. 
+\begin{enumerate}
+\item Use simulation to estimate $\E Y$. 
+\item Make a 3D plot of $F_{X,Y}$.
+\item Make a 3D plot of $f_{X,Y}$.
+\item Plot $f_{X}$, i.e., plot $\lambda e^{-\lambda t}$.
+  Then use simulation to marginalize out $Y$ from $f_{X,Y}$ to obtain $\hat f_X$.
+  Plot $\hat f_X$ in the same figure as $f_X$, and compare the result.
+\item Use simulation to estimate $f_{X|Y}$. Plot this in the same graph for various values of $X=x$. 
+\item Make a 3D plot of $f$
+\end{enumerate}
+\end{exercise}
+
+
+
+
+
+\subsection{7.32}
+\label{sec:orga22aa79}
+
+\begin{enumerate}
+\item Solve this problem and explain your solution.
+\item Let \(L=\min\{X,Y\}\) and \(M=\max\{X,Y\}\). Use the memoryless property to explain that \(\E M = \E L + 1/\lambda\).
+\item Let \(L_{n}=\min\{X_{i} : i = 1,\ldots, n\}\) where \(X_i\sim \Exp(\lambda)\), and likewise  \(M_{n}=\max\{X_i\}\). Use the memoryless property to explain that \(\E{M_{n}} = \E{L_{n-1}} + \E{M_{n-1}}\).
+\item What is \(\E{M_n}\) for \(n=5\) and \(\lambda = 4\)?
+\item Explain the idea behind code below. In particular, why do we make a matrix of exponentially distributed random variables? Why is the \texttt{sort} along \texttt{axis=1}? Why is the mean along \texttt{axis=0}? Look up the meaning of \texttt{cumsum} in the \texttt{numpy} docs. Why is there a \texttt{cumsum} in the computation of \texttt{times}?
+\item Run the code, and include your output
+\end{enumerate}
+
+
+\begin{minted}[]{python}
+import numpy as np
+
+np.random.seed(10)
+
+labda = 4
+num = 5
+samples = 400
+
+X = np.random.exponential(1 / labda, size=(samples, num))
+print(X)
+X.sort(axis=1)
+print(X.mean(axis=0))
+print(X)
+
+times = np.array([1 / ((num - j) * labda) for j in range(num)])
+times = times.cumsum()
+print(times)
+\end{minted}
+
+
+
+
+\subsubsection{7.48}
+\label{sec:org56d10c5}
+\begin{enumerate}
+\item Solve  the problem and explain your solution.
+\item Below is the python code to estimate the mean and variance by means of simulation.   Explain how the algorithm works, in particular, how does \texttt{find\_maxima} work?.
+\item Replace the seed for the random number generator with your student number (without the "s" of course). Run this code, and include the numerical results in your report. If you prefer to use \texttt{R}, that is ok too, but then port the ideas of the code below to \texttt{R}.
+\end{enumerate}
+
+\begin{minted}[]{python}
+import numpy as np
+
+np.random.seed(3)
+
+num = 10
+
+X = np.random.uniform(size=num)
+print(X)
+
+
+def find_maxima(X):
+    Xstar = np.zeros_like(X)
+    M = -np.infty
+    for i, x in enumerate(X):
+        if x > M:
+            Xstar[i] = 1
+            M = x
+    return Xstar
+
+
+Xstar = find_maxima(X)
+print(Xstar)
+
+samples = 100
+Y = np.zeros(samples)
+for i in range(samples):
+    Xstar = find_maxima(np.random.uniform(size=num))
+    Y[i] = Xstar.sum()
+
+print(Y.mean(), Y.var())
+\end{minted}
+
+
+
+\subsection{Applications}
+\label{sec:applications}
+
+Use Story 13.4.2 to generate exponentially distributed inter-arrival times. (It is not forbidden to use results we have not discussed yet.)
+
+
+\subsection{Why is the Exponential Distribution so important?}
+\label{sec:org50b29b7}
+
+The exponential distribution plays a very important role in probability theory, but why? This assignment is meant to answer this question.  
+
+\subsubsection{Train arrivals}
+\label{sec:org25e266e}
+
+Suppose a train departs between 10:00 and 10:15 minutes, and that 250 people will take this train.
+As a very simple model, let's suppose that each person arrives uniformly distributed on the interval \([0,15]\).
+What is the distribution of the inter-arrival times of these people?
+In the next couple of exercises we will use simulation to show that the exponential distribution is a very reasonable model.
+
+The basic idea behind the simulation is as follows. First we use a random number generator to generate an array \(A\) of arrival times. Second, we compute the inter-arrival time
+\begin{equation}
+\label{eq:1}
+X_{i} = A_{i} - A_{i-1},\quad i = 1,2, \ldots,
+\end{equation}
+between the arrivals.
+Third, we compute the empirical distribution \(F_{e}\) of \(X\).
+Fourth, we plot  \(F_{e}(x)\) and  the theoretical distribution \(F(x) = 1-e^{-\lambda x}\) for a proper \(\lambda\). 
+Once all steps are done, hopefully (the graphs of) \(F_{e}(x)\) and \(F(x)\) are (very) similar, so that we can conclude that the inter-arrival times are approximately exponentially distributed. 
+
+For the \(\lambda\), observe that all arrivals occurred between \(m= \min A\) and \(M=\max A\). Thus, as a simple estimate take \(\lambda = n/(M-m)\). This is easy, because when you change the size of \(A\), or the distribution, then this estimate of \(\lambda\) scales in the right way.
+
+
+One of the nice, and bad, things of \texttt{R} is that many algorithms are included.
+This is handy when you know what you do, but it leaves you clueless  if you have to do something new.
+More generally, using standard functions does not help you develop algorithmic skills.
+However, this is very important if you plan to use large amounts of data in your later career, as actuary, consultant, banker, financial quant, whatever.
+For this reason we discuss here how to make an empirical distribution function, even though you can just invoke the \texttt{ecdf} function (empirical cumulative distribution function) in \texttt{R} to compute it for you.
+
+As a concrete, but simple example, suppose we are given the following set of ages of people \(X = (20, 25, 18, 18, 19)\). The empirical distribution function is defined as
+\begin{equation*}
+F_e(x) = n^{-1}\sum_{i=1}^n \1{X_i\leq x}.
+\end{equation*}
+To compute this efficiently, we first sort the ages: \((18, 18, 19, 20, 25)\). Next, we give a count number to each individual: \((1,2,3,4,5)\), and divide this count number by \(n=5\), since there are \(5\) persons. Finally, we plot the ages along the \(x\) axis, and \((1/5, 2/5, 3/5, 4/5, 5/5)\) along the \(y\) axis. When we plot this, we see that \(F_{e}(18) = 2/5\). To get things really correct, we should remove the double counts, such as the \(18\), but we skip this here. 
+
+
+You can choose between  python  or R to make the simulations and the plots.
+We include sample code for each to help you get started; it's up to you what you like to use.
+As an advice: learn both.
+\texttt{R} is handy for data analysis, but it is not used much besides academia; in business, machine learning, programming, python is much more common. 
+
+
+First we need to load some libraries. Check the web on what they do.
+
+
+\begin{minted}[]{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+\end{minted}
+
+Now we set a theme for \texttt{seaborn} to make nice graphs, and we set a seed for the random number generator of \texttt{numpy} so that we get the same random numbers every time we do a run.
+This helps to find bugs.
+(If you get different numbers each and every time, checking whether the results are correct becomes very tedious very rapidly.)
+We also set the labels on the axis.
+
+\begin{minted}[]{python}
+np.random.seed(3)
+sns.set_theme()
+
+plt.xlabel('x', fontsize=16)
+plt.ylabel('y', fontsize=16)
+\end{minted}
+
+
+Here is the algorithm to compute the \texttt{ecdf}.
+\begin{minted}[]{python}
+def ecdf(data):
+    x = np.sort(data)
+    n = x.size
+    y = np.arange(1, n + 1) / n
+    return (x, y)
+\end{minted}
+
+Now we compute the arrival times and sort them
+
+\begin{minted}[]{python}
+num = 250
+A = np.sort(np.random.uniform(0, 15, size=num))
+labda = A.size / (A.max() - A.min()) 
+\end{minted}
+
+Finally, compute the inter-arrival times and plot the \texttt{ecdf}.
+\begin{minted}[]{python}
+X = A[1:] - A[:-1]
+x, y = ecdf(X)
+plt.scatter(x=x, y=y)
+plt.plot(x, 1 - np.exp(-labda * x))
+# plt.show()
+
+\end{minted}
+
+
+\subsection{Empirical distribution functions}
+\label{sec:org27b4ea4}
+\begin{exercise}
+Make a graph of the empirical and theoretical distrribution for $n=250$, i.e. the size of $A$ is 250, of $X$ and the theoretical distribution. Explain what we can see in this graph. 
+\end{exercise}
+
+\begin{exercise}
+Make a graph of $F_e$ and $F$  for $n=10$. Explain. 
+\end{exercise}
+
+\begin{exercise}
+Make a graph of  $|F_e - F|$  for $n=250$. What do you see?
+\end{exercise}
+
+\begin{exercise}
+Make a graph of  $\log(1-F_e)/\lambda$  for $n=250$. What do you see? Why did we take transform of $F_e$?
+\end{exercise}
+
+
+\begin{exercise}
+Take the arrival times as normally distributed with mean $\mu=7.5$ and $\sigma=3$, and make the graphs. Explain. 
+\end{exercise}
+
+Normally distributed, early and late arrivals, i.e., \(\mu\) = 7.5 and \(\sigma\) = 5, and then merge the ones that are in time with the ones that are late and early. 
+
+
+
+
+
+\subsection{Measuring inter arrival-times}
+\label{sec:orgf820334}
+
+We have a device to measure the time between two arrivals, of jobs for instance, or customers in a shop, or particles in radio-active decay.
+After a measurement, the device has to recharge so it cannot measure arrivals that occur within 10 seconds from each other.
+Also, if there is no arrival within 50, it resets itself.
+Hence, the device cannot easily measure inter-arrival times longer than 1 minute. Assume that the inter-arrival times are exponentially distributed with some unknown \(\lambda\). Let \(\bar x = \sum_{n=1}^N x_{n} /N\) be the sample mean of \(N\) measured inter-arrival times. 
+
+\begin{enumerate}
+\item Explain that, if \(\lambda \ll 1\) minute,  \(\hat \lambda = \bar x - 10\) is a reasonable estimator for \(\lambda\).
+\item How would you obtain a reasonable estimate of \(\lambda\) when \(\lambda\) \(\gg\) 1 minute?
+\end{enumerate}
+
+
+
+
+
+\end{document}

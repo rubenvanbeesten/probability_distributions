@@ -1,0 +1,351 @@
+% arara: pdflatex: { shell: yes }
+% arara: pythontex: {verbose: yes, rerun: modified }
+% arara: pdflatex: { shell: yes }
+
+\documentclass[assignments]{subfiles}
+
+\begin{document}
+
+
+\section{Assignment 1}
+\label{sec:org9cbca82}
+
+
+\subsection{Have you read well?}
+\label{sec:have-you-read}
+
+Here are a bunch of questions to help you read the book well. The questions are simple checks, not at exam level, but lower. 
+
+
+\begin{exercise}
+In your own words, explain what is
+\begin{enumerate}
+\item a joint PMF, PDF, CDF;
+\item a conditional PMF, PDF, CDF;
+\item a marginal PMF, PDF, CDF.
+\end{enumerate}
+\end{exercise}
+
+
+\begin{exercise}
+We have two r.v.s $X$ and $Y$, both $\sim\Unif{[0,1]}$, and $Y>X$. 
+\begin{enumerate}
+\item Why is the joint PDF $f_{X,Y}(x,y) = \1{x\leq y}$? 
+\item Are $X$ and $Y$ independent? 
+\item Compute $F_{X,Y}(x,y)$. 
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Claim (that is, is the following clam correct?):  We have two continuous r.v.s. $X, Y$. Claim: even though the joint CDF factors into the product of the marginal CDFs of $X$ and $Y$, it  is still possible in general that the joint PDF does not factors into a product of marginals PDFs of $X$ and $Y$.
+\end{exercise}
+
+\begin{exercise}
+Express Bayes' formula for two rvs $X$ and $Y$ in terms of the joint CDF, i.e., provide a formula.
+\end{exercise}
+
+\begin{exercise}
+What is a contingency table?
+\end{exercise}
+
+\begin{exercise}
+Apply the chicken-egg story.
+A machine makes items on a day.
+Some items, independent of the other items, are failed (i.e., do not meet the quality requirements).
+What is $N$, what is $p$, what are the `eggs' in this context, and what is the meaning of `hatching'?
+What type of `hatching' do we have here?
+\end{exercise}
+
+\begin{exercise}
+Apply the chicken-egg story. Families enter a zoo in a given hour. Some families have one child, other two, and so on. 
+What are the `eggs' in this context, and what is the meaning of `hatching'? 
+\end{exercise}
+
+
+\begin{exercise}
+Claim: We have two rvs $X$ and $Y$ on $\R^{+}$. It is given that $F_{X,Y}(x,y) = F_X(x)F_Y(y)$ for $x,y \leq 1/3$. Then  $X$ and $Y$ are necessarily independent. 
+\end{exercise}
+
+\begin{exercise}
+`The man on the street' says that two throws of a die are independent, but does not mention the joint CDF. What do you think of this claim of independence.  From this exercise you should memorize this: \textbf{independence is a property of the joint CDF, not of the rvs}.
+\end{exercise}
+
+\begin{exercise}
+Correct? For any two rvs $X$ and $Y$ on $\R^{+}$ with marginals $F_{X}$ and $F_{Y}$. Then $\P{X\leq x, Y\leq y} = F_{X}(x) F_{Y}(x)$.
+\end{exercise}
+
+\begin{exercise}
+Theorem 7.1.11. What is the meaning of the notation $X|N=n$?
+\end{exercise}
+
+\begin{exercise}
+Correct? $X, Y$ two discrete rvs with CDF $F_{X,Y}$. We can compute the PDF as $\partial_{x}\partial_{y} F_{X,Y}(x,y)$.
+\end{exercise}
+
+
+\subsection{Exercises at about exam level}
+\label{sec:below-exam-level}
+
+Most of the exercises of the book are at about (or just a bit above)  exam level. 
+
+
+\begin{exercise}
+We throw an unbiased die with six sides; the result of the $i$th throw is $X_i$. 
+\begin{enumerate}
+\item What is the sample space of the two throws $(X_{1}, X_2)$?
+\item What is the joint CDF?
+\item What is the joint PMF?
+\item  Marginalize out $X_2$ to show that $\P{X_1=5} = 1/6$.
+\item Use the fundamental bridge and indicators to compute $\P{X_1>X_2}$.
+\item Use the fundamental bridge and indicators to compute $\P{|X_1-X_2| < 1 } = 1/6$.
+\item Use the fundamental bridge and indicators to compute $\P{|X_1-X_2|\leq 1 }$.
+\item Use simulation to estimate  $\P{|X_1-X_2|\leq 1 }$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+We select a random married couple (a man and a woman). His height is $X\sim \Norm{1.8, 0.1}$, her height is $Y\sim \Norm{1.7, 0.08}$ in meters. 
+\begin{enumerate}
+\item What is the sample space of $(X, Y)$?
+\item If your answer to question 1 is correct, you must have noticed that the potentially the height of the man and the woman can be negative. Is this a problem for this model? 
+\item What is the joint CDF?
+\item What is the joint PDF?
+\item  Marginalize out $Y$ to show that $X\sim \N{1.8, 0.1}$.
+\item Use the fundamental bridge and indicators to write  $\P{X>Y}$ as an integral.
+\item Use the fundamental bridge and indicators to write  $\P{|X-Y| < 0.1 }$ as an integral.
+\item Use a numerical integrator to compute the probability of the previous part.
+\item Use simulation to estimate the probability of the previous part.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+I select a random guy from the street, his height $X\sim\N{1.8, 0.1}$, and I select a random woman from the street, her height is $Y\sim\N{1.7, 0.08}$.
+I claim that since I selected the man and the woman independently, their heights are independent.
+Comment on this claim: Is it true, why, if it false, why, and what information do you have to add to the model to make the claim true?
+\end{exercise}
+
+\begin{exercise}
+Take $X\sim\Unif{\{-2, -1, 1, 2\}}$ and $\eta = X^2$. What is the correlation coefficient of $X$ and $\eta$? Comment on your answer. 
+If we would consider another distribution for $X$, would that change the correlation?
+\end{exercise}
+
+\begin{exercise}
+This is about the simplest model for an insurance company that I can think of.
+We start with an initial capital $I_0=2$.
+The company receives claims and contributions every period, a week say.
+In the $i$th period, we receive a contribution $X_{i}$ uniform on the set $\{1, 2,\ldots,10\}$ and a claim $C_i$ uniform on $\{0, 1, \ldots 8\}$.
+\begin{enumerate}
+\item What is the meaning of $I_1=I_0+X_1-C_1$?
+\item What is the meaning of $I_2=I_1+X_2-C_2$?
+\item Provide an interpretation in terms of the inventory of rice, say, at a supermarket for $I_{1}$ and $I_{1}'$.
+\item Provide also an interpretation in terms of a degradation and repair process of an item.
+  (if you find this difficult, search a bit on the web on reliability theory.)
+  Comment on how good you think this model is to analyze such degradation and repair processes.
+\item What is the interpretation of $I_1'=\max\{I_0-C_1,0\} + X_1$?
+\item What is the interpretation of $I_2'=\max\{I_1'-C_2,0\} + X_2$?
+\item What is  $\P{I_1 < 0}$?
+\item What is  $\P{I_1' < 0}$?
+\item What is  $\P{I_2 < 0}$?
+\item What is  $\P{I_2' < 0}$?
+\item Use simulation to estimate $\P{I_{10}<10}$.
+\item What is the interpretation of $\bar I_{n} = \min{I_{i} : 0\leq i\leq n}$? 
+\item  Use simulation to estimate $\P{\bar I_{10} \geq 0}$.
+\item Similar,   use simulation to estimate $\P{\bar I_{10}' \geq 0}$.
+\item Explain the difference outcomes between the previous two parts. 
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+We have a machine that consists of two components. The machine works as long as not both components have failed. Let $X_i$ be the lifetime of component $i$. 
+\begin{enumerate}
+\item What is the interpretation of $\min{X_1, X_{2}}$?
+\item What is the interpretation of $\max{X_1, X_{2}}$?
+\item If $X_1, X_2$ iid $\sim \Exp{10}$ (in hours), what is the expected time until the machine fails? 
+\item If $X_1, X_2$ iid $\sim \Exp{10}$ (in hours), what is the probability that the machine is still `up' (i.e., not failed) at time $T=50$? 
+\item If $X_1\sim \Exp{10}$, $X_2 \sim \Norm{20, 3}$, use simulation to estimate the expected time until the machine fails.
+\item If $X_1\sim \Exp{10}$, $X_2 \sim \Norm{20, 3}$, use simulation to determine the probability that the machine is still `up' (i.e., not failed) at time $T=50$. 
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Let $X$ be the result of the throw of a coin.
+It is given that $\P{X=H} = p = 1-\P{X=T}$.
+When $X=H$, we choose a fair die with 4 sides with values $1,2,3,4$, when $X=T$ we choose a fair die with 6 sides with values $1,\ldots,6$.
+Let $Y_i$ be the value of the $i$th throw with the die.
+\begin{enumerate}
+\item What is the PMF of $X$ and $Y_1$?
+\item Marginalize  the answer of part a to show that $\P{X=H} = p$. 
+\item What is $\P{Y_{1}=1}$?
+\item What is $\P{X=1 \given Y_1=1}$?
+\item What is $\P{X=1 \given Y_1=1, Y_2=2}$?
+\item What is $\P{X=1 \given Y_1=Y_2=\cdots=Y_n = 1}$?
+\end{enumerate}
+\end{exercise}
+
+
+\begin{exercise}
+Check first BH 7.2.3. If $X, Y$ iid $\sim \Pois{\lambda}$, then prove first that $X+Y\sim \Pois{2\lambda}$, but $X-Y$ is not $\sim\Pois{0}$. But when $X, Y$ iid $\sim \Norm{0, 1}$, then $X-Y\sim\Norm{0,2}$. Explain this difference between the Poisson and normal distribution. 
+\end{exercise}
+
+
+\begin{exercise} %wk
+Assume that $X$ has the Cauchy distribution. 
+\begin{enumerate}
+\item Does $\E{\frac{X}{X^2+1}}$ exist? If so, find its value. 
+\item Does $\E{\frac{|X|}{X^2+1}}$ exist? If so, find its value. 
+\end{enumerate}
+\end{exercise}
+
+
+\subsection{Challenges}
+\label{sec:above-exam-level}
+
+\begin{exercise} %wk
+Consider the again the chicken-egg story (BH 7.1.9): A chicken lays a random number of eggs $N$ an each egg independently hatches with probability $p$ and fails to hatch with probability $q = 1-p$. Let $X$ be the number of eggs that hatch and let $Y$ be the number of eggs that do not hatch, so $X+Y = N$. 
+For $N \sim \Pois{\lambda}$ it is shown in BH 7.1.9 that $X$ and $Y$ are independent. This exercise asks for the converse. Assume that $X$ and $Y$ are independent. Prove that there exists a $\lambda > 0$ such that $N \sim \Pois{\lambda}$.
+\end{exercise}
+
+\subsection{Coding skills}
+\label{sec:coding-skills}
+
+You have to get used to programming and checking your work with computers, for instance by using simulation.
+These coding exercises address this skill.
+You should know that much of programming is `monkey see, monkey do'.
+This means that you take code of others, try to understand it, and then adapt it to your needs.
+For this reason we include the code to answer the question.
+The idea is that you copy the code, you are to run it, and you can explain how it works.
+
+We include python and R code, and leave the choice to you what to use.
+In the exam we will also include both languages in the same problem, so  you can stay in the language you like.
+You should know, however, that many of you  will need both languages later in life.
+
+
+
+\begin{exercise} 
+Use simulation to estimate the answer of BH.7.1. Run the code below and explain line 9 of python code or line of the R code.
+Compare the value of the simulation to the exact value.
+
+\begin{minted}[]{python}
+import numpy as np
+
+np.random.seed(3)
+
+num = 1000
+
+a = np.random.uniform(size=num)
+b = np.random.uniform(size=num)
+success = np.abs(a - b) < 0.25
+print(success.mean(), success.var())
+\end{minted}
+
+
+\begin{minted}[]{R}
+a <- 3
+\end{minted}
+
+Challenge (not obligatory): If you like, you can include a plot of the region (in time) in which Alice and Bob meet, and put marks on the points of the simulation that were `successful'. 
+\end{exercise}
+
+
+
+\begin{exercise}
+Let $X\sim\Exp{3}$.
+Find a simple expression for $\P{1 < X \leq 4}$ and compute the value.
+Then use simulation to check this value.
+Finally, use numerical integration to compute this value. Explain lines lines 11, 21 and 26 of the python code. 
+
+\begin{minted}[]{python}
+import numpy as np
+from scipy.stats import expon
+from scipy.integrate import quad
+
+labda = 3
+
+X = expon(scale=labda).rvs(1000)
+# print(X)
+print(X.mean())
+
+success = (X > 1) * (X < 4)
+# print(success)
+print(success.mean(), success.std())
+
+
+def F(x):  # CDF
+    return 1 - np.exp(-labda * x)
+
+
+def f(x):  # density
+    return labda * np.exp(-labda * x)
+
+
+print(F(4) - F(1))
+
+I = quad(f, 1, 4)
+print(I)
+\end{minted}
+\end{exercise}
+
+
+\begin{exercise}
+How many ping pong balls fit into an Airbus Beluga?
+One way to answer this is as follows.
+According to this \href{https://en.wikipedia.org/wiki/Airbus\_Beluga}{wikipage} the cargo volume $V$ of this airplane is 1500 m\textsuperscript{3}.
+But $V$ based on the physical dimensions that is available to store containers, tanks, and so on.
+So, I estimate the volume as about twice that amount, i.e., $V = $2500 m$^{3}$. 
+The volume of a ping pong ball is $v = 4 \pi r^3/3  = \py{4*3.14*8/3} cm^{3}$ with $r=2$ cm.
+A plain division gives \py{2500/33.5} ping pong balls.
+Note, I left out the $10^{6}$ conversion from meters to cm, and I do not take into the sphere packing factor.
+(I hope you agree with me that providing an result with the precision as given here is plain ridiculous.
+But from reason incomprehensible to me, even professional econometricians like to report results with 10 digits or more, without questioning the precision.)
+
+
+However, I know that the volume of the plane and a ping pong ball is an estimate, rather than a precise number as assumed above.
+It seems to be better to approximate $V$ and $v$ as rvs.
+Let's assume that
+   \begin{align*}
+V & \sim N(2500, 500), & v  & \sim N(33.5, 0.5),
+\end{align*}
+where the variances express my trust in my guess work.
+What is now the mean of $N = V/v$ and its std?
+In fact, finding the closed form expression for the distribution of $N$ is entirely simple.
+However, with simulation it's easy to get an estimate.
+Use the code to provide these estimates, and explain line 11 of the python code.
+
+
+
+Contrary to BH.7.1.25 we get a fine mean, i.e, $\E N < \infty$. But isn't this strange? Here we divide two normal random variables, and in BH.7.1.25 also two normal rvs are divided. Comment on the difference.
+
+The numerical results suggest the interesting guess $\V N \approx \V V * \V v$.
+For the moment I do not completely understand why this is so, or whether it is true in general.
+
+\begin{minted}[]{python}
+import numpy as np
+from scipy.stats import norm
+
+num = 500
+
+np.random.seed(3)
+
+V = norm(2500, 500)
+v = norm(33.5, 0.5)
+
+N = V.rvs(num) / v.rvs(num)
+print(N.mean(), N.std())
+
+print(2500/33.5)
+print(np.sqrt(500*0.5))
+\end{minted}
+
+
+\end{exercise}
+
+\subsection{TODO for another year}
+
+Here are some ideas for another time. You can neglect this. 
+
+\begin{exercise}
+For another time: afrondregels, bijv \(2.11*3= 6\), omdat \(3\) maar op 1 digit bekend is. Wat is de kwaliteit van deze afrondregel?
+More generally,  check density for sum,product, and ratio of two normal (or other distributions)  by means of simulations.
+\end{exercise}
+
+\end{document}

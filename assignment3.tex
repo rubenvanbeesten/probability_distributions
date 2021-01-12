@@ -1,0 +1,55 @@
+\documentclass[assignments]{subfiles}
+
+\begin{document}
+
+
+\section{Assignment 3}
+\label{sec:assignment-3}
+
+Topics of chapter 8.
+
+\subsection{Have you read well?}
+\label{sec:have-you-read-1}
+
+\begin{exercise}
+Explain in your own words: 
+\begin{enumerate}
+\item What is a prior?
+\item What is a conjugate prior?
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Look up on the web: what is the conjugate prior of the multinomial distribution?
+\end{exercise}
+
+
+
+\section{The baker of Poincare}
+\label{sec:org94bc890}
+
+
+Henri Poincaré was a French mathematician who taught at the Sorbonne around 1900. The following anecdote about him is probably fabricated, but it makes an interesting probability problem.
+Supposedly Poincaré suspected that his local bakery was selling loaves of bread that were lighter than the advertised weight of 1 kg, so every day for a year he bought a loaf of bread, brought it home and weighed it. At the end of the year, he plotted the distribution of his measurements and showed that it fit a normal distribution with mean 950 g and standard deviation 50 g. He brought this evidence to the bread police, who gave the baker a warning.
+For the next year, Poincaré continued the practice of weighing his bread every day. At the end of the year, he found that the average weight was 1000 g, just as it should be, but again he complained to the bread police, and this time they fined the baker.
+
+
+Why? Because the shape of the distribution was asymmetric. Unlike the normal distribution, it was skewed to the right, which is consistent with the hypothesis that the baker was still making 950 g loaves, but deliberately giving Poincaré the heavier ones.
+Exercise 5.6 Write a program that simulates a baker who chooses n loaves from a distribution with mean 950 g and standard deviation 50 g, and gives the heaviest one to Poincaré. What value of n yields a distribution with mean 1000 g? What is the standard deviation?
+\end{document}
+
+
+\subsection{About exam level}
+\label{sec:chapter-8}
+
+\begin{exercise}
+Let $X, Y$ iid $\sim \Unif{[0,1]}$. 
+\begin{enumerate}
+\item What is the joint CDF of $X+Y, XY$?
+\item What is the joint PDF of $X+^Y XY$?
+\item Compute $\P{X+Y\leq 1, XY\leq 2/9}$.
+\end{enumerate}
+\end{exercise}
+
+
+\end{document}

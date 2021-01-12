@@ -175,6 +175,14 @@ After the course you might be interested in the following two books that I liked
 https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf][C. Bishop, Pattern Recognition and Machine Learning]]. This is a really nice book on data analysis and  machine learning. After the course you can read the first two chapters. At the end of the master, you can read most of the book. 
 
 
+With a bit of searching you find lots of information, which is perhaps  useful;  use it at your own risk!
+
+\begin{itemize}
+\item \url{https://github.com/buruzaemon/stats-110}
+\item \url{https://github.com/buruzaemon/IntroductionToProbabilityPy}
+\end{itemize}
+
+
 
 
 

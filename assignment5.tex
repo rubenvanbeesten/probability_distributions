@@ -1,0 +1,40 @@
+\documentclass[assignments]{subfiles}
+
+\begin{document}
+
+
+\section{Assignment 5}
+
+\subsection{Have you read well?}
+
+\section{Bayes' Billiards}
+\label{sec:orgf93559e}
+Take \(n=100\) samples. 
+
+\subsection{One coin}
+\label{sec:org1e9a031}
+\begin{enumerate}
+\item Take success probability \(p=1/2\).
+\item Make matrix with \(n\) rows, \(n\) columns. Each row is an experiment of \(n\) throws of the coin.
+\item Plot the histogram of the number of heads.
+\end{enumerate}
+
+\subsection{Three coins}
+\label{sec:orga657159}
+\begin{enumerate}
+\item Take three coins with success probabilities \(p=1/4, 1/2, 3/4\).
+\item Make a simulation for each coin.
+\item If we select a coin with probability \(1/3\), the total histogram is the 1/3 times the sum of the histograms of each of the coins. That is, \(\P{X=k} = \P{X=k|C = i}\P{C=i}\), where \(C\) is one of chosen coins;  here we take \(\P{C=i} = 1/3\).
+\end{enumerate}
+
+\subsection{five coins}
+\label{sec:orga1a3b28}
+\begin{enumerate}
+\item Select with uniform probability one out of five coins with success probabilities \(p=i/5\),  \(i=1,\ldots, 5\).
+\item Make a simulation for each coin.
+\item Make the histogram \(\P{X=k} = \P{X=k|C = i}\P{C=i}\), where \(\P{C=i} = 1/5\).
+\end{enumerate}
+
+
+
+\end{document}

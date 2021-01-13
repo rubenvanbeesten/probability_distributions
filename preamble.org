@@ -20,7 +20,7 @@
 #+LaTeX_HEADER: \newtheorem{exercise}{Ex}[section]
 
 #+LaTeX_HEADER: \newcommand{\Exp}[1]{\mathrm{Exp}(#1)} 
-#+LaTeX_HEADER: \newcommand{\Ber}[1]{\mathrm{Ber}(#1)} 
+#+LaTeX_HEADER: \newcommand{\Bern}[1]{\mathrm{Bern}(#1)} 
 #+LaTeX_HEADER: \newcommand{\Beta}[1]{\mathrm{Beta}(#1)} 
 #+LaTeX_HEADER: \newcommand{\FS}[1]{\mathrm{FS}(#1)} 
 #+LaTeX_HEADER: \newcommand{\DUnif}[1]{\mathrm{DUnif}(#1)} 
@@ -33,7 +33,7 @@
 #+LaTeX_HEADER: \renewcommand{\min}[1]{\,\mathrm{min}\{#1\}}
 #+LaTeX_HEADER: \newcommand{\given}{\,\middle|\,}
 #+LaTeX_HEADER: \renewcommand{\P}[1]{\,\mathsf{P}\left[#1\right]}
-#+LaTeX_HEADER: \newcommand{\E}[1]{\,\mathsf{E}\left[#1\right]}
+#+LaTeX_HEADER: \newcommand{\E}[1]{\,\mathsf{E}\/\left[#1\right]}
 #+LaTeX_HEADER: \newcommand{\EE}[2]{\,\mathsf{E}_{#1}\left[#2\right]}
 #+LaTeX_HEADER: \newcommand{\V}[1]{\,\mathsf{V}\left[#1\right]}
 #+LaTeX_HEADER: \newcommand{\VV}[2]{\,\mathsf{V}_{#1}\left[#2\right]}

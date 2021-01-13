@@ -1,9 +1,10 @@
 %\documentclass[a4paper,14pt]{extarticle}
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,11pt]{article}
 
 %\usepackage[all-solutions-at-end]{optional}
 \usepackage[check]{optional}
 
+\usepackage{mathpazo}
 \usepackage{preamble}
 
 \opt{check}{
@@ -31,7 +32,7 @@ Notes on joint distributions }
 \label{sec:confusing-problem}
 
 Write $M=\max{X,Y}$ and $L=\min{X,Y}$ for given r.v.s $X$ and $Y$.
-It is simple to see that when $X$ and $Y$  have the same distribution 
+It is simple to see that when $X$ and $Y$  have the same distribution, 
 \begin{equation}
 \E L + \E M = \E{L+M}=\E{X+Y} = 2\E X.
 \end{equation}
@@ -52,20 +53,20 @@ Then, we first wait until the first job finishes; this time is evidently $L=\min
 Then, due to memorylessness, the service time of the remaining job `restarts'; this takes an expected time $\E X$ to complete.
 
 Using~\cref{eq:6} and \cref{eq:7}  we can solve for $\E M$ and $\E L$.
-Adding the two equations and canceling $\E L$ at both sides gives $2\E M = 3 \E X $, hence:
+Adding the two equations and noting that $\E L$ cancels we get $2\E M = 3 \E X $, hence:
 \begin{align}
 \E M &= \frac 3 2 \E X,\label{eq:35}\\
 \E L &= \E M - \E X = \frac 1 2 \E X.\label{eq:36}
 \end{align}
-You might want to compare this to BH 7.2.2, where they analyze the case with uniform $X, Y$.
+You might want to compare this to BH.7.2.2\footnote{BH: Blitzstein and Hwang}, where they analyze the case with uniform $X, Y$.
 
-However, as we will see in the first set of exercises below, this is \emph{ not true for discrete} memoryless r.v.s, i.e., when $X, Y \sim \Geo{p}$, while it is true when $X, Y \sim \Exp{\lambda}$, cf., BH Ex.5.6.5.\footnote{BH: Blitzstein and Hwang}
+However, as we will see in the first set of exercises below, this is \emph{ not true for discrete} memoryless r.v.s, i.e., when $X, Y \sim \Geo{p}$, while it is true when $X, Y \sim \Exp{\lambda}$, cf., BH.5.6.5.
 In the exercises below, I try to help you find out why this is so, and how to adapt~\cref{eq:6} and/or \cref{eq:7} so that they also hold when $X,Y\sim\Geo{p}$.
 
 Actually, these exercises serve some much more general goals. They are meant to
 \begin{enumerate}
 \item become familiar with all concepts  BH 7.1.
-\item  provide a recap of concepts and results of  earlier chapters in the book,
+\item  provide a recap of concepts and results of  BH chapters 1 to 6.
 \item illustrate the change of variables formulas of BH 8.
 \item  motivate to read (and memorize) the material of BH A1, A.2.5, A.6, A.7, A.8, A.9 and A.10.
 \end{enumerate}
@@ -96,13 +97,15 @@ Conceptually this approach is easy, but simplifying  the summation or integratio
 However, the advantage is that I don't need special tricks or knowledge to solve the problem; it's just (quite a bit of) straightforward work.
 With practice, this approach always works.
 \item The joint CDF $F_{X,Y}$ follows from step 1, because $F_{X,Y}(x,y) = \P{X\leq x, Y\leq y} = \E{\1{X\leq x, Y\leq y}}$.
+  In other words, I apply 2D LOTUS to the function $g(x,y) = \1{X\leq x, Y\leq y}$.
 \item To get the joint density $f_{X,Y}$, I often first compute the joint distribution $F_{X,Y}$ and then take partial derivatives because $f_{X,Y} = \partial_{x}\partial_y F_{X,Y}$.
   This approach is `trick-free', but requires at times the hard work of solving the integrals to find $F_{X,Y}$.
 \end{enumerate}
 
 Solving the exercises of~\cref{sec:exerc-expon-distr} requires quite a lot of technical stuff with integrals.
 With the tools of BH ch 8 this can be done (considerably) easier.
-So we redo the work of~\cref{sec:exerc-expon-distr}, but now with change of variables techniques and densities. Read it once you study BH ch 8.
+So in~\cref{sec:work-with-dens} we redo the work of~\cref{sec:exerc-expon-distr}, but now with change of variables techniques and densities.
+Read it once you study BH ch 8.
 
 
 
@@ -110,7 +113,7 @@ So we redo the work of~\cref{sec:exerc-expon-distr}, but now with change of vari
 In the exercises below we first try to see which of~\cref{eq:6} and \cref{eq:7} is not true for memoryless discrete r.v.s, then we consider memoryless continuous r.v.s. Once we have dealt with these two cases, we can  resolve the confusing problem.
 
 
-\subsection{Discrete memoryless r.v.s}
+\section{Discrete memoryless r.v.s}
 \label{sec:set-1}
 
 
@@ -446,7 +449,7 @@ The work will be pretty technical at times, but there is no way around when deal
 
 
 
-\subsection{Continuous memoryless r.v.s}
+\section{Continuous memoryless r.v.s}
 \label{sec:exerc-expon-distr}
 
 In this section we analyze the correctness of~\cref{eq:6} and \cref{eq:7} for continuous memoryless r.v.s, i.e., exponentially distributed r.v.s.
@@ -675,7 +678,7 @@ Derive the moment-generating function $M_{X/n}(s)$ of $X/n$ when $X\sim \Geo{p}$
 Then, let $p = \lambda/n$, and show that $\lim_{n\to\infty}M_{X/n}(s) = M_{Y}(s)$, where $Y \sim \Exp{\lambda}$.
 \begin{hint}
   If you recall the Poisson distribution, you know that $e^{\lambda} = \sum_{i=0}^{\infty}\lambda^{i}/i!$.
-  In fact, this precisely Taylor's expansion of $e^{\lambda}$.
+  In fact, this is precisely Taylor's expansion of $e^{\lambda}$.
 \end{hint}
 \begin{solution}
   \begin{align}
@@ -734,7 +737,8 @@ We had success too: the solution of the last exercise provides the key to unders
 In fact, in the solutions we can see the term corresponding to $X=Y=i$ for $X,Y\sim \Geo{p}$ becomes negligibly small when $n\to 0$.
 In other words, $\P{X=Y}>0$  when $X$ and $Y$ are discrete, but $\P{X=Y}=0$ when  $X$ and $Y$ are continuous.
 So, to resolve our leading problem we should exploit that idea.
-\subsection{The solution}
+
+\section{The solution}
 \label{sec:solution}
 
 
@@ -841,8 +845,8 @@ In particular, I find~\cref{eq:44} a nice and revealing equation.
 
 
 
-\subsection{Working with densities}
-
+\section{Working with densities}
+\label{sec:work-with-dens}
 You should notice that working with densities is often easier than working with the fundamental bridge because you can work with equalities rather than inequalities.
 However, don't forget to properly scale lengths and areas; use the Jacobian!
 

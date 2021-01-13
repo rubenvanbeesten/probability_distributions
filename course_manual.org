@@ -12,65 +12,71 @@
 
 * Material
 
-https://projects.iq.harvard.edu/stat110/home provides an electronic copy of the book, video lectures, and so on.  I expect you to watch the lectures on this site, for the overview and general background of the book. In my youtube movies I will address specific points, solve problems, and show how I do simulations. 
+The [[https://projects.iq.harvard.edu/stat110/home][book's homepage]] provides an electronic copy of the book, video lectures by Blizstein, and a solution manual for part of the problems.
+I expect you to watch Blizstein's lectures for the overview and general background of the book.
 
 I advise you to buy the book as it makes studying easier, and it is very practical to look up things later.
 
-I got the advice of  Blitzstein to use /named/ results, as this sticks much better. I fully agree with him, so here are some names 
+Blitzstein gave me  the advice to use /named/ results, as this sticks much better. I fully agree with him, so here are some more names:
 - VOS law (Ch 7): Variance of sums: $\V{X+Y}= \cov{X+Y, X+Y} = \V X + \V Y + \cov{X,Y} + \cov{Y, X}$.
 - LOTE  (Ch 9):  Law of total expectation: $\E{X} = \sum_{i} \E{X \given A_i} \P{A_i}$. 
 
+The document =memoryless excursions.pdf= (henceforth referred to as ME) discusses the core concepts of BH.7.1 (BH = Blitzstein and Hwang), and contain worked solutions to show you the type of computations you are supposed to master. 
+
+The document =notes.pdf= contains notes that I took while reading the book and lots of hints for the exercises of BH.
+It contains also hints for exercises that are not in the list below.
+It's up to you to do these other exercises.
+I worked hard on making this set of hints, and I include many remarks and recipes (general strategies) I used to solve the exercises.
+As you'll notice, I prefer to stay clear of quick and/or slick solutions.
+Sure, such solutions can provide fast and elegant answers to hard questions, but such tricks often don't work in more general settings, and they depend on knowledge that takes a long time to acquire.
+In fact, tricks give people (students and me alike) the feeling that they will never learn probability because they don't know these `shortcuts'.
+So, it's better to avoid that altogether, and for that reason I tend to use plain and straightforward, but perhaps long and tedious, derivations.
+You should learn and master the computational skills as you will need them time and again in many other courses.
+
+With a bit of searching you can find lots of information on the web, such as here, 
+\begin{itemize}
+\item \url{https://github.com/buruzaemon/stats-110}
+\item \url{https://github.com/buruzaemon/IntroductionToProbabilityPy}
+\end{itemize}
+However, use this at your own risk, I haven't checked it.
 
 * Schedule
 
-We have two lectures a week for 7 weeks, hence 14 lectures.
-Blitzstein made his lectures available on-line.
-I expect you to watch them.
-In our on-line lectures I will illustrate the material by solving problems.
-I'll post the problems before the lecture.
-I don't expect you to solve them before the lecture, but you should have read it at least, and have watched Blizstein's videos and have read the book.
+In our on-line lectures, we will illustrate the material by solving problems.
+It's not necessary that you have solved the problem before the lecture, but you should have at least read them, and have watched the relevant lectures of Blizstein and are up to date with the book.
 
 #+CAPTION: schedule
-| Lecture | section    |
-|---------+------------|
-|       1 | 7.1        |
-|       2 | 7.1        |
-|---------+------------|
-|       3 | 7.2, 7.3   |
-|       4 | 7.4, 75    |
-|---------+------------|
-|       5 | 8.1        |
-|       6 | 8.2        |
-|---------+------------|
-|       7 | 8.3, 8.4   |
-|       8 | 8.5        |
-|---------+------------|
-|       9 | 9.1        |
-|      10 | 9.2,9.3    |
-|---------+------------|
-|      11 | 9.5, 9.6   |
-|      12 | 9.6, 10.1  |
-|---------+------------|
-|      13 | 10.2       |
-|      14 | 10.3, 10.4 |
-|---------+------------|
+| Lecture | section    | Exercises                  |
+|---------+------------+----------------------------|
+|       1 | 7.1, ME    | 1, 10, all exercises of ME |
+|         | 7.1, ME    | 11, 12, 13, 15, 26,        |
+|---------+------------+----------------------------|
+|       3 | 7.2, 7.3   | 33, 46, 48, 58, 64         |
+|       4 | 7.4, 7.5   | 65, 66, 73 77, 86          |
+|---------+------------+----------------------------|
+|       5 | 8.1        | 1, 11, 12, 14, 16          |
+|       6 | 8.2        | 18, 22, 23, 27             |
+|---------+------------+----------------------------|
+|       7 | 8.3, 8.4   | 33, 34, 36, 37             |
+|       8 | 8.5        | 40, 52, 54                 |
+|---------+------------+----------------------------|
+|       9 | 9.1, 9.2   | 1, 3, 7, 12, 15            |
+|      10 | 9.2, 9.3   | 16, 18, 19, 21, 25         |
+|---------+------------+----------------------------|
+|      11 | 9.5, 9.6   | 37, 39, 42, 52, 55         |
+|      12 | 9.6, 10.1  | 56, 58, 1, 2, 4            |
+|---------+------------+----------------------------|
+|      13 | 10.2       | 6, 9, 15, 21, 26           |
+|      14 | 10.3, 10.4 | 27, 29, 30, 35, 39         |
+|---------+------------+----------------------------|
 
 
-* Exercises
 
-Below is a selection of exercises I enjoyed making and find useful; nothing prevents you from doing more!
+* On making exercises
+
+The selection of exercises in the table above are the bare minimum; I advice you to do more.
 To assure you, I found the problems quite hard at times; probability never `comes for free'; not for you, not for me, not for anybody.
 You can expect to spend between 30 minutes and 1 hour per problem; if you are serious.
-
-
-I worked hard on making a set of hints, and I include many remarks and recipes (general strategies) I used to solve the exercises.
-As you'll notice, I prefer to stay clear of quick and/or slick solutions.
-Sure, such solutions can provide fast and elegant answers to hard questions, but such tricks often don't work in more general settings, and they depend on knowledge that takes a long time to acquire. In fact,  tricks give people (students and me alike) the feeling that they will never learn probability because they don't know these `shortcuts'. So, it's better to avoid that altogether, and for that reason  I tend to use plain and straightforward, but perhaps long and tedious, derivations.
-You should learn and master the computational skills as you will need them time and again in many other courses.
-
-
-There are also many problems with worked solutions on the web.
-For this reason, I mostly selected problems without solutions (for those problems I feel compelled to write hints :-) )
 
 
 
@@ -87,108 +93,23 @@ Here is a list of good, and important, advice when making the exercises.
 - When I am stuck, this piece of advice of Jim Rohn (an author on personal development) helps: `Don't wish it was easier, wish you were better.'
 
 
-
-** Chapter 7
-
-|---------------------+------------------------------------------------|
-| Joint               | 1, 9, 10, 11, 12, 13, 14, 15, 20, 23, 26, 29   |
-| 2d Lotus            | 32, 33, 35, 36                                 |
-| Covariance          | 38, 42, 46, 48, 51, 53, 58, 59                 |
-| Chicken-egg         | 64                                             |
-| Multinomial         | 65, 66, 68, 71, 73                             |
-| Multivariate normal | 77                                             |
-| Mixed practice      | 80, 82, 86, 87, 89                             |
-|---------------------+------------------------------------------------|
-
-** Chapter 8
-
-|---------------------+----------------------------------|
-| Change of variables | 1, 9, 10, 11, 12, 17, 15, 16, 18 |
-| Convolutions        | 22, 23, 27                       |
-| Beta and Gamma      | 31, 33, 34, 36, 37, 40           |
-| Order statistics    | skip                             |
-| Mixed practice      | 52, 54                           |
-|---------------------+----------------------------------|
-
-** Chapter 9
-
-|--------------------------------------+----------------------------------------------|
-| Condition expectation given an event | 1, 3, 7, 12                                  |
-| Conditional exp given a r.v          | 15, 16, 18, 19, 21, 25, 28, 3235, 37, 39, 42 |
-| Mixed practice                       | 50, 52, 55, 56, 58                           |
-|--------------------------------------+----------------------------------------------|
-
-** Chapter 10
-|--------------------+----------------------------|
-| Inequalities       | 1, 2, 8, 4, 6              |
-| Fill in the blanks | 9, 15                      |
-| LLN and CLT        | 21, 26, 27, 29, 30, 35, 39 |
-|--------------------+----------------------------|
-
-
 * Assignments
-You have to make one assignment per week.
-Every week we will make new groups of two students, hence every week you have to work together with another student.
+There are 6 assignments, one for each lecture week, except for the first week. The guidelines are in =assignments.pdf=.
+
+For each week we will make new groups of two students, hence every week you have to work together with another student.
 The reason behind this is to help all of you expand your network, which we find very important in the current situation.
 We realize this is perhaps not what all of you like, but this seems the best we can do to really help you get started and work with other students.
 You should also know that in professional life you will often have to work in different teams and with many different people.
 You'd better learn such skills early in your carreer.
 
-There are 7 assignments, one for each lecture week.
-A large part of the exercises in the assignment are intentionally simple, they are meant to get you started and become familiar with the material.
-An assignment often consists of two parts.
-One part is analytic in which you have to derive and explain a solution, in mathematical notation.
-The other part is about coding, simulation, making plots, and so on.
-Sometimes  we provide you with some code, and then your task is to explain how and why it works.
-In other cases you have build a simple computer program, describe how it works, and run it.
-
-
-About the use of python in the exercises: You don't have to use python, but you have to be able to read it.
-First, in general, you should get used to reading different computer languages.
-For instance, when you have to access databases to obtain data about customers, patients, clients, suppliers, inventory, demand, lifetimes, whatever, you often have to use \texttt{sql}, perhaps within \texttt{R} or python.
-(In fact, many companies use many different databases: SAS, postgresql, SAP, Microsoft access, excel, Elastic, all with their own specifics) Second, while I (= NvF) worked at a bank, I used Fortran for numerical work, awk for string parsing and making tables, excel, SAS to access the database, and matlab for other numerical work, all next to each other.
-I got tired of this, so I went to using python as it did all of this stuff, but then within one language.
-Finally, based on the statistics, \href{https://www.tiobe.com/tiobe-index/}{here} or \href{https://www.northeastern.edu/graduate/blog/most-popular-programming-languages/}{here}, of the most popular programming languages, python scores (much) higher than R; if you opt for a business career, the probability you have to use python is simply higher than to have to use R.
-
-You should become familiar with look up documentation on coding on the web, no matter your programming language of choice. Invest time in understanding the, at times, rather technical and terse, explanations.  Once you are used to it, the core documentation is faster to read, i.e., less clutter. In the long run, it pays off. 
-
-
-Assessment: Come to the office and explain your document. If you cannot\ldots
-
-
-
-* Interesting other literature
-
-There are a number of books that you might like too. (From experience I can tell that reading different types of explanation can be very helpful when stuck.)
-1. [[https://faculty.math.illinois.edu/~r-ash/BPT.html][R.B. Ash]]: Basic probability theory, free online
-2. [[https://math.dartmouth.edu/~prob/prob/prob.pdf][C.M. Grinsted and J. Laurie Snell]]: Introduction to probablity, also free online
-3. F.M. Dekking, et al.: A Modern Introduction to Probability and Statistics, Understanding Why and How. 
-
-After the course you might be interested in the following two books that I liked a lot. 
-1. D.V. Lindley, Understanding Uncertainty. This book explains why probability theory is the way it is. There are three rules that any coherent system of probabilities has to satisfy. 
-   1. For any event $E$, $\P{E} \in [0,1]$; 
-   2. $\P{E \text{ or } F} = \P{E} + \P{F} - \P{EF}$; 
-   3. $\P{EF} = \P{F\given E} \P{E}$. 
-   If you want to understand probability in terms of betting, any sensible strategy you can imagine should satify   these rules, for otherwise people can use arbitrage (an essential idea in the financial theory and asset and option pricing) to consistently make  money from you.  
-2. E.T. Jaynes, Probability Theory: The Logic of Science. It is hard at times, but very interesting. it discusses  applications and ideas behind probability and statistics, and how to think about these topics as a sensible person (not just as a theoretician).
-3. [[
-https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf][C. Bishop, Pattern Recognition and Machine Learning]]. This is a really nice book on data analysis and  machine learning. After the course you can read the first two chapters. At the end of the master, you can read most of the book. 
-
-
-With a bit of searching you find lots of information, which is perhaps  useful;  use it at your own risk!
-
-\begin{itemize}
-\item \url{https://github.com/buruzaemon/stats-110}
-\item \url{https://github.com/buruzaemon/IntroductionToProbabilityPy}
-\end{itemize}
-
-
+The due dates are  simple. In lecture week $n$, $2\leq n\leq 7$, you turn in assignment $n-1$ before Friday 24h. 
 
 
 
 * Questions
 
-- Post your questions on the discussion board. We or fellow students will either answer them there. I will answer questions of general interest via youtube movies, or otherwise.
+Post your questions on the discussion board.
+We or fellow students will either answer them there.
 
 * Exam
 
@@ -211,14 +132,30 @@ Not checking is unacceptable, for you, for me, for anybody
 
 
 
-* TODO Grading
+* Grading
 
-Assignment.
-You have to turn in the parts that are below and at exam level.
-The highest grade you can get for these parts is an 8.
-For a 10 you have to turn in the above exam level parts. x
+For each assignment you  have to turn in  parts 1, 2, and 3, i.e. the parts  that are below and at exam level and the coding skills. You are allowed to skip part 4, the challenges. 
+Each assignment will be graded as a 1, 6, 8, or 10.
+If you skip the challenges, the highest grade you can get is an 8.
+For a 10 you have to do all parts of the assignment (and have the right answers). 
+If you don't turn in an assignment, the grade will default to 1.
 
-**** TODO Assignment due dates
+
+Let $a=\sum_{i=1}^n a_{i}/n$ where $a_i$ is the grade of your  \(i\)th assignment.
+Let $e$ be your grade for the exam or the resit.
+Then we compute your final grade $g$ with the code:
+\begin{minted}[]{python}
+def compute_grade(a, e):
+    if e < 5.5:
+        g = e
+    elif a >= 6:
+        g = max(0.8 * e + 0.2 * a, e)
+    else:
+        g = 0.8 * e + 0.2 * a
+
+    return int(g + 0.5) # rounding
+\end{minted}
+It is intentional that if you do a lousy job on the assignments, your final grade $g$ is most surely lower than your exam grade $e$.
 
 
 
@@ -231,4 +168,24 @@ For a 10 you have to turn in the above exam level parts. x
 - dr. N.D van Foreest, Duis 666, 050-363 51 78, n.d.van.foreest@rug.nl
 - E.R. van Beesten
 - Teaching assistent
+
+
+
+* Interesting other literature
+
+There are a number of books that you might like too. (From experience I can tell that reading different types of explanation can be very helpfulp.)
+1. [[https://faculty.math.illinois.edu/~r-ash/BPT.html][R.B. Ash]]: Basic probability theory, free online
+2. [[https://math.dartmouth.edu/~prob/prob/prob.pdf][C.M. Grinsted and J. Laurie Snell]]: Introduction to probablity, also free online
+3. F.M. Dekking, et al.: A Modern Introduction to Probability and Statistics, Understanding Why and How. 
+
+After the course you might be interested in the following two books that I liked a lot. 
+1. D.V. Lindley, Understanding Uncertainty. This book explains why probability theory is the way it is. There are three rules that any coherent system of probabilities has to satisfy. 
+   1. For any event $E$, $\P{E} \in [0,1]$; 
+   2. $\P{E \text{ or } F} = \P{E} + \P{F} - \P{EF}$; 
+   3. $\P{EF} = \P{F\given E} \P{E}$. 
+   If you want to understand probability in terms of betting, any sensible strategy you can imagine should satify   these rules, for otherwise people can use arbitrage (an essential idea in the financial theory and asset and option pricing) to consistently make  money from you.  
+2. E.T. Jaynes, Probability Theory: The Logic of Science. It is hard at times, but very interesting. it discusses  applications and ideas behind probability and statistics, and how to think about these topics as a sensible person (not just as a theoretician).
+3. [[https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf][C. Bishop, Pattern Recognition and Machine Learning]]. This is a really nice book on data analysis and  machine learning. After the course you can read the first two chapters. At the end of the master, you can read most of the book. 
+
+
 

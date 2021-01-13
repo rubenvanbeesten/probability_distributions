@@ -46,6 +46,13 @@ What is a contingency table?
 \end{exercise}
 
 \begin{exercise}
+Let $X$ be uniformly distributed on the set $\{0,1,2\}$ and let $Y \sim Bern(1/4)$; $X$ and $Y$ are independent.
+Present a contingency table for the $X$ and $Y$.
+What is the interpretation of the column sums the table?
+What is the interpretation of the row sums of the table? Suppose you change some of the entries in the table, are $X$ and $Y$ still independent?
+\end{exercise}
+
+\begin{exercise}
 Apply the chicken-egg story.
 A machine makes items on a day.
 Some items, independent of the other items, are failed (i.e., do not meet the quality requirements).
@@ -259,7 +266,7 @@ print(I)
 \end{exercise}
 
 
-\begin{exercise}
+\begin{exercise}\label{ex:2}
 How many ping pong balls fit into an Airbus Beluga?
 One way to answer this is as follows.
 According to this \href{https://en.wikipedia.org/wiki/Airbus\_Beluga}{wikipage} the cargo volume $V$ of this airplane is $1500 \m^{3}$.
@@ -289,8 +296,7 @@ Use the code below to provide these estimates, and explain line 11 of the python
 Contrary to BH.7.1.25  if you run the code below, you'll see that $\E N < \infty$, and, in fact, very near to the deterministic answer. But isn't this strange?  We divide two normal random variables, 
 just like BH.7.1.25, but there the expectation is infinite.  Comment on the difference.
 
-The numerical results suggest the interesting guess $\V N \approx \V V * \V v$.
-For the moment I do not completely understand why this is so, or whether it is true more generally.  In case you do, let me know.
+The numerical results suggest the interesting guess $\V N \approx \V V * \V v$, but  is this true more generally? In~\cref{ex:3} we research this problem in more detail.
 
 \begin{minted}[]{python}
 import numpy as np
@@ -319,6 +325,25 @@ Consider the again the chicken-egg story (BH 7.1.9): A chicken lays a random num
 For $N \sim \Pois{\lambda}$ it is shown in BH 7.1.9 that $X$ and $Y$ are independent. This exercise asks for the converse. Assume that $X$ and $Y$ are independent. Prove that there exists a $\lambda > 0$ such that $N \sim \Pois{\lambda}$.
 \end{exercise}
 
+
+\begin{exercise}\label{ex:3}
+This is a continuation of~\cref{ex:2}.  TBD.
+ 
+\begin{verbatim}
+Als V[V] = 0 of V[v] = 0, is rechts 0, links niet perse.
+Maar er is nog een betere reden waarom dit niet kan kloppen. Definieer V' = 2V, v'=2v en N' = V'/v'. Dan N=N', dus links blijft gelijk. Maar rechts wordt 16 keer zo groot...
+
+Ik denk dat ik het heb opgelost. Merk op dat we aannemen dat V en v onafhankelijk zijn. Dus
+V[V/v] = E[V^2/v^2] - E[V/v]^2 = E[V^2]E[1/v^2] - E[V]^2E[1/v]^2 = V[V]V[1/v] + E[V]^2 E[1/v^2]  + E[V^2] E[1/v]^2 - 2 E[V]^2E[1/v]^2= V[V]V[1/v] + E[V]^2 V[1/v] + V[V] E[1/v]^2.
+Als we er van uit gaan dat we V en v voldoende precies weten, geldt er V[V]V[1/v] << E[V]^2 V[1/v] + V[V] E[1/v]^2.
+De eerste-orde Taylorbenadering van 1/v rond E[v] is 2/E[v] - v/E[v]^2. We kunnen dus benaderen V[1/v] \approx  V[v]/E[v]^4.
+Dezelfde benadering geeft ook E[1/v]^2 \approx 1/ E[v]^2. Dus het resultaat is al met al  V[V/v]\approx  E[V]^2 V[v]/E[v]^4 + V[V] / E[v]^2 = E[V/v]^2( V[v]/E[v]^2 +  V[V]/E[V]^2 ).
+Ofwel: V[V/v]/E[V/v]^2=  V[v]/E[v]^2 +  V[V]/E[V]^2, dus SCV(V/v) \approx SCV(V)  + SCV(v).
+Overigens: de benadering zit hier in SCV(1/v) \approx SCV(v). Immers, SCV(V/v) = SCV(V)  + SCV(1/v) wegens onafhankelijkheid. 
+
+\end{verbatim}
+
+\end{exercise}
 
 \end{document}
 

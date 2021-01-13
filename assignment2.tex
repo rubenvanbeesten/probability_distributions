@@ -55,25 +55,152 @@ If we would consider another distribution for $X$, would that change the correla
 \subsection{Coding skills}
 \label{sec:progr-assignm}
 
-\begin{todo} 
-Maximum of independent r.v.s, BH.5.6.5.
+
+
+\begin{exercise}
+In this exercise we verify the answers of BH.5.6.5. Read this example first.   
+
+For the python  code below, run it for a small number of sample;  here I choose  \texttt{samples=2} to enable to see the pattern. 
 \begin{enumerate}
-\item Make 1d array of uniform 0,1 random rvs
-\item compute mean and variance
-\item Why include a seed
-\item include seed
-\item Make [n, p] matrix, n samples along rows
-\item Sort along axis  1
-\item Sort along axis 0
-\item Compute mean and std along axis 0
-\item Make large number of data, with e.g sample-no = 1000, and redo the above
-\item Change to exponential distribution
-\item Show how to use the online documentation for np.random.exponential
-\item Show the effect of the scale parameter
-\item Compare mean to theoretical value
-\item Change to geometric distribution
+\item In line 11 we print the value of \texttt{X} in line 10. What is the meaning of \texttt{X}?
+\item What is the meaning of \texttt{T} in line 12? 
+\item What do we print in line 14? 
+\item What is \texttt{expected}? 
+\item What is the \texttt{cumsum} of \texttt{expected}? 
+\item Now that you understand what is going on, rerun the simulation for a larger number of samples, e.g., 1000.
 \end{enumerate}
-\end{todo}
+
+
+\begin{minted}[]{python}
+import numpy as np
+from scipy.stats import expon
+
+np.random.seed(10)
+
+labda = 4
+num = 3
+samples = 2
+
+X = expon(scale=labda).rvs((samples, num))
+print(X)
+T = np.sort(X, axis=1)
+print(T)
+print(T.mean(axis=0))
+
+expected = np.array([labda / ((num - j)) for j in range(num)])
+print(expected)
+print(expected.cumsum())
+\end{minted}
+\end{exercise}
+
+
+\begin{exercise}
+Let's check  BH.7.48. Read and solve it first.  
+
+For  the python code below, explain how the small function in lines 6 to 13 works. (You should know that \texttt{x += 1} is an extremely useful abbreviation of the code \texttt{x = x +1}). Then explain the code in lines 25 and 26.
+
+\begin{minted}[]{python}
+import numpy as np
+
+np.random.seed(3)
+
+
+def find_number_of_maxima(X):
+    num_max = 0
+    M = -np.infty
+    for x in X:
+        if x > M:
+            num_max += 1
+            M = x
+    return num_max
+
+
+num = 10
+X = np.random.uniform(size=num)
+print(X)
+
+print(find_number_of_maxima(X))
+
+samples = 100
+Y = np.zeros(samples)
+for i in range(samples):
+    X = np.random.uniform(size=num)
+    Y[i] = find_number_of_maxima(X)
+
+print(Y.mean(), Y.var(), Y.std())
+\end{minted}
+\end{exercise}
+
+
+\begin{exercise}
+Why is the Exponential Distribution so important? This exercise provides some motivation.
+
+
+At the Paris metro, a  train arrives every  3  minutes on a platform. Suppose that 50 people arrive between the departure of a train and an arrival.
+It seems entirely reasonable to me to model the arrival times of the individual people as distributed on the interval \([0,3]\).
+What is the distribution of the inter-arrival times of these people? It turns out to be exponential!  Story BH.13.4.2 provides an explanation (It is not forbidden to read the book beyond what you have to do for this course!); here we use simulation to check this fact. 
+
+For the python code:
+\begin{enumerate}
+\item Explain the result of line 12.
+\item Compare the result of  line 12 and 13;  explain what is \texttt{A[1:]}.
+\item Compare the result of  line 12 and 14;  explain what is \texttt{A[:-1}.
+\item Explain what is \texttt{X}.
+\item Why do I compare $1/\lambda$ and \texttt{X.mean()}?
+\item Recall that when $X\sim \Exp{\lambda}$, that $\E X = \sigma (X)$. Hence, what do you expect to see for  \texttt{X.std()}?
+\item Run the code for a larger sample, e.g. 50, and discuss (very briefly) your results.
+\end{enumerate}
+
+
+\begin{minted}[]{python}
+import numpy as np
+
+np.random.seed(3)
+
+
+num = 5 # small sample at first, for checking.
+start, end = 0, 3
+labda = num / (end - start)  # per minute
+print(1 / labda)
+
+A = np.sort(np.random.uniform(start, end, size=num))
+print(A)
+print(A[1:])
+print(A[:-1]
+X = A[1:] - A[:-1]
+print(X)
+
+print(X.mean(), X.std())
+\end{minted}
+
+\end{exercise}
+
+
+\subsection{Challenges}
+\label{sec:challenges}
+
+
+
+
+
+\end{document}
+
+
+
+
+\subsection{Measuring inter arrival-times}
+\label{sec:orgf820334}
+
+We have a device to measure the time between two arrivals, of jobs for instance, or customers in a shop, or particles in radio-active decay.
+After a measurement, the device has to recharge so it cannot measure arrivals that occur within 10 seconds from each other.
+Also, if there is no arrival within 50, it resets itself.
+Hence, the device cannot easily measure inter-arrival times longer than 1 minute. Assume that the inter-arrival times are exponentially distributed with some unknown \(\lambda\). Let \(\bar x = \sum_{n=1}^N x_{n} /N\) be the sample mean of \(N\) measured inter-arrival times. 
+
+\begin{enumerate}
+\item Explain that, if \(\lambda \ll 1\) minute,  \(\hat \lambda = \bar x - 10\) is a reasonable estimator for \(\lambda\).
+\item How would you obtain a reasonable estimate of \(\lambda\) when \(\lambda\) \(\gg\) 1 minute?
+\end{enumerate}
+
 
 
 \begin{todo}
@@ -106,231 +233,3 @@ Let $X\sim\Exp{\lambda}$ and $Y| X \sim N(X, \sigma)$. So,  draw $X$ first and l
 \end{todo}
 
 
-
-\begin{todo}
-On BH.7.32
-\begin{enumerate}
-\item Solve this problem and explain your solution.
-\item Let \(L=\min\{X,Y\}\) and \(M=\max\{X,Y\}\). Use the memoryless property to explain that \(\E M = \E L + 1/\lambda\).
-\item Let \(L_{n}=\min\{X_{i} : i = 1,\ldots, n\}\) where \(X_i\sim \Exp(\lambda)\), and likewise  \(M_{n}=\max\{X_i\}\). Use the memoryless property to explain that \(\E{M_{n}} = \E{L_{n-1}} + \E{M_{n-1}}\).
-\item What is \(\E{M_n}\) for \(n=5\) and \(\lambda = 4\)?
-\item Explain the idea behind code below. In particular, why do we make a matrix of exponentially distributed random variables? Why is the \texttt{sort} along \texttt{axis=1}? Why is the mean along \texttt{axis=0}? Look up the meaning of \texttt{cumsum} in the \texttt{numpy} docs. Why is there a \texttt{cumsum} in the computation of \texttt{times}?
-\item Run the code, and include your output
-\end{enumerate}
-
-
-\begin{minted}[]{python}
-import numpy as np
-
-np.random.seed(10)
-
-labda = 4
-num = 5
-samples = 400
-
-X = np.random.exponential(1 / labda, size=(samples, num))
-print(X)
-X.sort(axis=1)
-print(X.mean(axis=0))
-print(X)
-
-times = np.array([1 / ((num - j) * labda) for j in range(num)])
-times = times.cumsum()
-print(times)
-\end{minted}
-\end{todo}
-
-
-\begin{todo}
-On BH.7.48
-\begin{enumerate}
-\item Solve  the problem and explain your solution.
-\item Below is the python code to estimate the mean and variance by means of simulation.   Explain how the algorithm works, in particular, how does \texttt{find\_maxima} work?.
-\item Replace the seed for the random number generator with your student number (without the "s" of course). Run this code, and include the numerical results in your report. If you prefer to use \texttt{R}, that is ok too, but then port the ideas of the code below to \texttt{R}.
-\end{enumerate}
-
-\begin{minted}[]{python}
-import numpy as np
-
-np.random.seed(3)
-
-num = 10
-
-X = np.random.uniform(size=num)
-print(X)
-
-
-def find_maxima(X):
-    Xstar = np.zeros_like(X)
-    M = -np.infty
-    for i, x in enumerate(X):
-        if x > M:
-            Xstar[i] = 1
-            M = x
-    return Xstar
-
-
-Xstar = find_maxima(X)
-print(Xstar)
-
-samples = 100
-Y = np.zeros(samples)
-for i in range(samples):
-    Xstar = find_maxima(np.random.uniform(size=num))
-    Y[i] = Xstar.sum()
-
-print(Y.mean(), Y.var())
-\end{minted}
-\end{todo}
-
-
-
-\subsection{TODO Applications}
-\label{sec:applications}
-
-Use Story 13.4.2 to generate exponentially distributed inter-arrival times. (It is not forbidden to use results we have not discussed yet.)
-
-
-\subsection{Why is the Exponential Distribution so important?}
-\label{sec:org50b29b7}
-
-The exponential distribution plays a very important role in probability theory, but why? This assignment is meant to answer this question.  
-
-\subsubsection{Train arrivals}
-\label{sec:org25e266e}
-
-Suppose a train departs between 10:00 and 10:15 minutes, and that 250 people will take this train.
-As a very simple model, let's suppose that each person arrives uniformly distributed on the interval \([0,15]\).
-What is the distribution of the inter-arrival times of these people?
-In the next couple of exercises we will use simulation to show that the exponential distribution is a very reasonable model.
-
-The basic idea behind the simulation is as follows. First we use a random number generator to generate an array \(A\) of arrival times. Second, we compute the inter-arrival time
-\begin{equation}
-\label{eq:1}
-X_{i} = A_{i} - A_{i-1},\quad i = 1,2, \ldots,
-\end{equation}
-between the arrivals.
-Third, we compute the empirical distribution \(F_{e}\) of \(X\).
-Fourth, we plot  \(F_{e}(x)\) and  the theoretical distribution \(F(x) = 1-e^{-\lambda x}\) for a proper \(\lambda\). 
-Once all steps are done, hopefully (the graphs of) \(F_{e}(x)\) and \(F(x)\) are (very) similar, so that we can conclude that the inter-arrival times are approximately exponentially distributed. 
-
-For the \(\lambda\), observe that all arrivals occurred between \(m= \min A\) and \(M=\max A\). Thus, as a simple estimate take \(\lambda = n/(M-m)\). This is easy, because when you change the size of \(A\), or the distribution, then this estimate of \(\lambda\) scales in the right way.
-
-
-One of the nice, and bad, things of \texttt{R} is that many algorithms are included.
-This is handy when you know what you do, but it leaves you clueless  if you have to do something new.
-More generally, using standard functions does not help you develop algorithmic skills.
-However, this is very important if you plan to use large amounts of data in your later career, as actuary, consultant, banker, financial quant, whatever.
-For this reason we discuss here how to make an empirical distribution function, even though you can just invoke the \texttt{ecdf} function (empirical cumulative distribution function) in \texttt{R} to compute it for you.
-
-As a concrete, but simple example, suppose we are given the following set of ages of people \(X = (20, 25, 18, 18, 19)\). The empirical distribution function is defined as
-\begin{equation*}
-F_e(x) = n^{-1}\sum_{i=1}^n \1{X_i\leq x}.
-\end{equation*}
-To compute this efficiently, we first sort the ages: \((18, 18, 19, 20, 25)\). Next, we give a count number to each individual: \((1,2,3,4,5)\), and divide this count number by \(n=5\), since there are \(5\) persons. Finally, we plot the ages along the \(x\) axis, and \((1/5, 2/5, 3/5, 4/5, 5/5)\) along the \(y\) axis. When we plot this, we see that \(F_{e}(18) = 2/5\). To get things really correct, we should remove the double counts, such as the \(18\), but we skip this here. 
-
-
-You can choose between  python  or R to make the simulations and the plots.
-We include sample code for each to help you get started; it's up to you what you like to use.
-As an advice: learn both.
-\texttt{R} is handy for data analysis, but it is not used much besides academia; in business, machine learning, programming, python is much more common. 
-
-
-First we need to load some libraries. Check the web on what they do.
-
-
-\begin{minted}[]{python}
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-\end{minted}
-
-Now we set a theme for \texttt{seaborn} to make nice graphs, and we set a seed for the random number generator of \texttt{numpy} so that we get the same random numbers every time we do a run.
-This helps to find bugs.
-(If you get different numbers each and every time, checking whether the results are correct becomes very tedious very rapidly.)
-We also set the labels on the axis.
-
-\begin{minted}[]{python}
-np.random.seed(3)
-sns.set_theme()
-
-plt.xlabel('x', fontsize=16)
-plt.ylabel('y', fontsize=16)
-\end{minted}
-
-
-Here is the algorithm to compute the \texttt{ecdf}.
-\begin{minted}[]{python}
-def ecdf(data):
-    x = np.sort(data)
-    n = x.size
-    y = np.arange(1, n + 1) / n
-    return (x, y)
-\end{minted}
-
-Now we compute the arrival times and sort them
-
-\begin{minted}[]{python}
-num = 250
-A = np.sort(np.random.uniform(0, 15, size=num))
-labda = A.size / (A.max() - A.min()) 
-\end{minted}
-
-Finally, compute the inter-arrival times and plot the \texttt{ecdf}.
-\begin{minted}[]{python}
-X = A[1:] - A[:-1]
-x, y = ecdf(X)
-plt.scatter(x=x, y=y)
-plt.plot(x, 1 - np.exp(-labda * x))
-# plt.show()
-
-\end{minted}
-
-
-\subsection{Empirical distribution functions}
-\label{sec:org27b4ea4}
-\begin{exercise}
-Make a graph of the empirical and theoretical distrribution for $n=250$, i.e. the size of $A$ is 250, of $X$ and the theoretical distribution. Explain what we can see in this graph. 
-\end{exercise}
-
-\begin{exercise}
-Make a graph of $F_e$ and $F$  for $n=10$. Explain. 
-\end{exercise}
-
-\begin{exercise}
-Make a graph of  $|F_e - F|$  for $n=250$. What do you see?
-\end{exercise}
-
-\begin{exercise}
-Make a graph of  $\log(1-F_e)/\lambda$  for $n=250$. What do you see? Why did we take transform of $F_e$?
-\end{exercise}
-
-
-\begin{exercise}
-Take the arrival times as normally distributed with mean $\mu=7.5$ and $\sigma=3$, and make the graphs. Explain. 
-\end{exercise}
-
-Normally distributed, early and late arrivals, i.e., \(\mu\) = 7.5 and \(\sigma\) = 5, and then merge the ones that are in time with the ones that are late and early. 
-
-
-
-
-
-\subsection{Measuring inter arrival-times}
-\label{sec:orgf820334}
-
-We have a device to measure the time between two arrivals, of jobs for instance, or customers in a shop, or particles in radio-active decay.
-After a measurement, the device has to recharge so it cannot measure arrivals that occur within 10 seconds from each other.
-Also, if there is no arrival within 50, it resets itself.
-Hence, the device cannot easily measure inter-arrival times longer than 1 minute. Assume that the inter-arrival times are exponentially distributed with some unknown \(\lambda\). Let \(\bar x = \sum_{n=1}^N x_{n} /N\) be the sample mean of \(N\) measured inter-arrival times. 
-
-\begin{enumerate}
-\item Explain that, if \(\lambda \ll 1\) minute,  \(\hat \lambda = \bar x - 10\) is a reasonable estimator for \(\lambda\).
-\item How would you obtain a reasonable estimate of \(\lambda\) when \(\lambda\) \(\gg\) 1 minute?
-\end{enumerate}
-
-
-
-
-
-\end{document}

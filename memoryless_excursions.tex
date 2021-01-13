@@ -961,6 +961,14 @@ Since $\partial(u,v)/\partial (x, z) = 1$,
   f_{L,M}(u,v)\1{u\leq v}= 6 f_{X}(u) (F_{Y}(v)-F_{Y}(u)) f_{Z}(v)\1{u\leq v}.
 \end{align*}
 
+Here is a neat method with CDFs.
+\begin{align*}
+  F_{L,M}(u,v) 
+&= \P{L\leq u, M\leq v}\\
+&= \P{M\leq v} - \P{L\geq u, M\leq v}\\
+&= (F_{X}(v))^{3} - (F_{X}(v) - F_{X}(u))^{3}.
+\end{align*}
+Taking $\partial_{v}\partial_{u}$ gives the same result as above.
 \end{solution}
 \end{exercise}
 

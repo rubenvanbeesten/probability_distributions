@@ -5,6 +5,7 @@
 
 #+STARTUP: indent
 #+STARTUP: overview 
+#+STARTUP: nolatexpreview
 #+OPTIONS:  toc:t num:t
 #+OPTIONS: H:5
 

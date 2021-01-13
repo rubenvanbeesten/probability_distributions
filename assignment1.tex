@@ -26,16 +26,15 @@ In your own words, explain what is
 
 
 \begin{exercise}
-We have two r.v.s $X$ and $Y$, both $\sim\Unif{[0,1]}$, and $Y>X$. 
+We have two r.v.s $X$ and $Y$ with the joint PDF $f_{X,Y}(x,y) = 2 \1{x\leq y}$? 
 \begin{enumerate}
-\item Why is the joint PDF $f_{X,Y}(x,y) = \1{x\leq y}$? 
 \item Are $X$ and $Y$ independent? 
 \item Compute $F_{X,Y}(x,y)$. 
 \end{enumerate}
 \end{exercise}
 
 \begin{exercise}
-Claim (that is, is the following clam correct?):  We have two continuous r.v.s. $X, Y$. Claim: even though the joint CDF factors into the product of the marginal it  is still possible in general that the joint PDF does not factors into a product of marginals PDFs of $X$ and $Y$.
+Correct (that is, is the following clam correct?)? We have two continuous r.v.s $X, Y$. Even though the joint CDF factors into the product of the marginal it is still possible in general that the joint PDF does not factors into a product of marginals PDFs of $X$ and $Y$.
 \end{exercise}
 
 \begin{exercise}
@@ -74,7 +73,7 @@ What do you think of this claim of independence?
 \begin{exercise}
 I select a random guy from the street, his height $X\sim\Norm{1.8, 0.1}$, and I select a random woman from the street, her height is $Y\sim\Norm{1.7, 0.08}$.
 I claim that since I selected the man and the woman independently, their heights are independent.
-Comment on this claim.
+Briefly comment on this claim.
 \end{exercise}
 
 
@@ -96,7 +95,7 @@ Correct? $X, Y$ two discrete rvs with CDF $F_{X,Y}$. We can compute the PDF as $
 
 
 
-\begin{exercise}
+\begin{exercise}\label{ex:1}
 We throw an unbiased die with six sides; the result of the $i$th throw is $X_i$. 
 \begin{enumerate}
 \item What is the sample space of the two throws $(X_{1}, X_2)$?
@@ -114,18 +113,13 @@ We throw an unbiased die with six sides; the result of the $i$th throw is $X_i$.
 We select a random married couple (a man and a woman). His height is $X\sim \Norm{1.8, 0.1}$, her height is $Y\sim \Norm{1.7, 0.08}$ in meters. 
 \begin{enumerate}
 \item What is the sample space of $(X, Y)$?
-\item If your answer to question 1 is correct, you must have noticed that the potentially the height of the man and the woman can be negative. Is this a problem for this model? 
+\item If your answer to question 1 is correct, you must have noticed that potentially the height of the man and the woman can be negative. Is this a problem for this model? 
 \item What is the joint CDF?
 \item What is the joint PDF?
-\item  Marginalize out $Y$ to show that $X\sim \N{1.8, 0.1}$.
-\item Use the fundamental bridge and indicators to write  $\P{X>Y}$ as an integral.
+\item  Marginalize out $Y$ to show that $X\sim \Norm{1.8, 0.1}$.
+\item Use the fundamental bridge and indicators to write  $\P{X>Y}$ as an integral. You don't have to solve the integral.
 \item Use the fundamental bridge and indicators to write  $\P{|X-Y| < 0.1 }$ as an integral. You don't have to solve the integral.
 \end{enumerate}
-\end{exercise}
-
-\begin{exercise}
-Take $X\sim\Unif{\{-2, -1, 1, 2\}}$ and $\eta = X^2$. What is the correlation coefficient of $X$ and $\eta$? 
-If we would consider another distribution for $X$, would that change the correlation?
 \end{exercise}
 
 \begin{exercise}
@@ -176,13 +170,6 @@ Let $Y_i$ be the value of the $i$th throw with the die.
 \end{exercise}
 
 
-\begin{exercise}
-Check first BH 7.2.3.
-When $X, Y$ iid $\sim \Norm{0, 1}$, then $X-Y\sim\Norm{0,2}$.
-However, when $X, Y$ iid $\sim \Pois{\lambda}$, then prove first that $X+Y\sim \Pois{2\lambda}$, but note that $X-Y$ is not $\sim\Pois{0}$.
-Explain this difference between the Poisson and normal distribution.
-\end{exercise}
-
 
 \begin{exercise} %wk
 Assume that $X$ has the Cauchy distribution. 
@@ -193,33 +180,34 @@ Assume that $X$ has the Cauchy distribution.
 \end{exercise}
 
 
-\subsection{Challenges}
-\label{sec:above-exam-level}
-
-\begin{exercise} %wk
-Consider the again the chicken-egg story (BH 7.1.9): A chicken lays a random number of eggs $N$ an each egg independently hatches with probability $p$ and fails to hatch with probability $q = 1-p$. Let $X$ be the number of eggs that hatch and let $Y$ be the number of eggs that do not hatch, so $X+Y = N$. 
-For $N \sim \Pois{\lambda}$ it is shown in BH 7.1.9 that $X$ and $Y$ are independent. This exercise asks for the converse. Assume that $X$ and $Y$ are independent. Prove that there exists a $\lambda > 0$ such that $N \sim \Pois{\lambda}$.
-\end{exercise}
-
 \subsection{Coding skills}
 \label{sec:coding-skills}
 
 
 
 \begin{exercise} 
-Use simulation to estimate the answer of BH.7.1. Run the code below and explain line 9 of python code or line of the R code.
+Use simulation to estimate the answer of BH.7.1. Run the code below and explain line 9 of python code or line of the R code. 
+
+
+Then run the code for a larger sample, e.g, \verb|num=1000| or so, but remove the prints of \verb|a|, \verb|b|, and \verb|succes|, because that will fill your screen with numbers you don't need.
+Only for small simulations such output is handy so that you can check the code.
+
 Compare the value of the simulation to the exact value.
+
 
 \begin{minted}[]{python}
 import numpy as np
 
 np.random.seed(3)
 
-num = 1000
+num = 10
 
 a = np.random.uniform(size=num)
 b = np.random.uniform(size=num)
 success = np.abs(a - b) < 0.25
+print(a)
+print(b)
+print(success)
 print(success.mean(), success.var())
 \end{minted}
 
@@ -237,7 +225,7 @@ Challenge (not obligatory): If you like, you can include a plot of the region (i
 Let $X\sim\Exp{3}$.
 Find a simple expression for $\P{1 < X \leq 4}$ and compute the value.
 Then use simulation to check this value.
-Finally, use numerical integration to compute this value. Explain lines lines 11, 21 and 26 of the python code. 
+Finally, use numerical integration to compute this value. What are the numbers? Explain lines lines 11, 21 and 26 of the python code. 
 
 \begin{minted}[]{python}
 import numpy as np
@@ -274,17 +262,17 @@ print(I)
 \begin{exercise}
 How many ping pong balls fit into an Airbus Beluga?
 One way to answer this is as follows.
-According to this \href{https://en.wikipedia.org/wiki/Airbus\_Beluga}{wikipage} the cargo volume $V$ of this airplane is 1500 m\textsuperscript{3}.
-But $V$ based on the physical dimensions that is available to store containers, tanks, and so on.
-So, I estimate the volume as about twice that amount, i.e., $V = $2500 m$^{3}$. 
-The volume of a ping pong ball is $v = 4 \pi r^3/3  = \py{4*3.14*8/3} cm^{3}$ with $r=2$ cm.
+According to this \href{https://en.wikipedia.org/wiki/Airbus\_Beluga}{wikipage} the cargo volume $V$ of this airplane is $1500 \m^{3}$.
+But this number is based on the physical dimensions that is available to store containers, tanks, and so on.
+So, I estimate the volume as about twice that amount, i.e., $V = 2500 \m^{3}$. 
+The volume of a ping pong ball is $v = 4 \pi r^3/3  = \py{4*3.14*8/3} \cm^{3}$ with $r=2$ cm.
 A plain division gives \py{2500/33.5} ping pong balls.
 Note, I left out the $10^{6}$ conversion from meters to cm, and I do not take into the sphere packing factor.
-(I hope you agree with me that providing an result with the precision as given here is plain ridiculous.
-But from reason incomprehensible to me, even professional econometricians like to report results with 10 digits or more, without questioning the precision.)
+Besides that, I hope you agree with me that providing an result with the precision as given here is plain ridiculous.
+(But from reason incomprehensible to me, even professional econometricians like to report results with 10 digits or more, without questioning the precision.)
 
 
-However, I know that the volume of the plane and a ping pong ball is an estimate, rather than a precise number as assumed above.
+However, I know that the volumes of an air plane and a ping pong ball is an estimate, rather than a precise number as assumed above.
 It seems to be better to approximate $V$ and $v$ as rvs.
 Let's assume that
    \begin{align*}
@@ -292,16 +280,17 @@ V & \sim N(2500, 500), & v  & \sim N(33.5, 0.5),
 \end{align*}
 where the variances express my trust in my guess work.
 What is now the mean of $N = V/v$ and its std?
-In fact, finding the closed form expression for the distribution of $N$ is entirely simple.
+In fact, finding the closed form expression for the distribution of $N$ is not entirely simple.
 However, with simulation it's easy to get an estimate.
-Use the code to provide these estimates, and explain line 11 of the python code.
+
+Use the code below to provide these estimates, and explain line 11 of the python code.
 
 
-
-Contrary to BH.7.1.25 we get a fine mean, i.e, $\E N < \infty$. But isn't this strange? Here we divide two normal random variables, and in BH.7.1.25 also two normal rvs are divided. Comment on the difference.
+Contrary to BH.7.1.25  if you run the code below, you'll see that $\E N < \infty$, and, in fact, very near to the deterministic answer. But isn't this strange?  We divide two normal random variables, 
+just like BH.7.1.25, but there the expectation is infinite.  Comment on the difference.
 
 The numerical results suggest the interesting guess $\V N \approx \V V * \V v$.
-For the moment I do not completely understand why this is so, or whether it is true in general.
+For the moment I do not completely understand why this is so, or whether it is true more generally.  In case you do, let me know.
 
 \begin{minted}[]{python}
 import numpy as np
@@ -321,6 +310,15 @@ print(2500/33.5)
 print(np.sqrt(500*0.5))
 \end{minted}
 \end{exercise}
+
+\subsection{Challenges}
+\label{sec:above-exam-level}
+
+\begin{exercise} %wk
+Consider the again the chicken-egg story (BH 7.1.9): A chicken lays a random number of eggs $N$ an each egg independently hatches with probability $p$ and fails to hatch with probability $q = 1-p$. Let $X$ be the number of eggs that hatch and let $Y$ be the number of eggs that do not hatch, so $X+Y = N$. 
+For $N \sim \Pois{\lambda}$ it is shown in BH 7.1.9 that $X$ and $Y$ are independent. This exercise asks for the converse. Assume that $X$ and $Y$ are independent. Prove that there exists a $\lambda > 0$ such that $N \sim \Pois{\lambda}$.
+\end{exercise}
+
 
 \end{document}
 

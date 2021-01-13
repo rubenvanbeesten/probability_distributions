@@ -107,7 +107,7 @@ So we redo the work of~\cref{sec:exerc-expon-distr}, but now with change of vari
 
 
 
-In the exercises below we first try to see which of~\cref{eq:6} and \cref{eq:7} is  not) true for memoryless discrete r.v.s, then we consider memoryless continuous r.v.s. Once we have dealt with these two cases, we can  resolve the confusing problem.
+In the exercises below we first try to see which of~\cref{eq:6} and \cref{eq:7} is not true for memoryless discrete r.v.s, then we consider memoryless continuous r.v.s. Once we have dealt with these two cases, we can  resolve the confusing problem.
 
 
 \subsection{Discrete memoryless r.v.s}
@@ -120,7 +120,7 @@ Let $X,Y$ be $\iid \sim \Geo{p}$. Write $q = 1-p$.
 As a recap of earlier chapters of BH, show that
 \begin{align}
   \label{eq:9}
-\P{X>j} &= q^{j+1}, &\P{X\geq j} &=q^j,& \E{X}&=\frac q{1-q}.
+\P{X>j} &= q^{j+1}, &\P{X\geq j} &=q^j,& \E{X}&=\frac q{p}.
  \end{align}
 What is the domain of $X$?
 \begin{solution}
@@ -228,6 +228,7 @@ Use that $1-q^2=(1-q)(1+q)$.
 \E L     + \E X 
 &= \frac{q^{2}}{1-q^2} + \frac{q}{1-q} \\
 &= \frac q{1-q}\left(\frac{q}{1+q} + 1\right)\\
+&= \frac q{1-q} \frac{1+2q}{1+q}
   \end{align}
 \end{solution}
 \end{exercise}
@@ -563,7 +564,7 @@ First the joint distribution. With $u\leq v$,
 F_{L,M}(u,v) &= \P{L\leq u, M \leq v} \\
 &= 2\iint \1{x \leq u, y\leq v, x\leq y} f_{X,Y}(x,y)\d x \d y \\
 &= 2\int_0^u \int_x^v f_Y(y) \d y f_X(x) \d x & \text{independence} \\
-&= 2\int_0^u (F_Y(v)- F_Y(x)) f_X(x) \d x 
+&= 2\int_0^u (F_Y(v)- F_Y(x)) f_X(x) \d x. 
   \end{align}
 Taking partial derivatives,
 \begin{align}
@@ -572,20 +573,20 @@ f_{L,M}(u,v)
 &=2 \partial_v\partial_{u} \int_0^u (F_Y(v)- F_Y(x)) f_X(x) \d x  \\
 &=2 \partial_v \left\{(F_Y(v)- F_Y(u)) f_X(u) \right \}  \\
 &=2 f_X(u)\partial_v F_Y(v)  \\
-&=2 f_X(u)f_Y(v)
+&=2 f_X(u)f_Y(v).
 \end{align}
 \end{solution}
 \end{exercise}
 
 \begin{exercise}
-In~\cref{eq:52} marginalize out $L$ to find $f_M$, and marginalize out $M$ to find $f_L$
+In~\cref{eq:52} marginalize out $L$ to find $f_M$, and marginalize out $M$ to find $f_L$.
 \begin{solution}
 \begin{align}
   \label{eq:54}
   f_M(v) &=  \int_0^{\infty} f_{L,M}(u,v) \d u \\
 &= 2 \int_0^{v} f_{X}(u) f_Y(v) \d u \\
 &= 2 f_Y(v) \int_0^{v} f_{X}(u) \d u  \\
-&= 2f_Y(v) F_X(u), \\
+&= 2f_Y(v) F_X(v), \\
 f_L(u) &=  \int_0^{\infty} f_{L,M}(u,v) \d v \\
 &= 2 f_{X}(u) \int_u^{\infty} f_Y(v) \d v \\
 &= 2 f_{X}(u) G_{Y}(u).
@@ -615,14 +616,14 @@ I'll use the standard method, i.e., the fundamental bridge.
 In itself the idea is not difficult, but the technical details require attention, in particular the limits in the integrations.
 \begin{align} 
 \P{L\leq x, M-L\leq y} 
-&= 2\P{X\leq x, Y-X \leq y} \\
+&= 2\P{X\leq x, Y-X \leq y, X \leq Y} \\
 &= 2\int_0^{\infty} \int_0^{\infty} \1{u\leq x, v-u\leq y, u \leq v} f_{X,Y}(u, v)  \d u \d v\\
 &= 2\int_0^{\infty} \int_0^{\infty} \1{u\leq x, v-u\leq y, u\leq v} \lambda^2e^{-\lambda u}e^{-\lambda v}\d u \d v\\
 &= 2\int_0^{x} \int_0^{\infty} \1{u\leq v\leq u+y} \lambda^2e^{-\lambda u}e^{-\lambda v}\d v \d u\\
 &= 2\int_0^{x} \lambda e^{-\lambda u} \int_u   ^{u + y}  \lambda e^{-\lambda v}\d v \d u\\
 &= 2\int_0^{x} \lambda e^{-\lambda u} (-e^{-\lambda v}) \biggr|_u^{u+y}\d u \\
 &= 2\int_0^{x} \lambda e^{-\lambda u} (e^{-\lambda u} - e^{-\lambda (u+y)})\d u \\
-&= 2\lambda\int_0^{x}  e^{-2 \lambda u}\d u  - 2\lambda \int_{0}^{x} e^{-\lambda (2u+y)})\d u \\
+&= 2\lambda\int_0^{x}  e^{-2 \lambda u}\d u  - 2\lambda \int_{0}^{x} e^{-\lambda (2u+y)}\d u \\
 &= 2\lambda\int_0^{x}  e^{-2 \lambda u}\d u  - 2\lambda e^{-\lambda y }\int_{0}^{x} e^{-2 \lambda u}\d u \\
 &= (1-e^{-\lambda y}) 2 \lambda \int_0^{x} e^{-2 \lambda u} \d u\\ 
 &= (1-e^{-\lambda y}) ( -e^{-2\lambda u}) \biggr|_0^{x} \\ 
@@ -655,8 +656,8 @@ First,
 since $p=\lambda/n$, $q=1-p=1-\lambda/n$, and $i=nx$.
 \end{solution}
 \end{exercise}
-From BH.A.2.5, $\lim_{n\to\infty}(1-\lambda/n)^{n} = e^{-\lambda}$.\footnote{This is a standard limit but not entirely trivial to prove.If you like mathematics, check the neat proof in Rudin's Principles of mathematical analysis.}
-Next, by introducing the highly intuitive definition $\d x = \lim_{n\to \infty} 1/n$, it follows from~\cref{eq:53} that
+From BH.A.2.5, $\lim_{n\to\infty}(1-\lambda/n)^{n} = e^{-\lambda}$.\footnote{This is a standard limit but not entirely trivial to prove. If you like mathematics, check the neat proof in Rudin's Principles of mathematical analysis.}
+Next, by introducing the highly intuitive definition $\d x = \lim_{n\to \infty} 1/n$,\footnote{In your math classes you learned that $\lim_{n\to \infty} 1/n = 0$. Doesn't this definition therefore imply that $\d x = 0$? Well, no, because $\d x$ is not a real number but an infinitesimal. Infinitesimals allow us to consider a quantity that is so small that it cannot be distinguished from 0 within the real numbers.}  it follows from~\cref{eq:53} that
 \begin{align}
 \P{X/n \approx x} \to \lambda e^{-\lambda x} \d x = f_{X}(x) \d x,\quad\text{ as } n \to \infty.
 \end{align}
@@ -674,7 +675,7 @@ Derive the moment-generating function $M_{X/n}(s)$ of $X/n$ when $X\sim \Geo{p}$
 Then, let $p = \lambda/n$, and show that $\lim_{n\to\infty}M_{X/n}(s) = M_{Y}(s)$, where $Y \sim \Exp{\lambda}$.
 \begin{hint}
   If you recall the Poisson distribution, you know that $e^{\lambda} = \sum_{i=0}^{\infty}\lambda^{i}/i!$.
-  In fact, this precisely Taylor's expansion of $e^{s/n}$.
+  In fact, this precisely Taylor's expansion of $e^{\lambda}$.
 \end{hint}
 \begin{solution}
   \begin{align}
@@ -821,7 +822,7 @@ Then,
 \begin{align}
   \label{eq:49}
 \P{M>L}   = \frac{2pq}{1-q^{2}} 
-= \frac{2\lambda/n (1-\lambda/n)}{1-(1-\lambda/n)^{2}} = 
+= \frac{2\lambda/n (1-\lambda/n)}{1-(1-\lambda/n)^{2}} 
 = \frac{2\lambda/n (1-\lambda/n)}{2\lambda/n -\lambda^{2}/n^{2}}  
 = \frac{2 (1-\lambda/n)}{2 -\lambda/n}  \to 1,
 \end{align}
@@ -869,7 +870,7 @@ With $v=y$
 \end{align}
 As $v=y \implies \d v/\d y = 1$, 
 \begin{align}
-f_M(v) \d v =  2F_{X}(y) f_{Y}(x)\d x \implies f_M(v) =  2F_{X}(v) f_{Y}(v).
+f_M(v) \d v =  2F_{X}(y) f_{Y}(y)\d y \implies f_M(v) =  2F_{X}(v) f_{Y}(v).
 \end{align}
 \end{solution}
 \end{exercise}
@@ -923,7 +924,7 @@ f_{L, M-L}(u,v)
 &= f_{L, M}(u, u+v) \1{u\leq u+v}  \\
 &= f_{L,M}(u, u+v) \\
 &= 2 f_{X}(u) f_Y(u+v) \\
-&= 2 \lambda^{2}e^{-2u} e^{-\lambda v} \\
+&= 2 \lambda^{2}e^{-2\lambda u} e^{-\lambda v} \\
 &= f_{L}(u) f_Y(v).
 \end{align}
 
@@ -958,7 +959,7 @@ There are $3!$ ways to order $X, Y, Z$. Therefore, with $u=x \leq y \leq z = v$,
 \end{align*}
 Since $\partial(u,v)/\partial (x, z) = 1$, 
 \begin{align*}
-  f_{L,M}(u,v)\1{u\leq v}= 6 f_{X}(u) (F_{Y}(v)-F_{Y}(u)) f_{Z}(v)\1{u\leq v}.
+  f_{L,M}(u,v) = 6 f_{X}(u) (F_{Y}(v)-F_{Y}(u)) f_{Z}(v)\1{u\leq v}.
 \end{align*}
 
 Here is a neat method with CDFs.

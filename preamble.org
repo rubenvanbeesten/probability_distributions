@@ -41,5 +41,6 @@
 #+LaTeX_HEADER: \newcommand{\1}[1]{\,I_{#1}} % indicator
 #+LaTeX_HEADER: \newcommand{\abs}[1]{\left\vert#1\right\vert}
 #+LaTeX_HEADER: \newcommand{\iid}{\ensuremath{\mathrm{iid.}\,}}
+#+LaTeX_HEADER: \newcommand{\nvf}[1]{\textbf{#1}}
 # \newcommand{\A}{\, \& \, }
 # \renewcommand{\O}{\, \parallel \, }

@@ -3,7 +3,7 @@
 \begin{document}
 
 
-\section{Assignment 2}
+\section{Assignment 2, TBD}
 
 
 \subsection{Have you read well?}
@@ -50,6 +50,32 @@ Take $X\sim\Unif{\{-2, -1, 1, 2\}}$ and $\eta = X^2$. What is the correlation co
 If we would consider another distribution for $X$, would that change the correlation?
 \end{exercise}
 
+
+\begin{exercise}
+Let $X$ be the result of the throw of a coin.
+It is given that $\P{X=H} = p = 1-\P{X=T}$.
+When $X=H$, we choose a fair die with 4 sides with values $1,2,3,4$, when $X=T$ we choose a fair die with 6 sides with values $1,\ldots,6$.
+Let $Y_i$ be the value of the $i$th throw with the die.
+\begin{enumerate}
+\item What is the PMF of $X$ and $Y_1$?
+\item Marginalize  the answer of part a to show that $\P{X=H} = p$. 
+\item What is $\P{Y_{1}=1}$?
+\item What is $\P{X=H \given Y_1=1}$?
+\item What is $\P{X=H \given Y_1=1, Y_2=2}$?
+\item What is $\P{X=H \given Y_1=Y_2=\cdots=Y_n = 1}$?
+\end{enumerate}
+\end{exercise}
+
+
+\begin{exercise}
+We have a machine that consists of two components. The machine works as long as not both components have failed. Let $X_i$ be the lifetime of component $i$. 
+\begin{enumerate}
+\item What is the interpretation of $\min{X_1, X_{2}}$?
+\item What is the interpretation of $\max{X_1, X_{2}}$?
+\item If $X_1, X_2$ iid $\sim \Exp{10}$ (in hours), what is the expected time until the machine fails? 
+\item If $X_1, X_2$ iid $\sim \Exp{10}$ (in hours), what is the probability that the machine is still `up' (i.e., not failed) at time $T=50$? 
+\end{enumerate}
+\end{exercise}
 
 
 \subsection{Coding skills}

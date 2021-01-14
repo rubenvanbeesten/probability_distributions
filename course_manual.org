@@ -70,7 +70,12 @@ It's not necessary that you have solved the problem before the lecture, but you 
 |      14 | 10.3, 10.4 | 27, 29, 30, 35, 39         |
 |---------+------------+----------------------------|
 
+During the lectures we will discuss problems and show how to solve them.
+There will be one tutorial group during which you can ask question.
+This group is indicated as `Probability Distributions Pr.
+gr.01' in the \href{https://rooster.rug.nl/#/en/current/schedule/course-EBP038A05}{schedule}.
 
+\nvf{5 opgaven per college lijkt me redelijk. Kost 3 h}
 
 * On making exercises
 
@@ -104,12 +109,12 @@ You'd better learn such skills early in your carreer.
 
 The due dates are  simple. In lecture week $n$, $2\leq n\leq 7$, you turn in assignment $n-1$ before Friday 24h. 
 
-
+\nvf{Ruben: 6 of 7 assignments?}
 
 * Questions
 
 Post your questions on the discussion board.
-We or fellow students will either answer them there.
+We or fellow students will answer them during the lectures or in the discussion board.
 
 * Exam
 
@@ -129,8 +134,21 @@ As all people, /you/ find it /unacceptable/ when the mechanic, surgeon, and so o
 Well, the same principle applies to you.
 Not checking is unacceptable, for you, for me, for anybody
 
+* Work load
 
+The estimated work load is as in the table.
 
+| Activity               | Load           | Hours |
+|------------------------+----------------+-------|
+| Lectures by Blitzstein | $14\times 1.5$ |    21 |
+| Lectures by us         | $14\times 1$   |    14 |
+| Study book             | $14\times 2$   |    28 |
+| Assignments book       | $6\times 2$    |    28 |
+| Exercises              | $14\times 3$   |    42 |
+| Exam                   |                |     3 |
+|------------------------+----------------+-------|
+| Total                  |                |   136 |
+#+TBLFM: @8$3=vsum(@2..@-1)
 
 * Grading
 
@@ -141,12 +159,12 @@ For a 10 you have to do all parts of the assignment (and have the right answers)
 If you don't turn in an assignment, the grade will default to 1.
 
 
-Let $a=\sum_{i=1}^n a_{i}/n$ where $a_i$ is the grade of your  \(i\)th assignment.
+Let $a=\sum_{i=1}^6 a_{i}/6$ where $a_i$ is the grade of your  \(i\)th assignment.
 Let $e$ be your grade for the exam or the resit.
 Then we compute your final grade $g$ with the code:
 \begin{minted}[]{python}
 def compute_grade(a, e):
-    if e < 5.5:
+    if e < 5:
         g = e
     elif a >= 6:
         g = max(0.8 * e + 0.2 * a, e)

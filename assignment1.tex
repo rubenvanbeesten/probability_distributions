@@ -24,10 +24,8 @@ In your own words, explain what is
 \end{enumerate}
 \end{exercise}
 
-$\E X$
-
 \begin{exercise}
-We have two r.v.s $X$ and $Y$ with the joint PDF $f_{X,Y}(x,y) = 2 \1{x\leq y}$? 
+We have two r.v.s $X, Y \in [0,1]^{2}$ with the joint PDF $f_{X,Y}(x,y) = 2 \1{x\leq y}$? 
 \begin{enumerate}
 \item Are $X$ and $Y$ independent? 
 \item Compute $F_{X,Y}(x,y)$. 
@@ -35,15 +33,13 @@ We have two r.v.s $X$ and $Y$ with the joint PDF $f_{X,Y}(x,y) = 2 \1{x\leq y}$?
 \end{exercise}
 
 \begin{exercise}
-Correct (that is, is the following clam correct?)? We have two continuous r.v.s $X, Y$. Even though the joint CDF factors into the product of the marginal it is still possible in general that the joint PDF does not factors into a product of marginals PDFs of $X$ and $Y$.
+Correct (that is, is the following clam correct?)?
+We have two continuous r.v.s $X, Y$.
+Even though the joint CDF factors into the product of the marginals, i.e., $F_{X,Y}(x,y) = F_X(x)F_Y(y)$, it is still possible in general that the joint PDF does not factor into a product of marginals PDFs of $X$ and $Y$, i.e., $f_{X,Y}(x,y) \neq f_X(x) f_Y(y)$.
 \end{exercise}
 
 \begin{exercise}
 Express Bayes' formula for two rvs $X$ and $Y$ in terms of the joint CDF, i.e., provide a formula.
-\end{exercise}
-
-\begin{exercise}
-What is a contingency table?
 \end{exercise}
 
 \begin{exercise}
@@ -72,16 +68,10 @@ Claim: We have two rvs $X$ and $Y$ on $\R^{+}$. It is given that $F_{X,Y}(x,y) =
 \end{exercise}
 
 \begin{exercise}
-`The man on the street' says that two throws of a die are independent, but does not mention the joint CDF.
-What do you think of this claim of independence?
-(Hint, from this exercise you should memorize this: \textbf{independence is a property of the joint CDF, not of the rvs}.)
-\end{exercise}
-
-
-\begin{exercise}
 I select a random guy from the street, his height $X\sim\Norm{1.8, 0.1}$, and I select a random woman from the street, her height is $Y\sim\Norm{1.7, 0.08}$.
 I claim that since I selected the man and the woman independently, their heights are independent.
 Briefly comment on this claim.
+(Hint, from this exercise you should memorize this: \textbf{independence is a property of the joint CDF, not of the rvs}.)
 \end{exercise}
 
 
@@ -146,34 +136,6 @@ In the $i$th period, we receive a contribution $X_{i}$ uniform on the set $\{1, 
 \item What is  $\P{I_2 < 0}$?
 \item What is  $\P{I_2' < 0}$?
 \item Provide an interpretation in terms of the inventory of rice, say, at a supermarket for $I_{1}$ and $I_{1}'$.
-\item Provide also an interpretation in terms of a degradation and repair process of an item.
-  (if you find this difficult, search a bit on the web on reliability theory.)
-  Comment on how good you think this model is to analyze such degradation and repair processes.
-\end{enumerate}
-\end{exercise}
-
-\begin{exercise}
-We have a machine that consists of two components. The machine works as long as not both components have failed. Let $X_i$ be the lifetime of component $i$. 
-\begin{enumerate}
-\item What is the interpretation of $\min{X_1, X_{2}}$?
-\item What is the interpretation of $\max{X_1, X_{2}}$?
-\item If $X_1, X_2$ iid $\sim \Exp{10}$ (in hours), what is the expected time until the machine fails? 
-\item If $X_1, X_2$ iid $\sim \Exp{10}$ (in hours), what is the probability that the machine is still `up' (i.e., not failed) at time $T=50$? 
-\end{enumerate}
-\end{exercise}
-
-\begin{exercise}
-Let $X$ be the result of the throw of a coin.
-It is given that $\P{X=H} = p = 1-\P{X=T}$.
-When $X=H$, we choose a fair die with 4 sides with values $1,2,3,4$, when $X=T$ we choose a fair die with 6 sides with values $1,\ldots,6$.
-Let $Y_i$ be the value of the $i$th throw with the die.
-\begin{enumerate}
-\item What is the PMF of $X$ and $Y_1$?
-\item Marginalize  the answer of part a to show that $\P{X=H} = p$. 
-\item What is $\P{Y_{1}=1}$?
-\item What is $\P{X=H \given Y_1=1}$?
-\item What is $\P{X=H \given Y_1=1, Y_2=2}$?
-\item What is $\P{X=H \given Y_1=Y_2=\cdots=Y_n = 1}$?
 \end{enumerate}
 \end{exercise}
 
@@ -252,7 +214,7 @@ from scipy.integrate import quad
 
 labda = 3
 
-X = expon(scale=labda).rvs(1000)
+X = expon(scale=1 / labda).rvs(1000)
 # print(X)
 print(X.mean())
 
@@ -308,99 +270,17 @@ I
 \end{exercise}
 
 
-\begin{exercise}\label{ex:2}
-How many ping pong balls fit into an Airbus Beluga?
-One way to answer this is as follows.
-According to this \href{https://en.wikipedia.org/wiki/Airbus\_Beluga}{wikipage} the cargo volume $V$ of this airplane is $1500 \m^{3}$.
-But this number is based on the physical dimensions that is available to store containers, tanks, and so on.
-So, I estimate the volume as about twice that amount, i.e., $V = 2500 \m^{3}$. 
-The volume of a ping pong ball is $v = 4 \pi r^3/3  = \py{4*3.14*8/3} \cm^{3}$ with $r=2$ cm.
-A plain division gives \py{2500/33.5} ping pong balls.
-Note, I left out the $10^{6}$ conversion from meters to cm, and I do not take into the sphere packing factor.
-Besides that, I hope you agree with me that providing an result with the precision as given here is plain ridiculous.
-(But from reason incomprehensible to me, even professional econometricians like to report results with 10 digits or more, without questioning the precision.)
-
-
-However, I know that the volumes of an air plane and a ping pong ball is an estimate, rather than a precise number as assumed above.
-It seems to be better to approximate $V$ and $v$ as rvs.
-Let's assume that
-   \begin{align*}
-V & \sim N(2500, 500), & v  & \sim N(33.5, 0.5),
-\end{align*}
-where the variances express my trust in my guess work.
-What is now the mean of $N = V/v$ and its std?
-In fact, finding the closed form expression for the distribution of $N$ is not entirely simple.
-However, with simulation it's easy to get an estimate.
-
-Use the code below to provide these estimates, and explain lines 8 and 11 of the python code or lines 5 and 8 of the R code. (If you are interested in both languages, also comment on the difference)
-
-
-Contrary to BH.7.1.25  if you run the code below, you'll see that $\E N < \infty$, and, in fact, very near to the deterministic answer. But isn't this strange?  We divide two normal random variables, 
-just like BH.7.1.25, but there the expectation is infinite.  Comment on the difference.
-
-The numerical results suggest the interesting guess $\V N \approx \V V * \V v$, but  is this true more generally? In~\cref{ex:3} we research this problem in more detail.
-
-\begin{minted}[]{python}
-import numpy as np
-from scipy.stats import norm
-
-num = 500
-
-np.random.seed(3)
-
-V = norm(2500, 500)
-v = norm(33.5, 0.5)
-
-N = V.rvs(num) / v.rvs(num)
-print(N.mean(), N.std())
-
-print(2500/33.5)
-print(np.sqrt(500*0.5))
-\end{minted}
-
-\begin{minted}[]{R}
-num <- 500
-
-set.seed(3)
-
-V = rnorm(num, 2500, 500)
-v = rnorm(num, 33.5, 0.5)
-
-N = V / v
-paste(mean(N), sd(N))
-
-2500/33.5
-sqrt(500*0.5)
-\end{minted}
-\end{exercise}
-
 \subsection{Challenges}
 \label{sec:above-exam-level}
 
 \begin{exercise} %wk
-Consider the again the chicken-egg story (BH 7.1.9): A chicken lays a random number of eggs $N$ an each egg independently hatches with probability $p$ and fails to hatch with probability $q = 1-p$. Let $X$ be the number of eggs that hatch and let $Y$ be the number of eggs that do not hatch, so $X+Y = N$. 
-For $N \sim \Pois{\lambda}$ it is shown in BH 7.1.9 that $X$ and $Y$ are independent. This exercise asks for the converse. Assume that $X$ and $Y$ are independent. Prove that there exists a $\lambda > 0$ such that $N \sim \Pois{\lambda}$.
-\end{exercise}
+Consider the again the chicken-egg story (BH 7.1.9): A chicken lays a random number of eggs $N$ an each egg independently hatches with probability $p$ and fails to hatch with probability $q = 1-p$.
+For $N \sim \Pois{\lambda}$ it is shown in BH 7.1.9 that $X$ and $Y$ are independent and $X\sim\Pois{\lambda p}$ and $Y\sim\Pois{\lambda(1-p)}$. 
+This exercise asks for the converse.
 
-
-\begin{exercise}\label{ex:3}
-This is a continuation of~\cref{ex:2}.  TBD.
- 
-\begin{verbatim}
-Als V[V] = 0 of V[v] = 0, is rechts 0, links niet perse.
-Maar er is nog een betere reden waarom dit niet kan kloppen. Definieer V' = 2V, v'=2v en N' = V'/v'. Dan N=N', dus links blijft gelijk. Maar rechts wordt 16 keer zo groot...
-
-Ik denk dat ik het heb opgelost. Merk op dat we aannemen dat V en v onafhankelijk zijn. Dus
-V[V/v] = E[V^2/v^2] - E[V/v]^2 = E[V^2]E[1/v^2] - E[V]^2E[1/v]^2 = V[V]V[1/v] + E[V]^2 E[1/v^2]  + E[V^2] E[1/v]^2 - 2 E[V]^2E[1/v]^2= V[V]V[1/v] + E[V]^2 V[1/v] + V[V] E[1/v]^2.
-Als we er van uit gaan dat we V en v voldoende precies weten, geldt er V[V]V[1/v] << E[V]^2 V[1/v] + V[V] E[1/v]^2.
-De eerste-orde Taylorbenadering van 1/v rond E[v] is 2/E[v] - v/E[v]^2. We kunnen dus benaderen V[1/v] \approx  V[v]/E[v]^4.
-Dezelfde benadering geeft ook E[1/v]^2 \approx 1/ E[v]^2. Dus het resultaat is al met al  V[V/v]\approx  E[V]^2 V[v]/E[v]^4 + V[V] / E[v]^2 = E[V/v]^2( V[v]/E[v]^2 +  V[V]/E[V]^2 ).
-Ofwel: V[V/v]/E[V/v]^2=  V[v]/E[v]^2 +  V[V]/E[V]^2, dus SCV(V/v) \approx SCV(V)  + SCV(v).
-Overigens: de benadering zit hier in SCV(1/v) \approx SCV(v). Immers, SCV(V/v) = SCV(V)  + SCV(1/v) wegens onafhankelijkheid. 
-
-\end{verbatim}
-
-
+Let $X\sim\Pois{\lambda}$ be the number of eggs that hatch and let $Y\sim\Pois{\mu}$ be the number of eggs that do not hatch.
+Assume that $X$ and $Y$ are independent.
+Prove  $X+Y =: N \sim \Pois{\lambda + \mu}$.
 \end{exercise}
 
 \end{document}

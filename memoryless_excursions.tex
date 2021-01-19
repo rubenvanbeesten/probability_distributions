@@ -1,11 +1,12 @@
 %\documentclass[a4paper,14pt]{extarticle}
 \documentclass[a4paper,11pt]{article}
 
-%\usepackage[all-solutions-at-end]{optional}
-\usepackage[check]{optional}
+\usepackage[all-solutions-at-end]{optional}
+%\usepackage[check]{optional}
 
 \usepackage{mathpazo}
 \usepackage{preamble}
+%\usepackage{refcheck}
 
 \opt{check}{
 %\AtBeginEnvironment{exercise}{\clearpage}
@@ -123,7 +124,7 @@ Let $X,Y$ be $\iid \sim \Geo{p}$. Write $q = 1-p$.
 As a recap of earlier chapters of BH, show that
 \begin{align}
   \label{eq:9}
-\P{X>j} &= q^{j+1}, &\P{X\geq j} &=q^j,& \E{X}&=\frac q{p}.
+\P{X>j} &= q^{j+1}, &\P{X\geq j} &=q^j, & \P{X=j} &= pq^{j}, & \E{X}&=\frac q{p}.
  \end{align}
 What is the domain of $X$?
 \begin{solution}
@@ -190,6 +191,9 @@ What is the definition of memorylessness for discrete r.v.s?
 
 \begin{exercise}\label{ex:12}
 Show that $\P{L\geq i}=q^{2i}$ and conclude that $L\sim\Geo{1-q^{2}}$. Just to keep you sharp: what is the domain of $L$?
+\begin{hint}
+  Use 2D LOTUS.
+\end{hint}
 \begin{solution}
   \begin{align}
     \label{eq:12}
@@ -267,11 +271,15 @@ In fact, to convince myself that~\cref{eq:7} is indeed wrong, I pursued three id
 
 \begin{exercise}\label{ex:1}
 Idea 1: Show that for the PMF of $M$: 
-\begin{equation}
-  \label{eq:34}
-p_M(k) = \P{M=k} = 2 pq^{k}(1-q^{k}) + p^2q^{2k}.
-\end{equation}
+\begin{align}
+p_M(k) &= \P{M=k} = 2 pq^{k}(1-q^{k}) + p^2q^{2k} \\
+&=2 pq^{k} +(p^{2}-2p) q^{2k} \label{eq:18}\\
+&=2 \P{X=k} - \P{L=k}. \label{eq:34}
+\end{align}
 Then use this to show~\cref{eq:10}.
+\begin{hint}
+  Use 2D LOTUS on $g(x,y) = \1{\max{x, y} = k}$.
+\end{hint}
 \begin{solution}
   \begin{align}
     \label{eq:14}
@@ -371,19 +379,28 @@ But this leads to our confusing problem, so perhaps my intuition about memoryles
 To check this, I solved  the following exercise.  
 
 \begin{exercise}\label{ex:10}
-Show that the events $\{L=i\}$ and $\{M>L\}$ are independent when $X,Y \sim \Geo{p}$.
-\begin{hint}
-Show that $\P{L=i \given M>L} = \P{L=i}$; recall, to show independence we need the probability (measure) $\P{\cdot}$.
-
-Use the expression $\P{g(X,Y)\in A} = \mathop{\sum\sum}_{g(i, j) \in A} p_{X,Y}(i,j)$
-\end{hint}
+For  $X, Y$ iid and $\sim \Geo{p}$, show that the events $\{L=i\}$ and $\{M>L\}$ are independent by showing that 
+\begin{equation}
+  \label{eq:59}
+\P{L=i} = \P{L=i \given M>L} =  \frac{\P{L=i, M > L}}{\P{M>L}}.
+\end{equation}
+For this, realize first that 
+\begin{equation}
+  \label{eq:62}
+\P{L=i,  M > L} = 2\P{X=i,Y > X},
+\end{equation}
+and simplify this. Then find an expression for $\P{M>L}$ in three different ways:
+\begin{enumerate}
+\item Simplify 
+  \begin{equation}
+    \label{eq:61}
+\P{M>L}  = \P{X>Y} + \P{Y > X}.
+  \end{equation}
+\item Apply  2D LOTUS to $g(x,y) = \1{\max{x,y}>\min{x,y}}$.
+\item Work out the summation in $\P{M>L} = \sum_{i} \P{L=i, M>L}$.
+\end{enumerate}
+All three answers should match of course. Finally, substitute your expressions in the conditional probability in~\cref{eq:59}. 
 \begin{solution}
-\begin{align}
-    \label{eq:1}
-\P{L=i\given M > L} 
-=\frac{\P{L=i, M > L}}{\P{M>L}}.
-\end{align}
-
 \begin{align}
 \P{L=i,  M > L} 
 &= 2\P{X=i,Y > X} \\
@@ -441,7 +458,7 @@ where the last equation follows since $L\sim \Geo{1-q^2}$.
 
 
 What have we achieved up to now? With respect to our problem, we are sure that~\eqref{eq:6} is correct when $X, Y \sim \Geo{p}$ and~\cref{eq:7} is not.
-From the technical point of view, we practiced with joint, marginal, and conditional PMFs, and we have seen how to use indicator functions and the fundamental bridge.
+From the technical point of view, we practiced with joint, marginal, and conditional PMFs, and we have seen how to use indicator functions, the fundamental bridge and 2D LOTUS. 
 
 So, this made me wonder why is~\eqref{eq:7} incorrect when $X, Y\sim\Geo{p}$, but it is correct when $X,Y\sim\Exp{\lambda}$.
 To understand this discrepancy better, I decided to analyze the latter case in as much detail as I could think of, hoping that this would  provide me with a lead.
@@ -757,6 +774,9 @@ Show that
 2\E{(Y-X) \1{Y>X}} = \frac{2q} {1-q^{2}}.
 \end{equation}
 Combine this with the expression for $\E L$ of~\cref{ex:3} to obtain \cref{eq:10} for $\E M = 2\E X - \E L$, thereby verifying the correctness of~\cref{eq:40}. 
+\begin{hint}
+  Reread BH.7.2.2. to realize that $\E{M-L} = \E{|X-Y|}$. Relate the latter expectation to the expression in the problem. 
+\end{hint}
 \begin{solution}
   \begin{align}
     \label{eq:42}

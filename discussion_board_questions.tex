@@ -1,0 +1,58 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[all-solutions-at-end]{optional}
+%\usepackage[check]{optional}
+
+\usepackage{fouriernc}
+\usepackage{preamble}
+
+\opt{check}{
+%\AtBeginEnvironment{exercise}{\clearpage}
+\AtEndEnvironment{exercise}{\clearpage}
+}
+
+\opt{all-solutions-at-end}{
+\Opensolutionfile{hint}
+\Opensolutionfile{ans}
+}
+
+\title{Probability distributions: Questions on the discussion board\\
+EBP038A05
+}
+\author{TAs, Nicky, Ruben}
+\date{\today}
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Chapter 7}
+\label{sec:chapter-7}
+
+\begin{exercise}
+Here is an example question.
+\begin{hint}
+  And this is a hint.
+\end{hint}
+\begin{solution}
+  Here is an example solution.
+\end{solution}
+\end{exercise}
+
+
+
+\opt{all-solutions-at-end}{
+\clearpage
+\Closesolutionfile{hint}
+\clearpage
+\Closesolutionfile{ans}
+\section{Hints}
+\input{hint}
+\section{Solutions}
+\input{ans}
+}
+
+
+
+\end{document}

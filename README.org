@@ -16,13 +16,11 @@ We use [[https://projects.iq.harvard.edu/stat110/home][Introduction to Probabili
 The [[https://projects.iq.harvard.edu/stat110/home][book's homepage]] provides an electronic copy of the book, video lectures by Blizstein, and a solution manual for part of the problems.
 I expect you to watch Blizstein's lectures for the overview and general background of the book.
 
-I advise you to buy the book as it makes studying easier, and it is very practical to look up things later.
+I advise you to buy the book as it makes studying easier, and a physical book is much more  practical than an ebook when working on the material and solving problems. 
 
-Blitzstein gave me  the advice to use /named/ results, as this sticks much better. I fully agree with him, so here are some more names:
-- VOS law (Ch 7): Variance of sums: $\V{X+Y}= \cov{X+Y, X+Y} = \V X + \V Y + \cov{X,Y} + \cov{Y, X}$.
-- LOTE  (Ch 9):  Law of total expectation: $\E{X} = \sum_{i} \E{X \given A_i} \P{A_i}$. 
+In our lectures (that will be given on-line), we will illustrate the material by solving problems.
+We expect that you have already watched the relevant lectures of BH. We will publish the problems for our lecture before the lecture starts. The idea is that you have read these problems before the lecture, but you should not have solved them.
 
-The document =memoryless excursions.pdf= (henceforth referred to as ME) discusses the core concepts of BH.7.1, and contain worked solutions to show you the type of computations you are supposed to master.
 
 The document =notes.pdf= contains notes that I took while reading the book and lots of hints for the exercises of BH.
 It contains also hints for exercises that are not in the table of compulsory exercises below.
@@ -34,17 +32,26 @@ In fact, tricks give people (students and me alike) the feeling that they will n
 So, it's better to avoid that altogether, and for that reason I tend to use plain and straightforward, but perhaps long and tedious, derivations.
 You should learn and master the computational skills as you will need them time and again in many other courses.
 
-With a bit of searching you can find lots of information on the web, such as here, 
-\begin{itemize}
-\item \url{https://github.com/buruzaemon/stats-110}
-\item \url{https://github.com/buruzaemon/IntroductionToProbabilityPy}
+The document =memoryless excursions.pdf= (henceforth referred to as ME) discusses the core concepts of BH.7.1 and BH 7.2, and contains solutions with very detailed computations.
+This serves two goals. You don't get stuck while reading the solutions and, more importantly, they set an example for the type of computations you are supposed to (already) master.
+
+The document =assignments.pdf= contains the material for the assignments.
+
+The document =discussion_board_questions.pdf= contains the questions and answers posted on nestor. 
+
+With a bit of searching you can find lots of help and solutions on the web, such as here, 
+- [[https://github.com/buruzaemon/stats-110]]
+- https://github.com/buruzaemon/IntroductionToProbabilityPy
 \end{itemize}
-However, use this at your own risk, I haven't checked it.
+However, use this at your own risk, I haven't checked it. If you find other useful sources, let me know, so that I can put them in this list. 
+
+
+Blitzstein gave me  the advice to use /named/ results, as this sticks much better. I fully agree with him, so here are some more names:
+- VOS law (Ch 7): Variance of sums: $\V{X+Y}= \cov{X+Y, X+Y} = \V X + \V Y + \cov{X,Y} + \cov{Y, X}$.
+- LOTE  (Ch 9):  Law of total expectation: $\E{X} = \sum_{i} \E{X \given A_i} \P{A_i}$. 
 
 * Schedule
 
-In our on-line lectures, we will illustrate the material by solving problems.
-It's not necessary that you have solved the problem before the lecture, but you should have at least read them, and have watched the relevant lectures of Blizstein and are up to date with the book.
 
 #+CAPTION: schedule
 | Week | Lecture | section    | Exercises                  | Assignment |
@@ -71,10 +78,8 @@ It's not necessary that you have solved the problem before the lecture, but you 
 |      |      14 | 10.3, 10.4 | 27, 29, 30, 35, 39         |            |
 |------+---------+------------+----------------------------+------------|
 
-During the lectures we will discuss problems and show how to solve them.
-There will be one tutorial group during which you can ask question.
-This group is indicated as `Probability Distributions Pr.
-gr.01' in the \href{https://rooster.rug.nl/#/en/current/schedule/course-EBP038A05}{schedule}.
+There will be one tutorial group during which you can ask questions.
+This group is indicated as `Probability Distributions Pr. gr.01' in https://rooster.rug.nl/#/en/current/schedule/course-EBP038A05}{schedule.
 
 
 * On making exercises
@@ -159,7 +164,7 @@ If you don't turn in an assignment, the grade will default to 1.
 Let $a=\sum_{i=1}^6 a_{i}/6$ where $a_i$ is the grade of your  \(i\)th assignment.
 Let $e$ be your grade for the exam or the resit.
 Then we compute your final grade $g$ with the code:
-\begin{minted}[]{python}
+#+begin_src python
 def compute_grade(a, e):
     if e < 5:
         g = e
@@ -169,7 +174,7 @@ def compute_grade(a, e):
         g = 0.75 * e + 0.25 * a
 
     return int(g + 0.5) # rounding
-\end{minted}
+#+end_src
 It is intentional that if you do a lousy job on the assignments, your final grade $g$ is most surely lower than your exam grade $e$.
 
 * Contact info 

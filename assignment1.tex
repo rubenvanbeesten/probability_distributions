@@ -88,37 +88,10 @@ Correct? $X, Y$ two discrete rvs with CDF $F_{X,Y}$. We can compute the PDF as $
 \end{exercise}
 
 
-\subsection{Exercises at about exam level}
+\subsection{Exercise at about exam level}
 \label{sec:below-exam-level}
 
 
-
-\begin{exercise}\label{ex:1}
-We throw an unbiased die with six sides; the result of the $i$th throw is $X_i$. 
-\begin{enumerate}
-\item What is the sample space of the two throws $(X_{1}, X_2)$?
-\item What is the joint CDF?
-\item What is the joint PMF?
-\item  Marginalize out $X_2$ to show that $\P{X_1=5} = 1/6$.
-\item Use the fundamental bridge and indicators to compute $\P{X_1>X_2}$.
-\item Use the fundamental bridge and indicators to compute $\P{|X_1-X_2| < 1 } = 1/6$.
-\item Use the fundamental bridge and indicators to compute $\P{|X_1-X_2|\leq 1 }$.
-\item How would you use simulation to estimate  $\P{|X_1-X_2|\leq 1 }$?
-\end{enumerate}
-\end{exercise}
-
-\begin{exercise}
-We select a random married couple (a man and a woman). His height is $X\sim \Norm{1.8, 0.1}$, her height is $Y\sim \Norm{1.7, 0.08}$ in meters. 
-\begin{enumerate}
-\item What is the sample space of $(X, Y)$?
-\item If your answer to question 1 is correct, you must have noticed that potentially the height of the man and the woman can be negative. Is this a problem for this model? 
-\item What is the joint CDF?
-\item What is the joint PDF?
-\item  Marginalize out $Y$ to show that $X\sim \Norm{1.8, 0.1}$.
-\item Use the fundamental bridge and indicators to write  $\P{X>Y}$ as an integral. You don't have to solve the integral.
-\item Use the fundamental bridge and indicators to write  $\P{|X-Y| < 0.1 }$ as an integral. You don't have to solve the integral.
-\end{enumerate}
-\end{exercise}
 
 \begin{exercise}
 This is about the simplest model for an insurance company that I can think of.
@@ -138,17 +111,6 @@ In the $i$th period, we receive a contribution $X_{i}$ uniform on the set $\{1, 
 \item Provide an interpretation in terms of the inventory of rice, say, at a supermarket for $I_{1}$ and $I_{1}'$.
 \end{enumerate}
 \end{exercise}
-
-
-
-\begin{exercise} %wk
-Assume that $X$ has the Cauchy distribution. 
-\begin{enumerate}
-\item Does $\E{\frac{X}{X^2+1}}$ exist? If so, find its value. 
-\item Does $\E{\frac{|X|}{X^2+1}}$ exist? If so, find its value. 
-\end{enumerate}
-\end{exercise}
-
 
 \subsection{Coding skills}
 \label{sec:coding-skills}
@@ -283,6 +245,18 @@ Assume that $X$ and $Y$ are independent.
 Prove  $X+Y =: N \sim \Pois{\lambda + \mu}$.
 \end{exercise}
 
+
+
+
+\begin{exercise} %wk
+Assume that $X$ has the Cauchy distribution. 
+\begin{enumerate}
+\item Does $\E{\frac{X}{X^2+1}}$ exist? If so, find its value. 
+\item Does $\E{\frac{|X|}{X^2+1}}$ exist? If so, find its value. 
+\end{enumerate}
+\end{exercise}
+
+
 \end{document}
 
 \subsection{TODO for another year}
@@ -294,3 +268,32 @@ For another time: afrondregels, bijv \(2.11*3= 6\), omdat \(3\) maar op 1 digit 
 More generally,  check density for sum,product, and ratio of two normal (or other distributions)  by means of simulations.
 \end{exercise}
 
+
+
+
+\begin{exercise}\label{ex:1}
+We throw an unbiased die with six sides; the result of the $i$th throw is $X_i$. 
+\begin{enumerate}
+\item What is the sample space of the two throws $(X_{1}, X_2)$?
+\item What is the joint CDF?
+\item What is the joint PMF?
+\item  Marginalize out $X_2$ to show that $\P{X_1=5} = 1/6$.
+\item Use the fundamental bridge and indicators to compute $\P{X_1>X_2}$.
+\item Use the fundamental bridge and indicators to compute $\P{|X_1-X_2| < 1 } = 1/6$.
+\item Use the fundamental bridge and indicators to compute $\P{|X_1-X_2|\leq 1 }$.
+\item How would you use simulation to estimate  $\P{|X_1-X_2|\leq 1 }$?
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+We select a random married couple (a man and a woman). His height is $X\sim \Norm{1.8, 0.1}$, her height is $Y\sim \Norm{1.7, 0.08}$ in meters. 
+\begin{enumerate}
+\item What is the sample space of $(X, Y)$?
+\item If your answer to question 1 is correct, you must have noticed that potentially the height of the man and the woman can be negative. Is this a problem for this model? 
+\item What is the joint CDF?
+\item What is the joint PDF?
+\item  Marginalize out $Y$ to show that $X\sim \Norm{1.8, 0.1}$.
+\item Use the fundamental bridge and indicators to write  $\P{X>Y}$ as an integral. You don't have to solve the integral.
+\item Use the fundamental bridge and indicators to write  $\P{|X-Y| < 0.1 }$ as an integral. You don't have to solve the integral.
+\end{enumerate}
+\end{exercise}

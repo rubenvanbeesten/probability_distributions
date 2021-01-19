@@ -1,4 +1,4 @@
-#+title:   Probability distributions: Notes, hints and (sometimes) solutions
+#+title:   Probability distributions: Notes, hints and some solutions
 #+SUBTITLE: EBP038A05
 #+author: Nicky D. van Foreest
 #+date: {{{time(%Y-%m-%d)}}}
@@ -6,17 +6,10 @@
 #+STARTUP: indent
 #+STARTUP: overview 
 #+STARTUP: nolatexpreview
-#+OPTIONS:  toc:t num:t
+#+OPTIONS:  toc:nil num:t
 #+OPTIONS: H:5
 
 #+include: preamble.org
-
-# https://emacs.stackexchange.com/questions/14234/org-tags-org-properties-or-for-src-and-verse-blocks
-
-[[https://www.youtube.com/watch?v=BrK7X_XlGB8&feature=youtu.be][Bayesian reasoning]]
-
-
-* General remarks.
 
 
 * Chapter 7, notes
@@ -29,15 +22,14 @@
 Here is one example to see why joint distributions are important.
 Suppose we throw a coin twice, the probability to see a head twice is $\P{X_1=H, X_2=H}$.
 But this is precisely a joint PMF!
-More generally, in any experiment that involves a sequence of measurements, such as multiple throws of coin, or the weighing of a bunch of chimpanzees, we have to deal with joint CDFs and PMS.
+More generally, in any experiment that involves a sequence of measurements, such as multiple throws of a coin, or the weighing of a bunch of chimpanzees, we have to deal with joint CDFs and PMFs.
 
+** 7.1.17
+This is a subtle point, and we partly deal with it in Chapter 9. For general background, you have to do a course on probability based on measure-theory.
 
+** Page 318, half way.
 
-Point 7.1.17 is subtle.
-We treat this in part in Chapter 9.
-To deal with in detail, you have to do a course on probability based on measure-theory.
-
-Page 318, half way, the authors write `marginal distribution', but this must be the marginal density.
+The authors write `marginal distribution', but this must be the marginal density.
 
 ** Example 7.1.24
 This works best with an indicator function and the fundamental bridge (recall, $\P{A} = \E{\1{A}}$ for an event $A$).
@@ -52,9 +44,12 @@ It is easy to use, and prevents many mistakes. Consider this example.
 
 ** Theorem 7.5.7
 This theorem is fundamentally important.  You'll save yourself many hours for the rest of your study if you remember this.
+
+** BH.7.1 and BH.7.2
+=Memoryless excursions.pdf=  illustrates many technical skills that are useful for the exercises of BH.7
+
 ** Hints and remarks on exercises
 
-First do the exercises in `Memoryless excursions'; all of the tools discussed in this document are useful for the exercises of this chapter. 
 
 *** 7.1
 Check BH 7.2.2. Bigger hint: Let $A$ the arrival time of Alice, and $B$ the time of Bob. Then we want to compute $\P{|A-B|\leq 1/4}$.  (15 minutes is 1/4 hour.)  Why is $f_{A,B}(a,b) = \1{a\in[0,1]}\1{b\in [0,1]}$? Now apply 2D-LOTUS to the function $g(a,b) = \1{|a-b|\leq 1/4}$. 
@@ -93,7 +88,7 @@ An elementary book can still be hard; it simply does not use very advanced mathe
 Now that you understand the problem we have to avoid---dividing by 0---I discuss two methods to work around the problem. 
 
 *Solution Method.* 
-Let me  how I apply a general approach to find a conditional density, here $f_{T|X}(t|x)$. 
+Let me  show I apply a general approach to find a conditional density, here $f_{T|X}(t|x)$. 
 - I make a /guess/ of the conditional density
 - I try to /verify/ the guess by using formal tools. For this, I follow these steps:
   - Compute the CDF $F_{T,X}(t,x)$
@@ -126,11 +121,11 @@ where I use the independence of $X$ and $Y$. Here is the verification. The joint
 \begin{align*}
 \P{T\leq t, X\leq x} = \E{\1{T\leq t, X\leq x}} = \E{\1{X+Y\leq t, X\leq x}}.
 \end{align*}
-To compute this, /you/ should apply 2D LOTUS to the function $g(u,v) = \1{u+v\leq t, u \leq x}$. Specifically,  /you/ should use  the tools explained in `Memoryless excursions' to get
+To compute this, /you/ should apply the fundamental bridge on the indicator $\1{u+v\leq t, u \leq x}$ (Once you read BH.7.2, you'll see that this is the same as 2D LOTUS applied to the function $g(u,v) =\1{u+v\leq t, u \leq x}$). Specifically,  /you/ should show that 
 \begin{align*}
 \P{T\leq t, X\leq x} = \iint \1{u+v\leq t, u \leq x} f_{X,Y}(x,y) \d x \d y = 1 - e^{-\lambda x} - \lambda x e^{-\lambda t};
 \end{align*}
-recall, $f_{X,Y}(x,y)=\lambda^2e^{-\lambda(x+y)}$. 
+recall, $f_{X,Y}(x,y)=\lambda^2e^{-\lambda(x+y)}$.  (If you find this hard, check =memoryless_excursions.pdf=.)
 Then,
 \begin{align*}
 f_{T,X}(t, x) = \partial_{t}\partial_{x} F_{T,X}(t, x) = \lambda^2 e^{-\lambda t},
@@ -139,7 +134,7 @@ precisely what I found earlier.
 
 With this, 
 \begin{align*}
-f_{T|X}(t|x) = \frac{f_{T,X}(t, x)}{f_X(x)} = f_Y(t-x)\1{t\geq x} = \lambda e^{-\lambda(t-x)}\1{t\geq x};
+f_{T|X}(t|x) = \frac{f_{T,X}(t, x)}{f_X(x)} = \frac{\lambda^{2} e^{-\lambda t}}{\lambda e^{-\lambda x}} = \lambda e^{-\lambda(t-x)}\1{t\geq x};
 \end{align*}
 this checks with my earlier guess. And now I can do the integral in the conditional CDF:
 \begin{align*}
@@ -164,10 +159,10 @@ It's the same. Neat!
 But why do the guesses and the `method' by which I divided by $\P{X=x}$ (sort of) work?
 The reason is that a density (a PDF) is the value of a function at some point, for example, $f_{X}(x)$.
 And when this function is positive, we can divide by it without problem.
-There is also a simple, intuitive, reasoning underlying this, cf., Warning 7.1.17, namely, $\P{X\in [x, x+\epsilon]} \approx \epsilon f_{X}(x)$.
+There is also a simple, intuitive, reasoning underlying this, cf., BH.7.1.17, namely, $\P{X\in [x, x+\epsilon]} \approx \epsilon f_{X}(x)$.
 So, it seems ok to define $f_{X}(x)=\lim_{\epsilon \downarrow 0}\P{X\in[x, x+\epsilon]}/\epsilon$.
 
-However, is not the end of the matter; in fact, it is the start of many problems.
+However, this is not the end of the matter; in fact, it is the start of many problems.
 If you like to know more of this, read about the [[https://en.wikipedia.org/wiki/Borel%E2%80%93Kolmogorov_paradox][Borel-Kolomogorov paradox]].
 
 
@@ -175,7 +170,7 @@ I admit that all this is subtle and quite difficult. Probability theory  for con
 
 I see two ways to come to grips with all this business.
 One way is to do a few good courses on real analysis, topology, integration and measure theory, and Fourier theory.
-With this, you can understand the Radon-Nikodym theorem, weak convergence, and the central limit law (the main topic of Ch 10).
+With this, you can understand the Radon-Nikodym theorem, weak convergence, and the proof of the central limit law (the main topic of Ch 10).
 The other---which I came to like more and more over the years, and only after having invested (wasted?)
 a considerable amount of time on the first way---is to dispense with infinite sets altogether.
 Once this is done, lots of the problems are cleared up.
@@ -654,7 +649,7 @@ Why is $\E J = \E{R_n}$? And once you see this, realize that $\E{J^2} = \E{R_{n}
 *** The problem
 
 
-In probability theory we often want to consider functions of r.v.s, as explained in 8.1 of BH.
+In probability theory we often want to consider functions of r.v.s, as explained in BH.8.1.
 For instance, starting with $X$, we like to express $\P{Y \leq y}$ where $Y=g(X)$ for some function $g$.
 When $g$ is strictly increasing this is easy:
 \begin{align}\label{eq:1D-CDF}
@@ -667,7 +662,7 @@ But this strategy does not work for probability theory, not even for elementary 
 Here are some examples.
 
 In 1D, take $g(x)= x^{2}$.
-We know that $\V{X} = \E{X^2}-(\E X)^2$.
+We know that $\V{X} = \E{X^2}-(\E X)^2$; so have to deal with functions like $g$, or yet higher moments. 
 But $\E{X^2}= \E{g(X)}$, and $g$ is not monotone increasing.
 Hence, even to define the variance, we already have to deal with a function that is not one-to-one everywhere on $\R$.
 In 2D, consider the maximum of a number of r.v.s, which is interesting for people that like to bet on horse races or 100 m sprint events.
@@ -695,11 +690,12 @@ To organize the relations between the r.v.s and $g$,  I always draw the figure b
 We are given a density $f_X$ that maps a point $x$ to a real number $f_X(x)$, and we are given a function $g$ that maps $x$ to $y$, i.e, $y=g(x)$.
 The problem is to express  the density $f_Y$, that maps $y$ to $\R$, in terms of $g$ and $f_{X}$. 
 
-To proceed, we can take the derivative at the LHS and RHs of \cref{eq:1D-CDF}. Writing $x=g^{-1}(y)$, this gives with the chain rule
+To proceed, we can take the derivative at the LHS and RHs of \cref{eq:1D-CDF}. This gives with the chain rule
 \begin{align*}
-f_{Y}(y) = F_{Y}'(y) = \frac{\d }{\d y} F_{X}(g^{-1}(y)) = f_{X}(x) \frac{\d }{\d y} g^{-1}(y).
+f_{Y}(y) = F_{Y}'(y) = \frac{\d }{\d y} F_{X}(g^{-1}(y)) = f_{X}(g^{-1}(y) \frac{\d }{\d y} g^{-1}(y) = f_{X}(x) \frac{\d x}{\d y},
 \end{align*}
-To get the derivative of $g^{-1}$, we take the derivative with respect to $y$ at both sides, and then  apply the chain rule:
+where we write $x=g^{-1}(y)$ in the last step. 
+To get the derivative of $g^{-1}$, consider the next equation.  Taking derivatives with respect to $y$ at both sides, and then  applying the chain rule,
 \begin{align*}
 g(g^{-1}(y)) = y \implies \frac{\d}{\d y} g(g^{-1}(y)) =1 \iff g'(g^{-1}(y)) \frac{\d}{\d y} g^{-1}(y) = 1 \implies  \frac{\d}{\d y} g^{-1}(y)  = 1 /g'(x),
 \end{align*}
@@ -707,9 +703,14 @@ where we use that $g^{-1}(y)=x$.  And so we get
 \begin{align*}
 f_{Y}(y) =f_{X}(x)\frac 1{g'(x)}.
 \end{align*}
-There is one subtlety, when $g$ is decreasing at $x$, $f_{Y}(y) = -F_Y'(y)$, but since at such a point we also have $g'(x)<0$,  the signs cancel. Hence, in general we have
+There is one subtlety, when $g$ is decreasing at some point $x$, then $f_{Y}(y) = -F_Y'(y)$.  But since at such a point we also have $g'(x)<0$,  the signs cancel. Hence, in general we have
 \begin{align*}
 f_{Y}(y) =f_{X}(x)\frac 1{|g'(x)|}.
+\end{align*}
+
+There is a simple way to  memorize this. We have that $g(x) = y$ and we want the probability to be conserved under the transformation $g$. From this,
+\begin{align*}
+f_Y(y)\d y = f_X(x) \d x \implies f_{Y}(y) = f_X(x)\frac{\d x}{\d y}.
 \end{align*}
 
 
@@ -719,14 +720,11 @@ When $g(x)=x^{2}$, we have that $g'(x)= 2x$, hence,
 \begin{align*}
 f_{Y}(y) = f_{X}(\sqrt{y})\frac 1{2\sqrt y} + f_{X}(-\sqrt{y})\frac 1{2\sqrt y}.
 \end{align*}
-It is simple to generalize when there are yet more points $x$ such that $g(x)=y$. The general /1D change of variables formula/ is like this: 
+It is simple to generalize when there are yet more points $x$ such that $g(x)=y$. 
+
+The general /1D change of variables formula/ is therefore like this: 
 \begin{align*}
 f_{Y}(y) = \sum_{x_{i}: g(x_{i})=y}f_{X}(x_{i})\frac 1{|g'(x_{i})|}.
-\end{align*}
-
-There is a simple way to  memorize this. We have that $g(x) = y$ and we want the probability to be conserved under the transformation $g$. From this,
-\begin{align*}
-f_Y(y)\d y = f_X(x) \d x \implies f_{Y}(y) = f_X(x)\frac{\d x}{\d y}.
 \end{align*}
 
 **** Example
@@ -757,17 +755,24 @@ Since $0/\lambda = 0$ and $\infty/\lambda = \infty$,
 Thus, to solve the integral over $y$, I used the /reverse/ of $g$ in the substitution. Indeed, to transform from $Y$ to $X$, I have to divide by $\lambda$.
 
 **** Example 
-Show that The 1D change-of-variables formula relates directly to the substitution rule to solve 1D integrals.
+Show that the 1D change-of-variables formula relates directly to the substitution rule to solve 1D integrals.
 
-Solution: when we have two 1D functions $f$ and $g$, then the substitution rule says that,
+Solution: when we have the density  $f_{Y}$ and the function $g$, then the substitution rule says that,
 \begin{align*}
-\int_{a}^b f(g(x)) g'(x)\d x = \int_{g(a)}^{g(b)} f(u) \d u.
+\int_{a}^b f_{Y}(g(x)) g'(x)\d x = \int_{g(a)}^{g(b)} f_{Y}(y) \d y.
 \end{align*}
-Writing $c=g(a)$ and $d=g(b)$, then this can be rewritten into
+We also want that the transformation from $X$ to $Y$ does not affect the probability of the set (event) $A = [a,b]$, hence,
 \begin{align*}
-\int_c^d f(u)\d u = \int_{g^{-1}(c)}^{g^{-1}(d)} f(g(x)) g'(x)\d x,
+\int_{g(a)}^{g(b)} f_{Y}(y) \d y = \int_{a)}^{b} f_{X}(x) \d x.
 \end{align*}
-which is just the change-of-variables rule in 1D.
+Combining the above two equations gives that
+\begin{align*}
+\int_{a}^{b} f_{Y}(g(x))) g'(x) \d x = \int_{a)}^{b} f_{X}(x) \d x.
+\end{align*}
+Since this holds for any $a$ and $b$, it follows that 
+\begin{align*}
+f_{Y}(g(x))) g'(x) = f_{X}(x).
+\end{align*}
 
 
 

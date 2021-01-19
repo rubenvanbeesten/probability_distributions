@@ -79,7 +79,7 @@ Blitzstein gave me  the advice to use /named/ results, as this sticks much bette
 |------+---------+------------+-------------------------+------------|
 
 There will be one tutorial group during which you can ask questions.
-This group is indicated as `Probability Distributions Pr. gr.01' in https://rooster.rug.nl/#/en/current/schedule/course-EBP038A05}{schedule.
+This group is indicated as `Probability Distributions Pr. gr.02' in the [[https://rooster.rug.nl/#/en/current/schedule/course-EBP038A05%257D%257Bschedule&course-EBP038A05][schedule]]. 
 
 
 * On making exercises
